@@ -1,0 +1,22 @@
+{
+    "compatibleWords": [
+      {"word": "Red", "color": "red"},
+      {"word": "Blue", "color": "blue"},
+      {"word": "Yellow", "color": "yellow"},
+      {"word": "Green", "color": "green"}
+    ],
+    "incompatibleWords": [
+      {"word": "Blue", "colors": ["red"]},
+      {"word": "Blue", "colors": ["yellow"]},
+      {"word": "Blue", "colors": [ "green"]},
+      {"word": "Red", "colors": ["blue"]},
+      {"word": "Red", "colors": [ "yellow"]},
+      {"word": "Red", "colors": [ "green"]},
+      {"word": "Green", "colors": ["red"]},
+      {"word": "Green", "colors": [ "blue"]},
+      {"word": "Green", "colors": [ "yellow"]},
+      {"word": "Yellow", "colors": ["red"]},
+      {"word": "Yellow", "colors": ["blue"]},
+      {"word": "Yellow", "colors": [ "green"]}
+    ]
+  }

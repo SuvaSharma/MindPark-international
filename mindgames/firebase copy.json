@@ -1,0 +1,22 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "our-mindpark-app",
+          "appId": "1:1042729786432:android:a16e15fccf4ce2dc5b53a5",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "our-mindpark-app",
+          "configurations": {
+            "android": "1:1042729786432:android:a16e15fccf4ce2dc5b53a5",
+            "ios": "1:1042729786432:ios:8404bb1b9177c9995b53a5"
+          }
+        }
+      }
+    }
+  }
+}

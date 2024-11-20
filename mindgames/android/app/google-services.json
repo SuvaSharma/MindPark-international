@@ -1,0 +1,198 @@
+{
+  "project_info": {
+    "project_number": "1042729786432",
+    "project_id": "our-mindpark-app",
+    "storage_bucket": "our-mindpark-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042729786432:android:0642dcf47ffa65855b53a5",
+        "android_client_info": {
+          "package_name": "com.example.mindgames"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1042729786432-6rjsmho49rbbitudpvr83it4pecchh3h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mindgames",
+            "certificate_hash": "e94f1087cf6d04af62deac67a47629222d3ab3cc"
+          }
+        },
+        {
+          "client_id": "1042729786432-9d22tch1ukoubjdkvrefp6jski4uvoc1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mindgames",
+            "certificate_hash": "f1d5cc263f8afbf7b8027f58e45da9d5d11f584b"
+          }
+        },
+        {
+          "client_id": "1042729786432-ro37l2mcnhfrbrp7ssuookblilk49s5b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mindgames",
+            "certificate_hash": "f65013d32015fedc14d7b008cde2043cbea77de9"
+          }
+        },
+        {
+          "client_id": "1042729786432-1g93dlh4cmr7g0rqs0hlf1715ecaqksc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDs1L3DDvlitDMWBU5hgqCwI2NW_DDkhbo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1042729786432-1g93dlh4cmr7g0rqs0hlf1715ecaqksc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1042729786432-qolkbp0qggnim685mbongu4jk0rlhjvs.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mindgames"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042729786432:android:f38310711dc542a95b53a5",
+        "android_client_info": {
+          "package_name": "com.mindpark.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1042729786432-6tboi21g4pfp2jf8kjnjakqfaaqab34l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mindpark.app",
+            "certificate_hash": "1108a8c243aba35e716c83ea286639b42c09a181"
+          }
+        },
+        {
+          "client_id": "1042729786432-nmvu3s9porklhblct4tn44nmch16i32p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mindpark.app",
+            "certificate_hash": "f65013d32015fedc14d7b008cde2043cbea77de9"
+          }
+        },
+        {
+          "client_id": "1042729786432-1g93dlh4cmr7g0rqs0hlf1715ecaqksc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDs1L3DDvlitDMWBU5hgqCwI2NW_DDkhbo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1042729786432-1g93dlh4cmr7g0rqs0hlf1715ecaqksc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1042729786432-qolkbp0qggnim685mbongu4jk0rlhjvs.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mindgames"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042729786432:android:a16e15fccf4ce2dc5b53a5",
+        "android_client_info": {
+          "package_name": "com.mindpark.mindgames"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1042729786432-3uq5nq3slk6r76b5nu3albhrut2bed75.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mindpark.mindgames",
+            "certificate_hash": "40b6011301c687ee16d0f5430a3139d9ff1b5731"
+          }
+        },
+        {
+          "client_id": "1042729786432-5iaofl5vi7jheibn48tnqsslem1t2udc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mindpark.mindgames",
+            "certificate_hash": "e94f1087cf6d04af62deac67a47629222d3ab3cc"
+          }
+        },
+        {
+          "client_id": "1042729786432-atv797aac9c7en8k3od79mdjkvmv7fle.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mindpark.mindgames",
+            "certificate_hash": "f65013d32015fedc14d7b008cde2043cbea77de9"
+          }
+        },
+        {
+          "client_id": "1042729786432-cbpit0srr1ll1100bperbpl9lni44680.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mindpark.mindgames",
+            "certificate_hash": "f1d5cc263f8afbf7b8027f58e45da9d5d11f584b"
+          }
+        },
+        {
+          "client_id": "1042729786432-se67st2f0tdfc8ol9mekch6psac6sq5o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mindpark.mindgames",
+            "certificate_hash": "33f309869398a7166646512d42b42777c15d71aa"
+          }
+        },
+        {
+          "client_id": "1042729786432-1g93dlh4cmr7g0rqs0hlf1715ecaqksc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDs1L3DDvlitDMWBU5hgqCwI2NW_DDkhbo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1042729786432-1g93dlh4cmr7g0rqs0hlf1715ecaqksc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1042729786432-qolkbp0qggnim685mbongu4jk0rlhjvs.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mindgames"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
