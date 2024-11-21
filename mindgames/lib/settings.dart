@@ -46,14 +46,6 @@ class _SettingspageState extends State<Settingspage> {
       _parentalLockEnabled = _prefs.getBool('parental_lock_enabled') ?? true;
       _vibrationEnabled = _prefs.getBool('vibration_enabled') ?? true;
       int selectedIndex = _prefs.getInt('language_index') ?? 0;
-      _localizationController.setSelectIndex(selectedIndex);
-      _localizationController.setLanguage(
-        Locale(
-          _localizationController.languages[selectedIndex].languageCode,
-          _localizationController.languages[selectedIndex].countryCode,
-        ),
-      );
-      print('Loaded language index: $selectedIndex'); // Debugging line
     });
   }
 
@@ -149,8 +141,7 @@ class _SettingspageState extends State<Settingspage> {
     await _prefs.setBool('sound_enabled', _soundEnabled);
     await _prefs.setBool('parental_lock_enabled', _parentalLockEnabled);
     await _prefs.setBool('vibration_enabled', _vibrationEnabled);
-    await _prefs.setInt(
-        'language_index', _localizationController.selectedIndex);
+
     setState(() {
       _hasChanges = false;
     });
@@ -162,13 +153,7 @@ class _SettingspageState extends State<Settingspage> {
       _soundEnabled = true;
       _parentalLockEnabled = true;
       _vibrationEnabled = true;
-      _localizationController.setSelectIndex(0);
-      _localizationController.setLanguage(
-        Locale(
-          _localizationController.languages[0].languageCode,
-          _localizationController.languages[0].countryCode,
-        ),
-      );
+
       _hasChanges = true;
     });
   }
@@ -231,7 +216,8 @@ class _SettingspageState extends State<Settingspage> {
                 endIndent: 20,
               ),
               SizedBox(
-                height: screenWidth * 0.73,
+                height: screenWidth * 0.55,
+
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
@@ -309,96 +295,6 @@ class _SettingspageState extends State<Settingspage> {
                               },
                               activeColor: Color(0xFF309092),
                             ),
-                          ),
-                        ),
-                        ListTile(
-                          title: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Language'.tr,
-                                style: TextStyle(
-                                    color: Color(0xFF309092),
-                                    fontSize: screenWidth * 0.06,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              GetBuilder<LocalizationController>(
-                                builder: (localizationController) {
-                                  String selectedLanguage =
-                                      localizationController
-                                          .languages[localizationController
-                                              .selectedIndex]
-                                          .languageName;
-
-                                  print(
-                                      'Selected language: $selectedLanguage'); // Debugging line
-
-                                  return SizedBox(
-                                    width: screenWidth * 0.35,
-                                    child: DropdownButtonFormField<String>(
-                                      decoration: InputDecoration(
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFF309092),
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(25),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: Color(0xFF309092),
-                                            width: 2.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(25),
-                                        ),
-                                      ),
-                                      value: selectedLanguage,
-                                      icon: Icon(Icons.arrow_drop_down),
-                                      iconSize: screenWidth * 0.05,
-                                      elevation: 16,
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: screenWidth * 0.05,
-                                          fontFamily: 'ShantellSans'),
-                                      onChanged: (String? newValue) {
-                                        int index = localizationController
-                                            .languages
-                                            .indexWhere((lang) =>
-                                                lang.languageName == newValue);
-                                        if (index != -1) {
-                                          localizationController.setLanguage(
-                                            Locale(
-                                              localizationController
-                                                  .languages[index]
-                                                  .languageCode,
-                                              localizationController
-                                                  .languages[index].countryCode,
-                                            ),
-                                          );
-                                          localizationController
-                                              .setSelectIndex(index);
-                                          _onSettingChanged();
-                                          setState(() {});
-                                        }
-                                      },
-                                      items: localizationController.languages
-                                          .map<DropdownMenuItem<String>>(
-                                              (language) {
-                                        return DropdownMenuItem<String>(
-                                          value: language.languageName,
-                                          child: Text(language.languageName,
-                                              style: TextStyle(
-                                                  fontSize:
-                                                      screenWidth * 0.04)),
-                                        );
-                                      }).toList(),
-                                      itemHeight: 90,
-                                    ),
-                                  );
-                                },
-                              ),
-                            ],
                           ),
                         ),
                       ],

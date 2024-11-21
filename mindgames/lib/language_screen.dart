@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:mindgames/child_profile_list_page.dart';
 import 'package:mindgames/cloud_store_service.dart';
 import 'package:mindgames/controllers/language_controller.dart';
-import 'package:mindgames/language_widget.dart';
 import 'package:mindgames/models/subscription_model.dart';
 import 'package:mindgames/providers.dart';
 import 'package:mindgames/services/auth_service.dart';
@@ -403,9 +402,7 @@ class _LanguageScreenState extends ConsumerState<LanguageScreen> {
                 child: GetBuilder<LocalizationController>(
                   builder: (localizationController) {
                     // Pre-translate texts
-                    String selectLanguageText = 'select_language'.tr;
-                    String youCanChangeLanguageText =
-                        'you_can_change_language'.tr;
+
                     String playText = "Let's Start".tr;
 
                     return ConstrainedBox(
@@ -433,48 +430,9 @@ class _LanguageScreenState extends ConsumerState<LanguageScreen> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          Text(
-                            selectLanguageText,
-                            style: TextStyle(
-                              fontSize:
-                                  MediaQuery.of(context).size.width * 0.04,
-                              color: Color(0xFFCD8278),
-                            ),
-                          ),
-                          Center(
-                            child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 20),
-                              child: GridView.builder(
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  childAspectRatio: 1.08,
-                                ),
-                                itemCount: 2,
-                                physics: NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) => LanguageWidget(
-                                  languageModel:
-                                      localizationController.languages[index],
-                                  localizationController:
-                                      localizationController,
-                                  index: index,
-                                ),
-                              ),
-                            ),
-                          ),
                           SizedBox(
                               height:
-                                  MediaQuery.of(context).size.height * 0.01),
-                          Text(
-                            youCanChangeLanguageText,
-                            style: TextStyle(
-                              fontSize:
-                                  MediaQuery.of(context).size.width * 0.042,
-                              color: Color(0xFFCD8278),
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                                  MediaQuery.of(context).size.height * 0.04),
                           TextButton(
                             onPressed: () async {
                               player.play(AssetSource('playbutton.mp3'));
@@ -496,7 +454,7 @@ class _LanguageScreenState extends ConsumerState<LanguageScreen> {
                               }
                             },
                             child: Container(
-                              width: MediaQuery.of(context).size.width * 0.38,
+                              width: MediaQuery.of(context).size.width * 0.41,
                               height: MediaQuery.of(context).size.width * 0.21,
                               color: Colors.transparent,
                               child: Stack(
@@ -506,7 +464,7 @@ class _LanguageScreenState extends ConsumerState<LanguageScreen> {
                                     child: Image.asset(
                                       'assets/images/Play.png',
                                       width: MediaQuery.of(context).size.width *
-                                          0.38,
+                                          0.41,
                                       height:
                                           MediaQuery.of(context).size.width *
                                               0.205,
