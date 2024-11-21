@@ -3,7 +3,6 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:mindgames/Homepage.dart';
 import 'package:mindgames/circular_chart.dart';
 import 'package:mindgames/cloud_store_service.dart';
 import 'package:mindgames/config/hard_simon_says_task.dart';

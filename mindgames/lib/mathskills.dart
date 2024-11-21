@@ -2,7 +2,6 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mindgames/Domains.dart';
-import 'package:mindgames/number_counting_game.dart';
 import 'package:mindgames/numbercountingdemo.dart';
 import 'package:mindgames/profile.dart';
 
@@ -20,7 +19,6 @@ class _MathSkillsPageState extends State<MathSkillsPage> {
     const Profile(),
     const DomainPage(),
   ];
-  final AudioCache _audioCache = AudioCache();
   final player = AudioPlayer();
 
   List<Map<String, dynamic>> levelTiles = [

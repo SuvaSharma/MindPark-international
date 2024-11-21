@@ -2,12 +2,9 @@ import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:mindgames/AnimatedButton.dart';
 import 'package:mindgames/DSTDataModel.dart';
-import 'package:mindgames/DSTIntroPage.dart';
 import 'package:mindgames/DSTResult.dart';
 import 'package:mindgames/LevelCompletionHandler.dart';
 import 'package:mindgames/circular_chart.dart';
@@ -132,8 +129,6 @@ class _EasyPageState extends ConsumerState<EasyPage> {
   Future<bool> _onBackPressed() async {
     print('I was triggered');
     _playSound('PauseTap.mp3', player);
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     bool? result;
     // Function to display the quit dialog
     Future<bool?> displayQuitDialog() async {
@@ -511,7 +506,6 @@ class _EasyPageState extends ConsumerState<EasyPage> {
 
   Visibility NumberBuilder(int digit) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
 
     double circleSize = screenWidth * 0.08; // 15% of screen width
     double borderRadius = circleSize / 0.5;
@@ -737,7 +731,6 @@ class _EasyPageState extends ConsumerState<EasyPage> {
     setState(() {
       showEndGameDialog = true;
     });
-    final screenSize = MediaQuery.of(context).size;
     await showDialog(
       context: context,
       barrierDismissible: false, // Prevent dialog from closing on outside tap

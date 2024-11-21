@@ -5,22 +5,15 @@ import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:mindgames/AnimatedButton.dart';
 import 'package:mindgames/AnimatedBuzzer.dart';
 import 'package:mindgames/CPTDataModel.dart';
-import 'package:mindgames/CPTIntroPage.dart';
 import 'package:mindgames/CPTResult.dart';
-import 'package:mindgames/DSTIntroPage.dart';
-import 'package:mindgames/DatabaseHelper.dart';
-import 'package:mindgames/ERTInsPage.dart';
 import 'package:mindgames/LevelCompletionHandler.dart';
-import 'package:mindgames/Levels_screen.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:mindgames/circular_chart.dart';
 import 'package:mindgames/cloud_store_service.dart';
 import 'package:mindgames/executiveskills.dart';
 import 'package:mindgames/providers.dart';
-import 'package:mindgames/services/auth_service.dart';
 import 'package:mindgames/utils/convert_to_nepali_numbers.dart';
 import 'package:mindgames/widgets/pause_menu.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -43,7 +36,6 @@ class _CPTPageState extends ConsumerState<CPTPage> {
   late final String selectedChildUserId;
   CloudStoreService cloudStoreService = CloudStoreService();
   LevelCompletionHandler? levelCompletionHandler;
-  DatabaseHelper _databaseHelper = DatabaseHelper();
   List<CPTData> dataList = [];
   String _popupText = '';
   bool _showStartButton = true;
@@ -417,7 +409,6 @@ class _CPTPageState extends ConsumerState<CPTPage> {
 
       if (result == false) {
         print('Word resumed');
-        int timeRemaining = 2000 - _elapsedWordsTime;
 
         dialogBoxDisappearTime = DateTime.now().millisecondsSinceEpoch;
         _wordsTimer = Timer(
@@ -490,7 +481,7 @@ class _CPTPageState extends ConsumerState<CPTPage> {
       ),
     );
     // Show the game over dialog
-    final screenSize = MediaQuery.of(context).size;
+
     await showDialog(
       context: context,
       barrierDismissible: false, // Prevent dialog from closing on outside tap

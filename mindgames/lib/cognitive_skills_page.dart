@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mindgames/Domains.dart';
 import 'package:mindgames/maze_magic_demo_page.dart';
-import 'package:mindgames/maze_magic_page.dart';
-import 'package:mindgames/number_counting_game.dart';
-import 'package:mindgames/numbercountingdemo.dart';
+
 import 'package:mindgames/profile.dart';
 
 class CognitiveSkillsPage extends StatefulWidget {
@@ -22,7 +20,7 @@ class _CognitiveSkillsPageState extends State<CognitiveSkillsPage> {
     const Profile(),
     const DomainPage(),
   ];
-  final AudioCache _audioCache = AudioCache();
+
   final player = AudioPlayer();
 
   List<Map<String, dynamic>> levelTiles = [

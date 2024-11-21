@@ -35,7 +35,7 @@ Widget buildProgressIndicator(BuildContext context, String label, double value,
             ),
           ),
           Text(
-            '${convertToNepaliNumbers(value.toInt().toString())}%',
+            '${convertToNepaliNumbers(value.round().toString())}%',
             style: TextStyle(
               fontSize: screenWidth * 0.04,
               fontWeight: FontWeight.bold,

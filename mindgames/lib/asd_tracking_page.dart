@@ -44,37 +44,41 @@ class _ASDTrackingPageState extends ConsumerState<ASDTrackingPage> {
 
   String getSeverityText(String type, double count) {
     if (type == 'socialCommunication') {
-      if (count <= 5)
+      if (count <= 5) {
         return 'Low'.tr;
-      else if (count <= 9)
+      } else if (count <= 9) {
         return 'Mid'.tr;
-      else
+      } else {
         return 'High'.tr;
+      }
     } else {
-      if (count <= 6)
+      if (count <= 6) {
         return 'Low'.tr;
-      else if (count <= 12)
+      } else if (count <= 12) {
         return 'Mid'.tr;
-      else
+      } else {
         return 'High'.tr;
+      }
     }
   }
 
   Color getSeverityColor(String type, double count) {
     if (type == 'socialCommunication') {
-      if (count <= 5)
+      if (count <= 5) {
         return Colors.green;
-      else if (count <= 9)
+      } else if (count <= 9) {
         return Colors.orange;
-      else
+      } else {
         return Colors.red;
+      }
     } else {
-      if (count <= 6)
+      if (count <= 6) {
         return Colors.green;
-      else if (count <= 12)
+      } else if (count <= 12) {
         return Colors.orange;
-      else
+      } else {
         return Colors.red;
+      }
     }
   }
 
@@ -104,7 +108,7 @@ class _ASDTrackingPageState extends ConsumerState<ASDTrackingPage> {
         color: Colors.white,
         size: screenWidth * 0.06,
       ),
-      headerBackgroundColor: Color(0xFF309092),
+      headerBackgroundColor: const Color(0xFF309092),
       headerBackgroundColorOpened: const Color(0xFFF88379),
       headerPadding: EdgeInsets.only(
         top: screenHeight * 0.01,
@@ -127,7 +131,6 @@ class _ASDTrackingPageState extends ConsumerState<ASDTrackingPage> {
 
   Widget _taskContent(Map<String, dynamic> data) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
 
     return Padding(
         padding: EdgeInsets.only(
@@ -235,8 +238,8 @@ class _ASDTrackingPageState extends ConsumerState<ASDTrackingPage> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    final SocialCommunicationTitle = 'Social Impairment'.tr;
-    final RepetitiveBehaviorTitle = "Repetitive Behavior".tr;
+    final socialCommunicationTitle = 'Social Impairment'.tr;
+    final repetitiveBehaviorTitle = "Repetitive Behavior".tr;
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
@@ -283,18 +286,18 @@ class _ASDTrackingPageState extends ConsumerState<ASDTrackingPage> {
                               parameterList: [
                                 {
                                   'name': 'socialCommunication',
-                                  'title': SocialCommunicationTitle,
+                                  'title': socialCommunicationTitle,
                                   'limit': 18.0,
                                 },
                                 {
                                   'name': 'repetitiveBehavior',
-                                  'title': RepetitiveBehaviorTitle,
+                                  'title': repetitiveBehaviorTitle,
                                   'limit': 24.0,
                                 }
                               ],
                             ),
                             Divider(
-                              color: Color.fromARGB(255, 107, 107, 107),
+                              color: const Color.fromARGB(255, 107, 107, 107),
                               height: screenHeight * 0.02,
                               thickness: screenHeight * 0.003,
                               indent: screenWidth * 0.22,

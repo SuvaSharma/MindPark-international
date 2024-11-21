@@ -12,7 +12,6 @@ class _CognitiveTrainingPageState extends State<CognitiveTrainingPage> {
   Widget build(BuildContext context) {
     // Get the screen width and height
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
 
     double fontSize = screenWidth * 0.07;
 

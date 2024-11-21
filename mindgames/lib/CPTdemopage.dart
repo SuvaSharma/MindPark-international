@@ -6,18 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mindgames/AnimatedButton.dart';
 import 'package:mindgames/AnimatedBuzzer.dart';
-import 'package:mindgames/CPTDataModel.dart';
-import 'package:mindgames/CPTIntroPage.dart';
 import 'package:mindgames/CPTPage.dart';
-import 'package:mindgames/CPTResult.dart';
-import 'package:mindgames/DatabaseHelper.dart';
-import 'package:mindgames/LevelCompletionHandler.dart';
-import 'package:mindgames/Levels_screen.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:mindgames/circular_chart.dart';
-import 'package:mindgames/cloud_store_service.dart';
 import 'package:mindgames/executiveskills.dart';
-import 'package:mindgames/services/auth_service.dart';
 import 'package:mindgames/utils/convert_to_nepali_numbers.dart';
 import 'package:mindgames/widgets/pause_menu.dart';
 import 'package:mindgames/widgets/welcome_dialog.dart';
@@ -408,7 +400,6 @@ class _CPTdemoPageState extends State<CPTdemoPage> {
 
       if (result == false) {
         print('Word resumed');
-        int timeRemaining = 2000 - _elapsedWordsTime;
 
         dialogBoxDisappearTime = DateTime.now().millisecondsSinceEpoch;
         _wordsTimer = Timer(
@@ -451,7 +442,7 @@ class _CPTdemoPageState extends State<CPTdemoPage> {
     print('80% of letters: ${0.8 * _totalWords}');
 
     // Show the game over dialog
-    final screenSize = MediaQuery.of(context).size;
+
     await showDialog(
       context: context,
       barrierDismissible: false, // Prevent dialog from closing on outside tap

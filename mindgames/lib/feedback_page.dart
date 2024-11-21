@@ -8,8 +8,6 @@ import 'package:mindgames/core/validator.dart';
 import 'package:mindgames/models/user_feedback.dart';
 import 'package:mindgames/profile.dart';
 import 'package:mindgames/widgets/register_button.dart';
-import 'package:mindgames/widgets/snackbar_widget.dart';
-import 'package:path_provider/path_provider.dart';
 
 class FeedbackPage extends StatefulWidget {
   const FeedbackPage({super.key});

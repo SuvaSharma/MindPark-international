@@ -1,10 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:mindgames/Home_Page.dart';
-import 'package:mindgames/Homepage.dart';
 import 'package:mindgames/TMTinfoscreen.dart';
 import 'package:mindgames/lego_game.dart';
 import 'package:mindgames/number_counting_game.dart';
@@ -13,7 +9,6 @@ import 'package:mindgames/picture_sorting_game.dart';
 import 'package:mindgames/profile.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:mindgames/simon_says_demo_page.dart';
-import 'package:mindgames/utils/difficulty_enum.dart';
 import 'package:mindgames/voiceloon_page.dart';
 
 class LevelOnePage extends StatefulWidget {
@@ -31,7 +26,6 @@ class _LevelOnePageState extends State<LevelOnePage> {
     LevelOnePage(),
     const PerformanceTab(),
   ];
-  final AudioCache _audioCache = AudioCache();
   final player = AudioPlayer();
 
   List<Map<String, dynamic>> levelTiles = [

@@ -1,11 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mindgames/ERT.dart';
-import 'package:mindgames/DatabaseHelper.dart';
 import 'package:mindgames/ERTdemopage.dart';
-import 'package:mindgames/Levels_screen.dart';
-import 'package:mindgames/executiveskills.dart';
 import 'package:mindgames/socialskills.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -20,10 +16,8 @@ class ERTInfoScreen extends StatefulWidget {
 }
 
 class _ERTInfoScreenState extends State<ERTInfoScreen> {
-  final DatabaseHelper _databaseHelper = DatabaseHelper();
   final PageController _pageController = PageController();
   int _currentPage = 0;
-  final AudioCache _audioCache = AudioCache();
   final player = AudioPlayer();
   bool _soundEnabled = true;
 
@@ -72,7 +66,6 @@ class _ERTInfoScreenState extends State<ERTInfoScreen> {
   Widget _buildOnboardingPage(String imagePath, String instructionImage,
       String title, String centerText) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(

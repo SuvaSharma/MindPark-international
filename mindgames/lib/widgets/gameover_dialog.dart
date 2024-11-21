@@ -1,9 +1,6 @@
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mindgames/Home_Page.dart';
-import 'package:mindgames/Homepage.dart';
-import 'package:mindgames/level8infoscreen.dart';
 
 class GameOverDialog extends StatelessWidget {
   final VoidCallback onOkPressed;

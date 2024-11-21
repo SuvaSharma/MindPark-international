@@ -1,14 +1,10 @@
-import 'dart:ui';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mindgames/Domains.dart';
 import 'package:mindgames/ERTInsPage.dart';
 import 'package:mindgames/gaze_maze_demo_page.dart';
-import 'package:mindgames/gaze_maze_page.dart';
 import 'package:mindgames/jungle_jingles_demo_page.dart';
-import 'package:mindgames/jungle_jingles_page.dart';
 import 'package:mindgames/profile.dart';
 import 'package:mindgames/simon_says_demo_page.dart';
 

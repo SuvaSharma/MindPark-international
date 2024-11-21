@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:mindgames/change_notifiers/registration_controller.dart';
@@ -69,7 +68,7 @@ class _ChildProfileListState extends ConsumerState<ChildProfileList> {
 
           //Navigate to Homepage
           Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => MainWrapper()),
+            MaterialPageRoute(builder: (context) => const MainWrapper()),
           );
         }
       }
@@ -94,142 +93,151 @@ class _ChildProfileListState extends ConsumerState<ChildProfileList> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return Dialog(
-          child: Container(
-            height: screenHeight * 0.6,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(screenWidth * 0.1),
-            ),
-            child: Form(
-              key: formKey,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(
-                      'Add a child'.tr,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: screenWidth * 0.08,
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xFFF88379),
-                      ),
-                    ),
-                    RegisterFormField(
-                      controller: nameController,
-                      labelText: 'Full name'.tr,
-                      fillColor: Colors.white,
-                      borderColor: const Color(0xFFF88379),
-                      filled: true,
-                      textCapitalization: TextCapitalization.sentences,
-                      textInputAction: TextInputAction.next,
-                      validator: Validator.nameValidator,
-                      onChanged: (newValue) {
-                        registrationController.fullName = newValue;
-                      },
-                    ),
-                    RegisterFormField(
-                      controller: ageController,
-                      labelText: 'Age'.tr,
-                      fillColor: Colors.white,
-                      borderColor: const Color(0xFFF88379),
-                      filled: true,
-                      keyboardType: TextInputType.number,
-                      textCapitalization: TextCapitalization.sentences,
-                      textInputAction: TextInputAction.next,
-                      validator: Validator.ageValidator,
-                      onChanged: (newValue) {
-                        registrationController.age = newValue;
-                      },
-                    ),
-                    DropdownButtonFormField<String>(
-                      value: selectedGender,
-                      style: TextStyle(
-                        fontFamily: 'ShantellSans',
-                        color: Colors.black,
-                        fontSize: screenWidth * 0.04,
-                      ),
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: screenWidth * 0.02,
-                          vertical: screenHeight * 0.025,
+        return SingleChildScrollView(
+          child: Dialog(
+            child: Container(
+              height: screenHeight * 0.6,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(screenWidth * 0.1),
+              ),
+              child: Form(
+                key: formKey,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        'Add a child'.tr,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: screenWidth * 0.08,
+                          fontWeight: FontWeight.bold,
+                          color: const Color(0xFFF88379),
                         ),
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        errorStyle: TextStyle(fontSize: screenWidth * 0.04),
-                        labelStyle: TextStyle(
-                            fontSize: screenWidth * 0.04,
-                            color: Color(0xFFF88379)),
-                        filled: true,
+                      ),
+                      RegisterFormField(
+                        controller: nameController,
+                        labelText: 'Full name'.tr,
                         fillColor: Colors.white,
-                        labelText: 'Gender'.tr,
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFFF88379),
-                          ),
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFFF88379),
-                          ),
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFFF88379),
-                            width: 2.0,
-                          ),
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                      ),
-                      items: <String>['Male', 'Female', 'Others']
-                          .map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value.tr,
-                              style: TextStyle(fontSize: screenWidth * 0.04)),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          selectedGender = newValue;
-                          registrationController.gender = newValue!;
-                        });
-                      },
-                      validator: Validator.genderValidator,
-                    ),
-                    SizedBox(
-                      height: screenHeight * 0.07,
-                      child: RegisterButton(
-                        color: Color(0xFFF88379),
-                        onPressed: () async {
-                          if (formKey.currentState!.validate()) {
-                            try {
-                              await cloudStoreService.addChildren(
-                                userId: currentUser,
-                                name: nameController.text,
-                                age: ageController.text,
-                                gender: selectedGender!,
-                                createdDate: DateTime.now(),
-                              );
-                              Navigator.of(context).pop();
-
-                              showCustomSnackbar(context, 'Success'.tr,
-                                  'Child added successfully'.tr);
-                              getData(); // Fetch data again after adding a child
-                            } catch (e) {
-                              showCustomSnackbar(
-                                  context, 'Error'.tr, 'Error adding child'.tr);
-                            }
-                          }
+                        borderColor: const Color(0xFFF88379),
+                        filled: true,
+                        textCapitalization: TextCapitalization.sentences,
+                        textInputAction: TextInputAction.next,
+                        validator: Validator.nameValidator,
+                        onChanged: (newValue) {
+                          registrationController.fullName = newValue;
                         },
-                        child: Text('Add Child'.tr,
-                            style: TextStyle(fontSize: screenWidth * 0.06)),
                       ),
-                    ),
-                  ],
+                      RegisterFormField(
+                        controller: ageController,
+                        labelText: 'Age'.tr,
+                        fillColor: Colors.white,
+                        borderColor: const Color(0xFFF88379),
+                        filled: true,
+                        keyboardType: TextInputType.number,
+                        textCapitalization: TextCapitalization.sentences,
+                        textInputAction: TextInputAction.next,
+                        validator: Validator.ageValidator,
+                        onChanged: (newValue) {
+                          registrationController.age = newValue;
+                        },
+                      ),
+                      DropdownButtonFormField<String>(
+                        value: selectedGender,
+                        style: TextStyle(
+                          fontFamily: 'ShantellSans',
+                          color: Colors.black,
+                          fontSize: screenWidth * 0.04,
+                        ),
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: screenWidth * 0.02,
+                            vertical: screenHeight * 0.025,
+                          ),
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          errorStyle: TextStyle(fontSize: screenWidth * 0.04),
+                          labelStyle: TextStyle(
+                              fontSize: screenWidth * 0.04,
+                              color: const Color(0xFFF88379)),
+                          filled: true,
+                          fillColor: Colors.white,
+                          labelText: 'Gender'.tr,
+                          border: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Color(0xFFF88379),
+                            ),
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Color(0xFFF88379),
+                            ),
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Color(0xFFF88379),
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                        ),
+                        items: <String>['Male', 'Female', 'Others']
+                            .map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value.tr,
+                                style: TextStyle(fontSize: screenWidth * 0.04)),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            selectedGender = newValue;
+                            registrationController.gender = newValue!;
+                          });
+                        },
+                        validator: Validator.genderValidator,
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.07,
+                        child: RegisterButton(
+                          color: const Color(0xFFF88379),
+                          onPressed: () async {
+                            if (formKey.currentState!.validate()) {
+                              try {
+                                await cloudStoreService.addChildren(
+                                  userId: currentUser,
+                                  name: nameController.text,
+                                  age: ageController.text,
+                                  gender: selectedGender!,
+                                  createdDate: DateTime.now(),
+                                );
+
+                                if (!context.mounted) {
+                                  return;
+                                }
+                                Navigator.of(context).pop();
+
+                                showCustomSnackbar(context, 'Success'.tr,
+                                    'Child added successfully'.tr);
+                                getData(); // Fetch data again after adding a child
+                              } catch (e) {
+                                if (!context.mounted) {
+                                  return;
+                                }
+                                showCustomSnackbar(context, 'Error'.tr,
+                                    'Error adding child'.tr);
+                              }
+                            }
+                          },
+                          child: Text('Add Child'.tr,
+                              style: TextStyle(fontSize: screenWidth * 0.06)),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -252,141 +260,151 @@ class _ChildProfileListState extends ConsumerState<ChildProfileList> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return Dialog(
-          child: Container(
-            height: screenHeight * 0.6,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(screenWidth * 0.1),
-            ),
-            child: Form(
-              key: formKey,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(
-                      'Update child info'.tr,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: screenWidth * 0.08,
-                        fontWeight: FontWeight.bold,
-                        color: const Color(0xFFF88379),
-                      ),
-                    ),
-                    RegisterFormField(
-                      controller: nameController,
-                      labelText: 'Full name'.tr,
-                      fillColor: Colors.white,
-                      borderColor: const Color(0xFFF88379),
-                      filled: true,
-                      textCapitalization: TextCapitalization.sentences,
-                      textInputAction: TextInputAction.next,
-                      validator: Validator.nameValidator,
-                      onChanged: (newValue) {
-                        registrationController.fullName = newValue;
-                      },
-                    ),
-                    RegisterFormField(
-                      controller: ageController,
-                      labelText: 'Age'.tr,
-                      fillColor: Colors.white,
-                      borderColor: const Color(0xFFF88379),
-                      filled: true,
-                      textCapitalization: TextCapitalization.sentences,
-                      textInputAction: TextInputAction.next,
-                      validator: Validator.ageValidator,
-                      onChanged: (newValue) {
-                        registrationController.age = newValue;
-                      },
-                    ),
-                    DropdownButtonFormField<String>(
-                      value: selectedGender,
-                      style: TextStyle(
-                        fontFamily: 'ShantellSans',
-                        color: Colors.black,
-                        fontSize: screenWidth * 0.04,
-                      ),
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(
-                          horizontal: screenWidth * 0.02,
-                          vertical: screenHeight * 0.025,
+        return SingleChildScrollView(
+          child: Dialog(
+            child: Container(
+              height: screenHeight * 0.6,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(screenWidth * 0.1),
+              ),
+              child: Form(
+                key: formKey,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        'Update child info'.tr,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: screenWidth * 0.08,
+                          fontWeight: FontWeight.bold,
+                          color: const Color(0xFFF88379),
                         ),
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        errorStyle: TextStyle(fontSize: screenWidth * 0.04),
-                        labelStyle: TextStyle(
-                            fontSize: screenWidth * 0.04,
-                            color: const Color(0xFFF88379)),
-                        filled: true,
+                      ),
+                      RegisterFormField(
+                        controller: nameController,
+                        labelText: 'Full name'.tr,
                         fillColor: Colors.white,
-                        labelText: 'Gender'.tr,
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFFF88379),
-                          ),
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFFF88379),
-                          ),
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFFF88379),
-                            width: 2.0,
-                          ),
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                      ),
-                      items: <String>['Male', 'Female', 'Others']
-                          .map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value,
-                              style: TextStyle(fontSize: screenWidth * 0.04)),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          selectedGender = newValue;
-                          registrationController.gender = newValue!;
-                        });
-                      },
-                      validator: Validator.genderValidator,
-                    ),
-                    SizedBox(
-                      height: screenHeight * 0.07,
-                      child: RegisterButton(
-                        color: Color(0xFFF88379),
-                        onPressed: () async {
-                          if (formKey.currentState!.validate()) {
-                            try {
-                              await cloudStoreService.updateChild(
-                                userId: currentUser!,
-                                childId: childId,
-                                name: nameController.text,
-                                age: ageController.text,
-                                gender: selectedGender!,
-                              );
-                              Navigator.of(context).pop();
-
-                              showCustomSnackbar(context, 'Success'.tr,
-                                  'Child info updated successfully'.tr);
-                              getData(); // Fetch data again after updating a child
-                            } catch (e) {
-                              showCustomSnackbar(context, 'Error'.tr,
-                                  'Error updating child info'.tr);
-                            }
-                          }
+                        borderColor: const Color(0xFFF88379),
+                        filled: true,
+                        textCapitalization: TextCapitalization.sentences,
+                        textInputAction: TextInputAction.next,
+                        validator: Validator.nameValidator,
+                        onChanged: (newValue) {
+                          registrationController.fullName = newValue;
                         },
-                        child: Text('Update Child'.tr,
-                            style: TextStyle(fontSize: screenWidth * 0.06)),
                       ),
-                    ),
-                  ],
+                      RegisterFormField(
+                        controller: ageController,
+                        labelText: 'Age'.tr,
+                        fillColor: Colors.white,
+                        borderColor: const Color(0xFFF88379),
+                        filled: true,
+                        keyboardType: TextInputType.number,
+                        textCapitalization: TextCapitalization.sentences,
+                        textInputAction: TextInputAction.next,
+                        validator: Validator.ageValidator,
+                        onChanged: (newValue) {
+                          registrationController.age = newValue;
+                        },
+                      ),
+                      DropdownButtonFormField<String>(
+                        value: selectedGender,
+                        style: TextStyle(
+                          fontFamily: 'ShantellSans',
+                          color: Colors.black,
+                          fontSize: screenWidth * 0.04,
+                        ),
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: screenWidth * 0.02,
+                            vertical: screenHeight * 0.025,
+                          ),
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          errorStyle: TextStyle(fontSize: screenWidth * 0.04),
+                          labelStyle: TextStyle(
+                              fontSize: screenWidth * 0.04,
+                              color: const Color(0xFFF88379)),
+                          filled: true,
+                          fillColor: Colors.white,
+                          labelText: 'Gender'.tr,
+                          border: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Color(0xFFF88379),
+                            ),
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Color(0xFFF88379),
+                            ),
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Color(0xFFF88379),
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                        ),
+                        items: <String>['Male', 'Female', 'Others']
+                            .map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value,
+                                style: TextStyle(fontSize: screenWidth * 0.04)),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            selectedGender = newValue;
+                            registrationController.gender = newValue!;
+                          });
+                        },
+                        validator: Validator.genderValidator,
+                      ),
+                      SizedBox(
+                        height: screenHeight * 0.07,
+                        child: RegisterButton(
+                          color: const Color(0xFFF88379),
+                          onPressed: () async {
+                            if (formKey.currentState!.validate()) {
+                              try {
+                                await cloudStoreService.updateChild(
+                                  userId: currentUser!,
+                                  childId: childId,
+                                  name: nameController.text,
+                                  age: ageController.text,
+                                  gender: selectedGender!,
+                                );
+
+                                if (!context.mounted) {
+                                  return;
+                                }
+                                Navigator.of(context).pop();
+
+                                showCustomSnackbar(context, 'Success'.tr,
+                                    'Child info updated successfully'.tr);
+                                getData(); // Fetch data again after updating a child
+                              } catch (e) {
+                                if (!context.mounted) {
+                                  return;
+                                }
+                                showCustomSnackbar(context, 'Error'.tr,
+                                    'Error updating child info'.tr);
+                              }
+                            }
+                          },
+                          child: Text('Update Child'.tr,
+                              style: TextStyle(fontSize: screenWidth * 0.06)),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -450,7 +468,6 @@ class _ChildProfileListState extends ConsumerState<ChildProfileList> {
   SizedBox buildProfileList(
       String childId, String name, String gender, String age) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
 
     return SizedBox(
       height: screenWidth * 0.25,
@@ -474,7 +491,7 @@ class _ChildProfileListState extends ConsumerState<ChildProfileList> {
 
               // Navigate to Homepage
               Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => MainWrapper()),
+                MaterialPageRoute(builder: (context) => const MainWrapper()),
               );
             },
             child: Stack(
@@ -525,6 +542,10 @@ class _ChildProfileListState extends ConsumerState<ChildProfileList> {
                           showDeleteConfirmationDialog(childId, name, () async {
                             await cloudStoreService.deleteChild(
                                 userId: currentUser!, childId: childId);
+
+                            if (!context.mounted) {
+                              return;
+                            }
                             showCustomSnackbar(context, 'Success'.tr,
                                 'Child added successfully'.tr);
                             getData();
@@ -588,6 +609,7 @@ class _ChildProfileListState extends ConsumerState<ChildProfileList> {
         screenWidth * 0.15; // Adjust the FAB size based on screen width
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       floatingActionButton: SizedBox(
         width: fabSize,
         height: fabSize,
@@ -596,9 +618,9 @@ class _ChildProfileListState extends ConsumerState<ChildProfileList> {
             showAddProfileDialog();
           },
           backgroundColor: const Color(0xFFF7CBC8),
+          shape: const CircleBorder(),
+          splashColor: const Color(0xFFF7CBEF),
           child: Icon(Icons.person_add, size: fabSize * 0.5),
-          shape: CircleBorder(),
-          splashColor: Color(0xFFF7CBEF),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,

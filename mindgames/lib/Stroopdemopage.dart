@@ -5,8 +5,6 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mindgames/DatabaseHelper.dart';
-import 'package:mindgames/Stroopinspage.dart';
 import 'package:mindgames/Strooptest.dart';
 import 'package:mindgames/circular_chart.dart';
 import 'package:mindgames/executiveskills.dart';
@@ -33,8 +31,6 @@ class Stroopdemopage extends StatefulWidget {
 
 class _StroopdemopageState extends State<Stroopdemopage> {
   @override
-  DatabaseHelper _databaseHelper = DatabaseHelper();
-
   bool _isMounted = true;
   int _currentWordIndex = 0;
   int _totalWords = 6;

@@ -64,8 +64,6 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Future<void> updateUserData() async {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     final currentUser = AuthService.user?.uid;
     final user = AuthService.user;
     if (currentUser != null) {
@@ -126,6 +124,7 @@ class _ProfilePageState extends State<ProfilePage> {
         return false;
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Container(
           decoration: const BoxDecoration(
               image: DecorationImage(

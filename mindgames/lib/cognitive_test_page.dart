@@ -1,5 +1,4 @@
 import 'package:accordion/accordion.dart';
-import 'package:accordion/accordion_section.dart';
 import 'package:accordion/controllers.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -388,7 +387,7 @@ class _CognitiveTestDetailScreenState
   AccordionSection _accordionSection(
       String sessionId, Map<String, dynamic> item, Color color) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+
     return AccordionSection(
       isOpen: true,
       leftIcon:

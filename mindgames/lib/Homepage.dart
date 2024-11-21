@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:mindgames/Domains.dart';
@@ -468,8 +466,7 @@ class _HomepageState extends ConsumerState<Homepage> {
                           child: Stack(
                             children: [
                               Visibility(
-                                visible: !allGamesPlayed &&
-                                    isLoading, 
+                                visible: !allGamesPlayed && isLoading,
                                 child: Center(
                                   child:
                                       CircularProgressIndicator(), // Loading indicator
@@ -492,8 +489,7 @@ class _HomepageState extends ConsumerState<Homepage> {
                                 ),
                               ),
                               Visibility(
-                                visible: allGamesPlayed &&
-                                    !isLoading, 
+                                visible: allGamesPlayed && !isLoading,
                                 child: Align(
                                   alignment: Alignment.center,
                                   child: StarDisplay(
