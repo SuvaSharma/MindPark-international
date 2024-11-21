@@ -22,7 +22,6 @@ class _VerbalskillsPageState extends State<VerbalskillsPage> {
     const Profile(),
     const DomainPage(),
   ];
-  final AudioCache _audioCache = AudioCache();
   final player = AudioPlayer();
 
   List<Map<String, dynamic>> levelTiles = [

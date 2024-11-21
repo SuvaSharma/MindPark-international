@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mindgames/AnimatedButton.dart';
-import 'package:mindgames/extensions/string_extensions.dart';
-import 'package:mindgames/utils/difficulty_enum.dart';
 import 'package:mindgames/widgets/built_bullet_points.dart';
 
 class DisclaimerDialog extends StatefulWidget {

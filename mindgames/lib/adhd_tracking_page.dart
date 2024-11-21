@@ -9,7 +9,6 @@ import 'package:mindgames/cloud_store_service.dart';
 import 'package:mindgames/providers.dart';
 import 'package:mindgames/questionnaire_response_page.dart';
 import 'package:mindgames/services/auth_service.dart';
-import 'package:mindgames/utils/difficulty_enum.dart';
 
 class ADHDTrackingPage extends ConsumerStatefulWidget {
   const ADHDTrackingPage({super.key});
@@ -37,9 +36,7 @@ class _ADHDTrackingPageState extends ConsumerState<ADHDTrackingPage> {
   void getData() async {
     dataList = await cloudStoreService.getADHDResponse(
         currentUser!, selectedChildUserId);
-    double successRate = await cloudStoreService.getFineMotorDataWithDifficulty(
-        selectedChildUserId, Difficulty.medium);
-    print(successRate);
+
     setState(() {
       isLoading = false;
     });
@@ -71,7 +68,7 @@ class _ADHDTrackingPageState extends ConsumerState<ADHDTrackingPage> {
         color: Colors.white,
         size: screenWidth * 0.06,
       ),
-      headerBackgroundColor: Color(0xFF309092),
+      headerBackgroundColor: const Color(0xFF309092),
       headerBackgroundColorOpened: const Color(0xFFF88379),
       headerPadding: EdgeInsets.only(
         top: screenHeight * 0.01,
@@ -94,7 +91,7 @@ class _ADHDTrackingPageState extends ConsumerState<ADHDTrackingPage> {
 
   Widget _taskContent(Map<String, dynamic> data) {
     final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
+
     return Padding(
         padding: EdgeInsets.only(
             left: screenWidth * 0.02, right: screenWidth * 0.02),
@@ -259,7 +256,7 @@ class _ADHDTrackingPageState extends ConsumerState<ADHDTrackingPage> {
                               }
                             ]),
                             Divider(
-                              color: Color.fromARGB(255, 107, 107, 107),
+                              color: const Color.fromARGB(255, 107, 107, 107),
                               height: screenHeight * 0.02,
                               thickness: screenHeight * 0.003,
                               indent: screenWidth * 0.22,

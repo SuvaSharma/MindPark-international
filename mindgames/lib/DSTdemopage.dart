@@ -2,12 +2,8 @@ import 'dart:async';
 import 'package:animated_button/animated_button.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:confetti/confetti.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:mindgames/DSTDataModel.dart';
-import 'package:mindgames/DSTIntroPage.dart';
 import 'package:mindgames/Easypage.dart';
 import 'package:mindgames/circular_chart.dart';
 import 'package:mindgames/executiveskills.dart';
@@ -146,8 +142,6 @@ class _DSTdemoPageState extends State<DSTdemoPage> {
   Future<bool> _onBackPressed() async {
     print('I was triggered');
     _playSound('PauseTap.mp3', player);
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     bool? result;
     // Function to display the quit dialog
     Future<bool?> displayQuitDialog() async {
@@ -525,7 +519,6 @@ class _DSTdemoPageState extends State<DSTdemoPage> {
 
   Visibility NumberBuilder(int digit) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
 
     double circleSize = screenWidth * 0.08; // 15% of screen width
     double borderRadius = circleSize / 0.5;
@@ -655,18 +648,6 @@ class _DSTdemoPageState extends State<DSTdemoPage> {
 
         results.add("Incorrect!"); // Add "Incorrect!" message to results list
       }
-
-      DSTData dstData = DSTData(
-        userId: currentUser,
-        sessionId: sessionId,
-        trialId: trialId,
-        sequenceGiven: characters.join(),
-        sequenceEntered: selectedNumbersList.join(),
-        result: selectedNumbersList.join() == characters.join()
-            ? 'Correct'
-            : 'Incorrect',
-        responseTime: elapsedTime,
-      );
     });
 
     selectedNumbers.clear(); // Clear selected numbers
@@ -728,12 +709,9 @@ class _DSTdemoPageState extends State<DSTdemoPage> {
     _confettiController.play();
     _playSound('GameOverDialog.mp3', player);
 
-    double spanPercentage = (sequenceLength - 1) / 7 * 100;
-
     setState(() {
       showEndGameDialog = true;
     });
-    final screenSize = MediaQuery.of(context).size;
     await showDialog(
       context: context,
       barrierDismissible: false, // Prevent dialog from closing on outside tap

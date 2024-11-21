@@ -2,8 +2,6 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mindgames/CPTdemopage.dart';
-import 'package:mindgames/DatabaseHelper.dart';
-import 'package:mindgames/Levels_screen.dart';
 import 'package:mindgames/executiveskills.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -17,7 +15,6 @@ class CPTIntroPage extends StatefulWidget {
 }
 
 class _CPTIntroPageState extends State<CPTIntroPage> {
-  final DatabaseHelper _databaseHelper = DatabaseHelper();
   final PageController _pageController = PageController();
   int _currentPage = 0;
 

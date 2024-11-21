@@ -8,7 +8,6 @@ import 'package:mindgames/motorskills.dart';
 import 'package:mindgames/puzzle_paradise_page.dart';
 import 'package:mindgames/utils/sound_manager.dart';
 import 'package:mindgames/widgets/congrats_dialog.dart';
-import 'package:mindgames/widgets/gameover_dialog.dart';
 import 'package:mindgames/widgets/pause_menu.dart';
 import 'package:mindgames/widgets/puzzle/jigsaw_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,7 +22,6 @@ class PuzzleDemoWidget extends ConsumerStatefulWidget {
 class PuzzleDemoWidgetState extends ConsumerState<PuzzleDemoWidget> {
   bool _isPaused = false;
   bool _isStarted = false;
-  final AudioCache _audioCache = AudioCache();
   final AudioPlayer player = AudioPlayer();
   final GlobalKey<JigsawWidgetState> jigKey = GlobalKey<JigsawWidgetState>();
   bool _showGame = false;

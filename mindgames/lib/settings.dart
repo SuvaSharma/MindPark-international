@@ -182,7 +182,6 @@ class _SettingspageState extends State<Settingspage> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -232,7 +231,7 @@ class _SettingspageState extends State<Settingspage> {
                 endIndent: 20,
               ),
               SizedBox(
-                height: screenWidth * 0.7,
+                height: screenWidth * 0.73,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(

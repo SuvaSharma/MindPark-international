@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -13,12 +10,9 @@ import 'package:mindgames/adhd_tracking_page.dart';
 import 'package:mindgames/adhdform.dart';
 import 'package:mindgames/asd_tracking_page.dart';
 import 'package:mindgames/autismform.dart';
-import 'package:mindgames/child.dart';
 import 'package:mindgames/cloud_store_service.dart';
 import 'package:mindgames/finemotor_detail_page.dart';
 import 'package:mindgames/form_section.dart';
-import 'package:mindgames/game_demo.dart';
-import 'package:mindgames/no_internet_page.dart';
 import 'package:mindgames/profile.dart';
 import 'package:mindgames/providers.dart';
 import 'package:mindgames/settings.dart';
@@ -29,7 +23,6 @@ import 'package:mindgames/verbal_detail_page.dart';
 import 'package:mindgames/widgets/Container_widget.dart';
 import 'package:mindgames/widgets/carousel_slider.dart';
 import 'package:mindgames/widgets/circular_progress_indicator.dart';
-import 'package:vibration/vibration.dart';
 
 class MainPage extends ConsumerStatefulWidget {
   const MainPage({Key? key}) : super(key: key);

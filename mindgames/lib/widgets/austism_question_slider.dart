@@ -111,7 +111,6 @@ class AutismQuestionSlider extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
 
     String questionIndex = question.split(". ")[0];
-    String questionKey = question.split(". ")[1];
 
     return Padding(
       padding: EdgeInsets.symmetric(vertical: screenHeight * 0.01),

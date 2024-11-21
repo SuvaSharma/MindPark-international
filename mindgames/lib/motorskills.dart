@@ -1,16 +1,11 @@
-import 'dart:ui';
-
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mindgames/Domains.dart';
-import 'package:mindgames/TMTpage.dart';
 import 'package:mindgames/logigamedemo.dart';
 import 'package:mindgames/picturesortinggame_demo.dart';
 import 'package:mindgames/profile.dart';
 import 'package:mindgames/puzzle_paradise_demo_page.dart';
-import 'package:mindgames/puzzle_paradise_page.dart';
 import 'package:mindgames/tmt_demo_page.dart';
 
 class MotorskillsPage extends StatefulWidget {
@@ -27,7 +22,6 @@ class _MotorskillsPageState extends State<MotorskillsPage> {
     const Profile(),
     const DomainPage(),
   ];
-  final AudioCache _audioCache = AudioCache();
   final player = AudioPlayer();
 
   List<Map<String, dynamic>> levelTiles = [

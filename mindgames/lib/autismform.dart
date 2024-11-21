@@ -19,8 +19,8 @@ class Autism extends ConsumerStatefulWidget {
 }
 
 class _AutismState extends ConsumerState<Autism> {
-  List<Map<String, dynamic>> A1Questions = [];
-  List<Map<String, dynamic>> A2Questions = [];
+  List<Map<String, dynamic>> a1Questions = [];
+  List<Map<String, dynamic>> a2Questions = [];
   late final CloudStoreService cloudStoreService;
   final currentUser = AuthService.user?.uid;
   late final String selectedChildUserId;
@@ -29,13 +29,13 @@ class _AutismState extends ConsumerState<Autism> {
   @override
   void initState() {
     super.initState();
-    A1Questions = List.from(autismquestions
+    a1Questions = List.from(autismquestions
         .where((q) => q['category'] == 'Social Communication and Interaction')
         .map((q) =>
             {'question': (q['question'] as String), 'answer': q['answer']})
         .toList());
 
-    A2Questions = List.from(autismquestions
+    a2Questions = List.from(autismquestions
         .where((q) =>
             q['category'] ==
             'Restricted, Repetitive Patterns of Behavior, Interests, or Activities')
@@ -56,9 +56,13 @@ class _AutismState extends ConsumerState<Autism> {
           childId: selectedChildUserId,
           category: 'ASD',
           assessmentDate: assessmentDate,
-          response: [...A1Questions, ...A2Questions],
+          response: [...a1Questions, ...a2Questions],
         ),
       );
+
+      if (!context.mounted) {
+        return;
+      }
       Navigator.of(context).pop();
       Navigator.pushAndRemoveUntil(
         context,
@@ -68,7 +72,9 @@ class _AutismState extends ConsumerState<Autism> {
       showCustomSnackbar(
           context, 'Success'.tr, 'Questionnaire submitted successfully!'.tr);
     } catch (e) {
-      showCustomSnackbar(context, 'Error'.tr, '${e.toString()}'.tr);
+      if (!context.mounted) {
+        showCustomSnackbar(context, 'Error'.tr, '${e.toString()}'.tr);
+      }
     }
   }
 
@@ -79,7 +85,7 @@ class _AutismState extends ConsumerState<Autism> {
         child: LayoutBuilder(
           builder: (context, constraints) {
             return Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/images/levelscreen.png"),
                   fit: BoxFit.cover,
@@ -117,13 +123,13 @@ class _AutismState extends ConsumerState<Autism> {
                       children: [
                         _buildCategory(
                             "Social Communication and Interaction".tr,
-                            A1Questions,
+                            a1Questions,
                             constraints),
                         SizedBox(height: constraints.maxHeight * 0.03),
                         _buildCategory(
                           "Restricted, Repetitive Patterns of Behavior, Interests, or Activities"
                               .tr,
-                          A2Questions,
+                          a2Questions,
                           constraints,
                         ),
                         SizedBox(height: constraints.maxHeight * 0.02),

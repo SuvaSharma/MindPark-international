@@ -1,15 +1,11 @@
-import 'dart:ui';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mindgames/CPTIntroPage.dart';
 import 'package:mindgames/CPTdemopage.dart';
 import 'package:mindgames/DSTdemopage.dart';
 import 'package:mindgames/Domains.dart';
 import 'package:mindgames/Level8demopage.dart';
 import 'package:mindgames/Stroopdemopage.dart';
-import 'package:mindgames/level8infoscreen.dart';
 import 'package:mindgames/profile.dart';
 
 class ExecutiveskillsPage extends StatefulWidget {
@@ -26,7 +22,6 @@ class _ExecutiveskillsPageState extends State<ExecutiveskillsPage> {
     const Profile(),
     const DomainPage(),
   ];
-  final AudioCache _audioCache = AudioCache();
   final player = AudioPlayer();
 
   List<Map<String, dynamic>> levelTiles = [

@@ -8,7 +8,6 @@ import 'package:mindgames/cognitive_skills_page.dart';
 import 'package:mindgames/maze_magic_page.dart';
 import 'package:mindgames/utils/sound_manager.dart';
 import 'package:mindgames/widgets/congrats_dialog.dart';
-import 'package:mindgames/widgets/gameover_dialog.dart';
 import 'package:mindgames/widgets/maze/maze.dart';
 import 'package:mindgames/widgets/pause_menu.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,7 +20,7 @@ class MazeMagicDemoPage extends ConsumerStatefulWidget {
 }
 
 class _MazeMagicDemoPageState extends ConsumerState<MazeMagicDemoPage> {
-  bool _isPaused = false;
+  bool isPaused = false;
 
   final AudioPlayer player = AudioPlayer();
   bool _showGame = false;
@@ -76,11 +75,11 @@ class _MazeMagicDemoPageState extends ConsumerState<MazeMagicDemoPage> {
     }
 
     setState(() {
-      _isPaused = true;
+      isPaused = true;
     });
     result = await displayPauseMenu();
     setState(() {
-      _isPaused = false;
+      isPaused = false;
     });
 
     return result ?? false;
@@ -238,7 +237,7 @@ class _MazeMagicDemoPageState extends ConsumerState<MazeMagicDemoPage> {
                               child: GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                    _isPaused = true; // Trigger the pause menu
+                                    isPaused = true; // Trigger the pause menu
                                   });
                                 },
                                 child: Padding(
@@ -283,7 +282,7 @@ class _MazeMagicDemoPageState extends ConsumerState<MazeMagicDemoPage> {
                                         ImageType.asset),
                                     onFinish: () {
                                       setState(() {
-                                        _isPaused = true;
+                                        isPaused = true;
                                       });
 
                                       showCongratsDialog();

@@ -6,7 +6,6 @@ import 'package:mindgames/widgets/circular_progress_indicator.dart';
 Widget buildGameProgressRow(String gameName,
     Map<Difficulty, double> difficultyData, BuildContext context) {
   final Size screenSize = MediaQuery.of(context).size;
-  final double screenHeight = screenSize.height;
   final double screenWidth = screenSize.width;
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 0.0),

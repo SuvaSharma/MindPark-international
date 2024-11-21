@@ -16,7 +16,7 @@ class AnimatedBuzzer extends StatefulWidget {
   final BoxShape shape;
 
   const AnimatedBuzzer(
-      {Key? key,
+      {super.key,
       required this.onPressed,
       required this.child,
       this.enabled = true,
@@ -25,12 +25,10 @@ class AnimatedBuzzer extends StatefulWidget {
       this.shadowDegree = ShadowDegree.light,
       this.width = 200,
       this.duration = 70,
-      this.shape = BoxShape.rectangle})
-      : assert(child != null),
-        super(key: key);
+      this.shape = BoxShape.rectangle});
 
   @override
-  _AnimatedBuzzerState createState() => _AnimatedBuzzerState();
+  State<AnimatedBuzzer> createState() => _AnimatedBuzzerState();
 }
 
 class _AnimatedBuzzerState extends State<AnimatedBuzzer> {
@@ -41,13 +39,16 @@ class _AnimatedBuzzerState extends State<AnimatedBuzzer> {
 
   @override
   Widget build(BuildContext context) {
-    final double _height = widget.height - _shadowHeight;
+    final double height = widget.height - _shadowHeight;
 
     return GestureDetector(
+      onTapDown: widget.enabled ? _pressed : null,
+      onTapUp: widget.enabled ? _unPressedOnTapUp : null,
+      onTapCancel: widget.enabled ? _unPressed : null,
       // width here is required for centering the button in parent
-      child: Container(
+      child: SizedBox(
         width: widget.width,
-        height: _height + _shadowHeight,
+        height: height + _shadowHeight,
         child: Stack(
           children: <Widget>[
             // background shadow serves as drop shadow
@@ -55,14 +56,14 @@ class _AnimatedBuzzerState extends State<AnimatedBuzzer> {
             Positioned(
               bottom: 0,
               child: Container(
-                height: _height,
+                height: height,
                 width: widget.width,
                 decoration: BoxDecoration(
                     color: widget.enabled
                         ? darken(_color, widget.shadowDegree)
                         : darken(Colors.grey, widget.shadowDegree),
                     borderRadius: widget.shape != BoxShape.circle
-                        ? BorderRadius.all(
+                        ? const BorderRadius.all(
                             Radius.circular(16),
                           )
                         : null,
@@ -74,12 +75,12 @@ class _AnimatedBuzzerState extends State<AnimatedBuzzer> {
               duration: Duration(milliseconds: widget.duration),
               bottom: _position,
               child: Container(
-                height: _height,
+                height: height,
                 width: widget.width,
                 decoration: BoxDecoration(
                     color: widget.enabled ? _color : Colors.grey,
                     borderRadius: widget.shape != BoxShape.circle
-                        ? BorderRadius.all(
+                        ? const BorderRadius.all(
                             Radius.circular(16),
                           )
                         : null,
@@ -92,9 +93,6 @@ class _AnimatedBuzzerState extends State<AnimatedBuzzer> {
           ],
         ),
       ),
-      onTapDown: widget.enabled ? _pressed : null,
-      onTapUp: widget.enabled ? _unPressedOnTapUp : null,
-      onTapCancel: widget.enabled ? _unPressed : null,
     );
   }
 

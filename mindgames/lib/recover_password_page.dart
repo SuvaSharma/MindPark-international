@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import '../change_notifiers/registration_controller.dart';
 import '../core/constants.dart';
 import '../core/validator.dart';
-import 'widgets/register_back_button.dart';
 import 'widgets/register_button.dart';
 import 'widgets/register_form_field.dart';
 

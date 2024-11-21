@@ -2,12 +2,9 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:mindgames/DatabaseHelper.dart';
 import 'package:mindgames/Level8demopage.dart';
-import 'package:mindgames/Levels_screen.dart';
 import 'package:mindgames/executiveskills.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class Introduction extends StatefulWidget {
   final String shownWhen;
@@ -18,7 +15,6 @@ class Introduction extends StatefulWidget {
 }
 
 class _IntroductionState extends State<Introduction> {
-  final DatabaseHelper _databaseHelper = DatabaseHelper();
   final PageController _pageController = PageController();
   int _currentPage = 0;
   final AudioCache _audioCache = AudioCache();

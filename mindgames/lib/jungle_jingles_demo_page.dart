@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:mindgames/AnimatedButton.dart';
 import 'package:mindgames/circular_chart.dart';
-import 'package:mindgames/cloud_store_service.dart';
 import 'package:mindgames/jungle_jingles_page.dart';
 import 'package:mindgames/socialskills.dart';
 import 'package:mindgames/utils/sound_manager.dart';
@@ -25,7 +24,7 @@ class JungleJinglesDemoPage extends ConsumerStatefulWidget {
 
 class _JungleJinglesDemoPageState extends ConsumerState<JungleJinglesDemoPage>
     with SingleTickerProviderStateMixin {
-  bool _isPaused = false;
+  bool isPaused = false;
   bool _soundEnabled = true;
   bool _vibrationEnabled = false;
   bool _answered = false;
@@ -148,11 +147,11 @@ class _JungleJinglesDemoPageState extends ConsumerState<JungleJinglesDemoPage>
     }
 
     setState(() {
-      _isPaused = true;
+      isPaused = true;
     });
     result = await displayPauseMenu();
     setState(() {
-      _isPaused = false;
+      isPaused = false;
     });
 
     return result ?? false;
@@ -204,7 +203,7 @@ class _JungleJinglesDemoPageState extends ConsumerState<JungleJinglesDemoPage>
         } else {
           _currentAnimalIndex++;
           showCongratsDialog();
-          _isPaused = true;
+          isPaused = true;
         }
       });
     });
@@ -391,7 +390,7 @@ class _JungleJinglesDemoPageState extends ConsumerState<JungleJinglesDemoPage>
                               child: GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                    _isPaused = true; // Trigger the pause menu
+                                    isPaused = true; // Trigger the pause menu
                                   });
                                 },
                                 child: Padding(

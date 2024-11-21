@@ -10,17 +10,18 @@ import 'package:mindgames/widgets/snackbar_widget.dart';
 import 'package:provider/provider.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
+  const ChangePasswordScreen({super.key});
   @override
-  _ChangePasswordScreenState createState() => _ChangePasswordScreenState();
+  State<ChangePasswordScreen> createState() => _ChangePasswordScreenState();
 }
 
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
   late final RegistrationController registrationController;
-  String _oldPassword = '';
-  String _newPassword = '';
-  String _confirmPassword = '';
+  String oldPassword = '';
+  String newPassword = '';
+  String confirmPassword = '';
   bool _isLoading = false;
   late final TextEditingController oldPasswordController;
   late final TextEditingController newPasswordController;
@@ -59,17 +60,24 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       // Reauthenticate the user with the old password
       AuthCredential credential = EmailAuthProvider.credential(
         email: user.email!,
-        password: _oldPassword,
+        password: oldPassword,
       );
 
       await user.reauthenticateWithCredential(credential);
 
       // Now update to the new password
-      await user.updatePassword(_newPassword);
+      await user.updatePassword(newPassword);
+
+      if (!context.mounted) {
+        return;
+      }
 
       showCustomSnackbar(
           context, 'Success'.tr, 'Password updated successfully!'.tr);
     } catch (e) {
+      if (!context.mounted) {
+        return;
+      }
       showCustomSnackbar(
           context, 'Error'.tr, 'Failed to update password: '.tr + e.toString());
     } finally {
@@ -85,6 +93,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -106,7 +115,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     style: TextStyle(
                       fontSize: screenWidth * 0.1,
                       fontWeight: FontWeight.w600,
-                      color: Color(0xFF309092),
+                      color: const Color(0xFF309092),
                     ),
                   ),
                   SizedBox(height: screenHeight * 0.03),
@@ -137,7 +146,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                             ),
                           ),
                           onChanged: (value) {
-                            _oldPassword = value;
+                            oldPassword = value;
                           },
                         ),
                         SizedBox(height: screenHeight * 0.02),
@@ -165,7 +174,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                           ),
                           validator: Validator.passwordValidator,
                           onChanged: (value) {
-                            _newPassword = value;
+                            newPassword = value;
                           },
                         ),
                         SizedBox(height: screenHeight * 0.02),
@@ -195,13 +204,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                             if (value == null || value.isEmpty) {
                               return 'Please confirm your password'.tr;
                             }
-                            if (value != _newPassword) {
+                            if (value != newPassword) {
                               return 'Passwords do not match'.tr;
                             }
                             return null;
                           },
                           onChanged: (value) {
-                            _confirmPassword = value;
+                            confirmPassword = value;
                           },
                         ),
                       ],

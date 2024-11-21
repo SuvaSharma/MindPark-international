@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mindgames/AnimatedButton.dart';
 import 'package:mindgames/ERT.dart';
-import 'package:mindgames/ERTInsPage.dart';
-import 'package:mindgames/Levels_screen.dart';
 import 'package:mindgames/circular_chart.dart';
 import 'package:mindgames/socialskills.dart';
 import 'package:mindgames/widgets/pause_menu.dart';

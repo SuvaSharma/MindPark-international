@@ -66,6 +66,10 @@ class _ADHDState extends ConsumerState<ADHD> {
           ],
         ),
       );
+
+      if (!context.mounted) {
+        return;
+      }
       Navigator.of(context).pop();
       Navigator.pushAndRemoveUntil(
         context,
@@ -75,6 +79,9 @@ class _ADHDState extends ConsumerState<ADHD> {
       showCustomSnackbar(
           context, 'Success'.tr, 'Questionnaire submitted successfully!'.tr);
     } catch (e) {
+      if (!context.mounted) {
+        return;
+      }
       showCustomSnackbar(context, 'Error'.tr, '${e.toString()}'.tr);
     }
   }
@@ -86,7 +93,7 @@ class _ADHDState extends ConsumerState<ADHD> {
         child: LayoutBuilder(
           builder: (context, constraints) {
             return Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/images/levelscreen.png"),
                   fit: BoxFit.cover,

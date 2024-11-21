@@ -10,7 +10,6 @@ import 'package:mindgames/models/gaze_maze_model.dart';
 import 'package:mindgames/providers.dart';
 import 'package:mindgames/socialskills.dart';
 import 'package:mindgames/utils/difficulty_enum.dart';
-import 'package:mindgames/verbalskills.dart';
 import 'package:mindgames/widgets/congrats_dialog.dart';
 import 'package:mindgames/widgets/difficulty_dialog.dart';
 import 'package:mindgames/widgets/pause_menu.dart';

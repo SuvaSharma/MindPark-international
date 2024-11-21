@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:html/parser.dart' show parse;
 import 'package:crypto/crypto.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' hide Transaction;
 import 'package:mindgames/CPTDataModel.dart';
@@ -26,9 +24,8 @@ import 'package:mindgames/models/simon_says_model.dart';
 import 'package:mindgames/models/story.dart';
 import 'package:mindgames/models/story_group.dart';
 import 'package:mindgames/models/subscription_model.dart'
-    show SubscriptionModel, Transaction;
+    show SubscriptionModel;
 import 'package:mindgames/models/voiceloon_model.dart';
-import 'package:mindgames/providers.dart';
 import 'package:mindgames/questionnaire_response.dart';
 import 'package:mindgames/utils/calculate_mean_median.dart';
 import 'package:mindgames/utils/difficulty_enum.dart';
@@ -66,7 +63,7 @@ class CloudStoreService {
   }
 
   Future<void> addSDMTData(List<GameData> gameDataList) async {
-    gameDataList.forEach((gameData) async {
+    for (final gameData in gameDataList) {
       await db.collection('sdmt-data').add({
         'userId': gameData.userId,
         'sessionId': gameData.sessionId,
@@ -77,7 +74,7 @@ class CloudStoreService {
         'symbolDisplayTime': gameData.symbolDisplayTime
       }).then((DocumentReference doc) =>
           print('Document added with ID: ${doc.id}'));
-    });
+    }
   }
 
   Future<void> addSDMTResult(SDMTResult sdmtResult) async {
@@ -117,7 +114,7 @@ class CloudStoreService {
   }
 
   Future<void> addStroopData(List<Word> wordDataList) async {
-    wordDataList.forEach((wordData) async {
+    for (final wordData in wordDataList) {
       await db.collection('stroop-data').add({
         'userId': wordData.userId,
         'sessionId': wordData.sessionId,
@@ -129,7 +126,7 @@ class CloudStoreService {
         'responseTime': wordData.responseTime,
       }).then((DocumentReference doc) =>
           print('Document added with ID: ${doc.id}'));
-    });
+    }
   }
 
   Future<void> addStroopResult(StroopResult stroopResult) async {
@@ -170,7 +167,7 @@ class CloudStoreService {
   }
 
   Future<void> addDSTData(List<DSTData> DSTDataList) async {
-    DSTDataList.forEach((dstData) async {
+    for (final dstData in DSTDataList) {
       await db.collection('dst-data').add({
         'userId': dstData.userId,
         'sessionId': dstData.sessionId,
@@ -181,7 +178,7 @@ class CloudStoreService {
         'responseTime': dstData.responseTime,
       }).then((DocumentReference doc) =>
           print('Document added with ID: ${doc.id}'));
-    });
+    }
   }
 
   Future<void> addDSTResult(DSTResult dstResult) async {
@@ -215,7 +212,7 @@ class CloudStoreService {
   }
 
   Future<void> addCPTData(List<CPTData> CPTDataList) async {
-    CPTDataList.forEach((cptData) async {
+    for (final cptData in CPTDataList) {
       await db.collection('cpt-data').add({
         'userId': cptData.userId,
         'sessionId': cptData.sessionId,
@@ -225,7 +222,7 @@ class CloudStoreService {
         'responseTime': cptData.responseTime,
       }).then((DocumentReference doc) =>
           print('Document added with ID: ${doc.id}'));
-    });
+    }
   }
 
   Future<void> addCPTResult(CPTResult cptResult) async {
@@ -311,7 +308,6 @@ class CloudStoreService {
       'difficulty': ertResult.difficulty.name,
       'sessionId': ertResult.sessionId,
       'accuracy': ertResult.accuracy,
-      'difficulty': ertResult.difficulty.name,
       'score': ertResult.score,
     }).then(
       (DocumentReference doc) => print('Document added with ID: ${doc.id}'),

@@ -145,6 +145,7 @@ class _PostPageState extends State<PostPage> {
                               ),
                             );
                           }
+                          return null;
                         },
                         customStylesBuilder: (element) {
                           if (element.localName == 'h2') {
