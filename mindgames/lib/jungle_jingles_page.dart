@@ -31,10 +31,11 @@ class _JungleJinglesPageState extends ConsumerState<JungleJinglesPage>
   CloudStoreService cloudStoreService = CloudStoreService();
   late final String selectedChildUserId;
   DateTime sessionId = DateTime.now();
-  bool _isPaused = false;
+  bool isPaused = false;
   bool _vibrationEnabled = false;
   bool _answered = false;
   bool _isStarted = false;
+  bool shouldDisplayAnimation = false;
   Map<String, String>? _selectedOption;
   int _currentAnimalIndex = 0;
   late List<Map<String, String>> randomOptions;
@@ -179,6 +180,10 @@ class _JungleJinglesPageState extends ConsumerState<JungleJinglesPage>
     _playSound('PauseTap.mp3', player1);
     bool? result;
 
+    setState(() {
+      shouldDisplayAnimation = false;
+    });
+
     Future<bool?> displayPauseMenu() async {
       return await showDialog<bool>(
         context: context,
@@ -197,11 +202,21 @@ class _JungleJinglesPageState extends ConsumerState<JungleJinglesPage>
     }
 
     setState(() {
-      _isPaused = true;
+      isPaused = true;
     });
     result = await displayPauseMenu();
     setState(() {
-      _isPaused = false;
+      isPaused = false;
+
+      if (shouldDisplayAnimation) {
+        shouldDisplayAnimation = false;
+
+        _startAnimation();
+        animalImage = animalData[_currentAnimalIndex >= animalData.length
+            ? 0
+            : _currentAnimalIndex]['image']!;
+        populateRandomOptions();
+      }
     });
 
     return result ?? false;
@@ -250,16 +265,22 @@ class _JungleJinglesPageState extends ConsumerState<JungleJinglesPage>
         _answered = false;
         if (_currentAnimalIndex < animalData.length - 1) {
           _currentAnimalIndex++;
-          _startAnimation();
-          animalImage = animalData[_currentAnimalIndex >= animalData.length
-              ? 0
-              : _currentAnimalIndex]['image']!;
-          populateRandomOptions();
+          if (!isPaused) {
+            _startAnimation();
+            animalImage = animalData[_currentAnimalIndex >= animalData.length
+                ? 0
+                : _currentAnimalIndex]['image']!;
+            populateRandomOptions();
+          } else {
+            setState(() {
+              shouldDisplayAnimation = true;
+            });
+          }
         } else {
           _currentAnimalIndex++;
           storeData();
           showCongratsDialog();
-          _isPaused = true;
+          isPaused = true;
         }
       });
     });
@@ -355,7 +376,7 @@ class _JungleJinglesPageState extends ConsumerState<JungleJinglesPage>
                             child: GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  _isPaused = true; // Trigger the pause menu
+                                  isPaused = true; // Trigger the pause menu
                                 });
                               },
                               child: Padding(
@@ -373,7 +394,7 @@ class _JungleJinglesPageState extends ConsumerState<JungleJinglesPage>
                                             baseSize * 0.03),
                                       ),
                                       child: IconButton(
-                                        icon: Icon(Icons.pause),
+                                        icon: const Icon(Icons.pause),
                                         iconSize: baseSize * 0.07,
                                         onPressed: onBackPressed,
                                       ),
@@ -383,7 +404,6 @@ class _JungleJinglesPageState extends ConsumerState<JungleJinglesPage>
                               ),
                             ),
                           ),
-                          SizedBox(height: screenHeight * 0.05),
                           SlideTransition(
                             position: offsetAnimation,
                             child: Column(
@@ -424,7 +444,7 @@ class _JungleJinglesPageState extends ConsumerState<JungleJinglesPage>
                                 GridView.builder(
                                   shrinkWrap: true,
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: screenWidth * 0.15),
+                                      horizontal: screenWidth * 0.18),
                                   gridDelegate:
                                       const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
@@ -460,7 +480,8 @@ class _JungleJinglesPageState extends ConsumerState<JungleJinglesPage>
                                               : Colors.blue,
                                           border: Border.all(
                                             color: isSelected && !showFeedback
-                                                ? Color.fromARGB(137, 1, 17, 85)
+                                                ? const Color.fromARGB(
+                                                    137, 1, 17, 85)
                                                 : Colors.transparent,
                                             width: 3,
                                           ),
@@ -470,7 +491,7 @@ class _JungleJinglesPageState extends ConsumerState<JungleJinglesPage>
                                         child: Text(
                                           option['name']!.tr,
                                           style: TextStyle(
-                                            fontSize: screenWidth * 0.05,
+                                            fontSize: screenWidth * 0.04,
                                             fontWeight: FontWeight.bold,
                                             color: Colors.white,
                                           ),

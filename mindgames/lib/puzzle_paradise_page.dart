@@ -45,7 +45,6 @@ class PuzzleWidgetState extends ConsumerState<PuzzleWidget> {
 
   int numberOfColumns = 0;
   int numberOfRows = 0;
-  bool _vibrationEnabled = false;
   bool _soundEnabled = true;
 
   @override
@@ -75,8 +74,6 @@ class PuzzleWidgetState extends ConsumerState<PuzzleWidget> {
       _soundEnabled = prefs.getBool('sound_enabled') ?? true; // Default: true
       // Update SoundManager with the new sound setting
       SoundManager.isSoundEnabled = _soundEnabled;
-      _vibrationEnabled =
-          prefs.getBool('vibration_enabled') ?? false; // Default: false
     });
   }
 
@@ -278,16 +275,18 @@ class PuzzleWidgetState extends ConsumerState<PuzzleWidget> {
                         child: Align(
                           alignment: Alignment.topLeft,
                           child: SizedBox(
-                            height: baseSize * 0.15,
-                            width: baseSize * 0.15,
+                            height: baseSize * 0.13,
+                            width: baseSize * 0.13,
                             child: Stack(
                               fit: StackFit.expand,
                               children: [
                                 SvgPicture.asset(
                                   'assets/images/timer_container.svg',
                                   fit: BoxFit.cover,
-                                  width: screenWidth * 0.06,
-                                  color: Color.fromARGB(255, 21, 173, 184),
+                                  colorFilter: const ColorFilter.mode(
+                                      Color.fromARGB(255, 21, 173, 184),
+                                      BlendMode.srcIn),
+
                                   // Ensure the image covers the entire area of the Container
                                 ),
                                 Padding(
@@ -297,7 +296,7 @@ class PuzzleWidgetState extends ConsumerState<PuzzleWidget> {
                                   child: Text(
                                     '${convertToNepaliNumbers((timeRemaining).toString())}s',
                                     style: TextStyle(
-                                      fontSize: screenWidth * 0.040,
+                                      fontSize: screenWidth * 0.035,
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white,
                                     ),
@@ -321,25 +320,22 @@ class PuzzleWidgetState extends ConsumerState<PuzzleWidget> {
                                 _isPaused = true; // Trigger the pause menu
                               });
                             },
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Align(
-                                alignment: Alignment.topRight,
-                                child: Material(
-                                  elevation: 10,
-                                  borderRadius:
-                                      BorderRadius.circular(baseSize * 0.03),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(
-                                          baseSize * 0.03),
-                                    ),
-                                    child: IconButton(
-                                      icon: Icon(Icons.pause),
-                                      iconSize: baseSize * 0.07,
-                                      onPressed: onBackPressed,
-                                    ),
+                            child: Align(
+                              alignment: Alignment.topRight,
+                              child: Material(
+                                elevation: 10,
+                                borderRadius:
+                                    BorderRadius.circular(baseSize * 0.03),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius:
+                                        BorderRadius.circular(baseSize * 0.03),
+                                  ),
+                                  child: IconButton(
+                                    icon: Icon(Icons.pause),
+                                    iconSize: baseSize * 0.07,
+                                    onPressed: onBackPressed,
                                   ),
                                 ),
                               ),
@@ -347,43 +343,38 @@ class PuzzleWidgetState extends ConsumerState<PuzzleWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.all(screenWidth * 0.02),
-                          child: Container(
-                            margin: const EdgeInsets.all(10),
-                            child: JigsawWidget(
-                              xSplitCount: numberOfColumns,
-                              ySplitCount: numberOfRows,
-                              callbackFinish: () {
-                                print('Time taken: $timeTaken');
-                                setState(() {
-                                  _isPaused = true;
-                                });
-                                showCongratsDialog();
-                                storeData();
-                              },
-                              callbackSuccess: () {
-                                print("callbackSuccess");
-                                // lets fix error size
-                              },
-                              key: jigKey,
-                              // set container for our jigsaw image
-                              child: Image(
-                                fit: BoxFit.cover,
-                                image: AssetImage(imageSelected),
-                              ),
+                          padding: EdgeInsets.only(
+                            top: screenWidth * 0.02,
+                            bottom: screenWidth * 0.02,
+                          ),
+                          child: JigsawWidget(
+                            xSplitCount: numberOfColumns,
+                            ySplitCount: numberOfRows,
+                            callbackFinish: () {
+                              print('Time taken: $timeTaken');
+                              setState(() {
+                                _isPaused = true;
+                              });
+                              showCongratsDialog();
+                              storeData();
+                            },
+                            callbackSuccess: () {
+                              print("callbackSuccess");
+                              // lets fix error size
+                            },
+                            key: jigKey,
+                            // set container for our jigsaw image
+                            child: Image(
+                              fit: BoxFit.cover,
+                              image: AssetImage(imageSelected),
                             ),
                           ),
                         ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Visibility(
-                              visible: _isStarted,
-                              child: Image.asset(imageSelected,
-                                  height: screenWidth * 0.2,
-                                  width: screenWidth * 0.2),
-                            )
-                          ],
+                        Visibility(
+                          visible: _isStarted,
+                          child: Image.asset(imageSelected,
+                              height: screenWidth * 0.2,
+                              width: screenWidth * 0.2),
                         )
                       ],
                     )

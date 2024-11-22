@@ -41,7 +41,7 @@ class _PostPageState extends State<PostPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: widget.blog.tags!.indexed
                                 .map(((int, String) item) {
-                              final (index, text) = item;
+                              final (_, text) = item;
                               return Container(
                                 margin: EdgeInsets.only(
                                     right: screenHeight * 0.005),

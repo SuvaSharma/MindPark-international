@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import 'package:mindgames/child.dart';
 import 'package:mindgames/cloud_store_service.dart';
 import 'package:mindgames/graph_data.dart';
 import 'package:mindgames/providers.dart';
@@ -18,7 +19,7 @@ class VerbalDetailPage extends ConsumerStatefulWidget {
 }
 
 class _VerbalDetailPageState extends ConsumerState<VerbalDetailPage> {
-  late final selectedChild;
+  Child? selectedChild;
   List<GraphData> VerbaleasyGraphData = [];
   List<GraphData> VerbalmediumGraphData = [];
   List<GraphData> VerbalhardGraphData = [];

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:mindgames/Domains.dart';
 import 'package:mindgames/behavior_tab.dart';
+import 'package:mindgames/child.dart';
 import 'package:mindgames/cloud_store_service.dart';
 import 'package:mindgames/form_section.dart';
 import 'package:mindgames/profile.dart';
@@ -21,7 +22,7 @@ class Homepage extends ConsumerStatefulWidget {
 
 class _HomepageState extends ConsumerState<Homepage> {
   CloudStoreService cloudStoreService = CloudStoreService();
-  late final selectedChild;
+  Child? selectedChild;
   bool isLoading = true;
   List<Map<String, dynamic>> gameResult = [
     {
