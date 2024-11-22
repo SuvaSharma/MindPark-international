@@ -29,6 +29,7 @@ class _JungleJinglesDemoPageState extends ConsumerState<JungleJinglesDemoPage>
   bool _vibrationEnabled = false;
   bool _answered = false;
   bool _isStarted = false;
+  bool shouldDisplayAnimation = false;
   Map<String, String>? _selectedOption;
   int _currentAnimalIndex = 0;
   List<Map<String, String>> randomOptions = [];
@@ -129,6 +130,10 @@ class _JungleJinglesDemoPageState extends ConsumerState<JungleJinglesDemoPage>
     _playSound('PauseTap.mp3', player1);
     bool? result;
 
+    setState(() {
+      shouldDisplayAnimation = false;
+    });
+
     Future<bool?> displayPauseMenu() async {
       return await showDialog<bool>(
         context: context,
@@ -150,9 +155,19 @@ class _JungleJinglesDemoPageState extends ConsumerState<JungleJinglesDemoPage>
       isPaused = true;
     });
     result = await displayPauseMenu();
-    setState(() {
-      isPaused = false;
-    });
+
+    if (result == false) {
+      setState(() {
+        isPaused = false;
+
+        if (shouldDisplayAnimation) {
+          shouldDisplayAnimation = false;
+
+          _startAnimation();
+          populateRandomOptions();
+        }
+      });
+    }
 
     return result ?? false;
   }
@@ -198,8 +213,14 @@ class _JungleJinglesDemoPageState extends ConsumerState<JungleJinglesDemoPage>
         _answered = false;
         if (_currentAnimalIndex < animalCount - 1) {
           _currentAnimalIndex++;
-          _startAnimation();
-          populateRandomOptions();
+          if (!isPaused) {
+            _startAnimation();
+            populateRandomOptions();
+          } else {
+            setState(() {
+              shouldDisplayAnimation = true;
+            });
+          }
         } else {
           _currentAnimalIndex++;
           showCongratsDialog();

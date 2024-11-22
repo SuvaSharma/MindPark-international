@@ -713,9 +713,9 @@ class _TMTDemoPageState extends State<TMTDemoPage> {
                                     'assets/images/timer_container.svg',
                                     fit: BoxFit.cover,
                                     width: screenWidth * 0.06,
-                                    color:
-                                        const Color.fromARGB(255, 21, 173, 184),
-                                    // Ensure the image covers the entire area of the Container
+                                    colorFilter: const ColorFilter.mode(
+                                        Color.fromARGB(255, 21, 173, 184),
+                                        BlendMode.srcIn),
                                   ),
                                 ),
                               ),

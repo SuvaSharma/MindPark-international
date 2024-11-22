@@ -10,11 +10,13 @@ import 'package:mindgames/adhd_tracking_page.dart';
 import 'package:mindgames/adhdform.dart';
 import 'package:mindgames/asd_tracking_page.dart';
 import 'package:mindgames/autismform.dart';
+import 'package:mindgames/child.dart';
 import 'package:mindgames/cloud_store_service.dart';
 import 'package:mindgames/finemotor_detail_page.dart';
 import 'package:mindgames/form_section.dart';
 import 'package:mindgames/profile.dart';
 import 'package:mindgames/providers.dart';
+import 'package:mindgames/services/auth_service.dart';
 import 'package:mindgames/settings.dart';
 import 'package:mindgames/social_detail_page.dart';
 import 'package:mindgames/utils/difficulty_enum.dart';
@@ -23,9 +25,11 @@ import 'package:mindgames/verbal_detail_page.dart';
 import 'package:mindgames/widgets/Container_widget.dart';
 import 'package:mindgames/widgets/carousel_slider.dart';
 import 'package:mindgames/widgets/circular_progress_indicator.dart';
+import 'package:mindgames/widgets/pin_verification_dialog.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MainPage extends ConsumerStatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+  const MainPage({super.key});
 
   @override
   ConsumerState<MainPage> createState() => _MainPageState();
@@ -33,7 +37,10 @@ class MainPage extends ConsumerStatefulWidget {
 
 class _MainPageState extends ConsumerState<MainPage> {
   CloudStoreService cloudStoreService = CloudStoreService();
-  late final selectedChild;
+
+  late Future<Map<String, dynamic>> signedInUser;
+  final currentUser = AuthService.user;
+  Child? selectedChild;
   bool isLoading = true;
   Map<String, dynamic>? adhdStatus;
   Map<String, dynamic>? asdStatus;
@@ -64,9 +71,10 @@ class _MainPageState extends ConsumerState<MainPage> {
 
   double calculateAverage(List<Map<String, dynamic>> data, String parameter) {
     double sum = 0;
-    data.forEach((element) {
+
+    for (final element in data) {
       sum += element[parameter];
-    });
+    }
 
     return sum / data.length;
   }
@@ -78,24 +86,20 @@ class _MainPageState extends ConsumerState<MainPage> {
       {
         'imagePath': 'assets/images/BehavioralAssessment.jpeg',
         'name': 'Behavioral Assessment'.tr,
-        'navigateTo': FormPage(),
+        'navigateTo': const FormPage(),
       },
       {
         'imagePath': 'assets/images/cognitivetraining.jpeg',
         'name': 'Cognitive Training'.tr,
-        'navigateTo': DomainPage(),
+        'navigateTo': const DomainPage(),
       },
     ];
   }
 
   late double performanceStrength = 0;
   bool allGamesPlayed = false;
-  int _selectedIndex = 1;
-  final List<Widget> _pages = [
-    const DomainPage(),
-    const MainPage(),
-    const FormPage()
-  ];
+  int selectedIndex = 1;
+
   @override
   void initState() {
     super.initState();
@@ -109,13 +113,11 @@ class _MainPageState extends ConsumerState<MainPage> {
     fetchMathData();
     fetchCognitiveData();
     fetchExecutiveData();
-    isPremium();
+    signedInUser = getCurrentUser();
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+  Future<Map<String, dynamic>> getCurrentUser() async {
+    return await cloudStoreService.getCurrentUser(currentUser!.uid);
   }
 
   Future<void> fetchADHDStatus() async {
@@ -124,7 +126,8 @@ class _MainPageState extends ConsumerState<MainPage> {
         isLoading = true;
       });
 
-      adhdStatus = await cloudStoreService.getADHDStatus(selectedChild.childId);
+      adhdStatus =
+          await cloudStoreService.getADHDStatus(selectedChild!.childId);
     } catch (e) {
       adhdStatus = null;
     } finally {
@@ -139,7 +142,7 @@ class _MainPageState extends ConsumerState<MainPage> {
       setState(() {
         isLoading = true;
       });
-      asdStatus = await cloudStoreService.getASDStatus(selectedChild.childId);
+      asdStatus = await cloudStoreService.getASDStatus(selectedChild!.childId);
     } catch (e) {
       setState(() {
         asdStatus = null;
@@ -153,7 +156,7 @@ class _MainPageState extends ConsumerState<MainPage> {
 
 // Fine Motor Skills
   Future<void> fetchFineMotorData() async {
-    String? userId = selectedChild.childId;
+    String? userId = selectedChild!.childId;
     setState(() {
       isLoading = true;
     });
@@ -172,7 +175,7 @@ class _MainPageState extends ConsumerState<MainPage> {
 
 // Social Skills
   Future<void> fetchSocialData() async {
-    String? userId = selectedChild.childId;
+    String? userId = selectedChild!.childId;
     setState(() {
       isLoading = true;
     });
@@ -190,7 +193,7 @@ class _MainPageState extends ConsumerState<MainPage> {
 
   //Verbal Skills
   Future<void> fetchVerbalData() async {
-    String? userId = selectedChild.childId;
+    String? userId = selectedChild!.childId;
     setState(() {
       isLoading = true;
     });
@@ -208,7 +211,7 @@ class _MainPageState extends ConsumerState<MainPage> {
 
   //Math Skills
   Future<void> fetchMathData() async {
-    String? userId = selectedChild.childId;
+    String? userId = selectedChild!.childId;
     setState(() {
       isLoading = true;
     });
@@ -226,7 +229,7 @@ class _MainPageState extends ConsumerState<MainPage> {
 
   //Cognitive Skills
   Future<void> fetchCognitiveData() async {
-    String? userId = selectedChild.childId;
+    String? userId = selectedChild!.childId;
     setState(() {
       isLoading = true;
     });
@@ -244,7 +247,7 @@ class _MainPageState extends ConsumerState<MainPage> {
 
   //Executive Skills
   Future<void> fetchExecutiveData() async {
-    String? userId = selectedChild.childId;
+    String? userId = selectedChild!.childId;
     setState(() {
       isLoading = true;
     });
@@ -311,13 +314,30 @@ class _MainPageState extends ConsumerState<MainPage> {
                         ],
                       ),
                       GestureDetector(
-                        onTap: () {
-                          // thupukka game khel kina profile jana paryo talai
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Profile()),
-                          );
+                        onTap: () async {
+                          // // thupukka game khel kina profile jana paryo talai
+                          final SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+
+                          final bool parentalLockEnabled =
+                              prefs.getBool('parental_lock_enabled') ?? true;
+
+                          if (parentalLockEnabled) {
+                            if (!context.mounted) {
+                              return;
+                            }
+                            final user = await signedInUser;
+                            showProfilePinVerificationDialog(context, user);
+                          } else {
+                            if (!context.mounted) {
+                              return;
+                            }
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Profile()),
+                            );
+                          }
                         },
                         child: CircleAvatar(
                           child: Icon(

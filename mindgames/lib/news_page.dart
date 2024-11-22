@@ -66,13 +66,13 @@ class _NewsPageState extends State<NewsPage> {
                           color: const Color(0xFF309092)),
                     ));
                   } else if (snapshot.hasError) {
-                    return Center(child: Text('Failed to load content'));
+                    return const Center(child: Text('Failed to load content'));
                   } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Center(child: Text('No content available'));
+                    return const Center(child: Text('No content available'));
                   } else {
                     List<Blog> blogData = snapshot.data!;
                     return SingleChildScrollView(
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       child: Padding(
                         padding: EdgeInsets.all(screenWidth * 0.05),
                         child: Column(
@@ -108,8 +108,8 @@ class _NewsPageState extends State<NewsPage> {
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(5),
                                       border: Border.all(
-                                        color:
-                                            Color.fromARGB(255, 51, 106, 134),
+                                        color: const Color.fromARGB(
+                                            255, 51, 106, 134),
                                         width: 1,
                                       ),
                                     ),
@@ -131,7 +131,7 @@ class _NewsPageState extends State<NewsPage> {
                                                     .tags!
                                                     .indexed
                                                     .map(((int, String) item) {
-                                                  final (tagIndex, text) = item;
+                                                  final (_, text) = item;
                                                   return Container(
                                                     margin: EdgeInsets.only(
                                                         right: screenHeight *
