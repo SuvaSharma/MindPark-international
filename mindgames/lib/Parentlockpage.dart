@@ -128,8 +128,11 @@ class _ParentalLockSetupPageState extends State<ParentalLockSetupPage> {
                   Padding(
                     padding: EdgeInsets.all(screenWidth * 0.04),
                     child: TextField(
+                      controller: TextEditingController(
+                          text: user.email), // Preset value
+                      enabled: false, // Disable editing
                       cursorColor: const Color(0xFF309092),
-                      controller: _emailController,
+
                       keyboardType: TextInputType.emailAddress,
                       style: TextStyle(fontSize: screenWidth * 0.05),
                       decoration: InputDecoration(

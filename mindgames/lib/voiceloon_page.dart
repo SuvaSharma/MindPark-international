@@ -393,7 +393,9 @@ class _VoiceloonPageState extends ConsumerState<VoiceloonPage> {
                                   'assets/images/timer_container.svg',
                                   fit: BoxFit.cover,
                                   width: screenWidth * 0.06,
-                                  color: Color.fromARGB(255, 21, 173, 184),
+                                  colorFilter: const ColorFilter.mode(
+                                      Color.fromARGB(255, 21, 173, 184),
+                                      BlendMode.srcIn),
                                   // Ensure the image covers the entire area of the Container
                                 ),
                                 Padding(

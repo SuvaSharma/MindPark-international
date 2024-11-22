@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import 'package:mindgames/child.dart';
 import 'package:mindgames/cloud_store_service.dart';
 import 'package:mindgames/graph_data.dart';
 import 'package:mindgames/providers.dart';
@@ -18,7 +19,7 @@ class SocialDetailPage extends ConsumerStatefulWidget {
 }
 
 class _SocialDetailPageState extends ConsumerState<SocialDetailPage> {
-  late final selectedChild;
+  Child? selectedChild;
   List<GraphData> SocialeasyGraphData = [];
   List<GraphData> SocialmediumGraphData = [];
   List<GraphData> SocialhardGraphData = [];

@@ -629,7 +629,9 @@ class _TMTpageState extends State<TMTpage> {
                               'assets/images/timer_container.svg',
                               fit: BoxFit.cover,
                               width: screenWidth * 0.06,
-                              color: Color.fromARGB(255, 21, 173, 184),
+                              colorFilter: const ColorFilter.mode(
+                                  Color.fromARGB(255, 21, 173, 184),
+                                  BlendMode.srcIn),
                               // Ensure the image covers the entire area of the Container
                             ),
                           ),
@@ -643,7 +645,7 @@ class _TMTpageState extends State<TMTpage> {
                             child: Text(
                               '${convertToNepaliNumbers((timeLimit - secondsElapsed).toString())}s',
                               style: TextStyle(
-                                fontSize: screenWidth * 0.018,
+                                fontSize: screenWidth * 0.016,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
                               ),

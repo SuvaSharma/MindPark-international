@@ -265,25 +265,22 @@ class PuzzleDemoWidgetState extends ConsumerState<PuzzleDemoWidget> {
                                     _isPaused = true;
                                   });
                                 },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Align(
-                                    alignment: Alignment.topRight,
-                                    child: Material(
-                                      elevation: 10,
-                                      borderRadius: BorderRadius.circular(
-                                          baseSize * 0.03),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.circular(
-                                              baseSize * 0.03),
-                                        ),
-                                        child: IconButton(
-                                          icon: const Icon(Icons.pause),
-                                          iconSize: baseSize * 0.07,
-                                          onPressed: onBackPressed,
-                                        ),
+                                child: Align(
+                                  alignment: Alignment.topRight,
+                                  child: Material(
+                                    elevation: 10,
+                                    borderRadius:
+                                        BorderRadius.circular(baseSize * 0.03),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(
+                                            baseSize * 0.03),
+                                      ),
+                                      child: IconButton(
+                                        icon: const Icon(Icons.pause),
+                                        iconSize: baseSize * 0.07,
+                                        onPressed: onBackPressed,
                                       ),
                                     ),
                                   ),
@@ -291,7 +288,10 @@ class PuzzleDemoWidgetState extends ConsumerState<PuzzleDemoWidget> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.all(screenWidth * 0.02),
+                              padding: EdgeInsets.only(
+                                top: screenWidth * 0.02,
+                                bottom: screenWidth * 0.02,
+                              ),
                               child: JigsawWidget(
                                 xSplitCount: 2,
                                 ySplitCount: 1,
@@ -308,28 +308,19 @@ class PuzzleDemoWidgetState extends ConsumerState<PuzzleDemoWidget> {
                                 },
                                 key: jigKey,
                                 // set container for our jigsaw image
-                                child: SizedBox(
-                                  height: screenWidth * 0.8,
-                                  width: screenWidth * 0.8,
-                                  child: const Image(
-                                    fit: BoxFit.cover,
-                                    image: AssetImage(
-                                      'assets/images/fish.jpg',
-                                    ),
+                                child: const Image(
+                                  fit: BoxFit.cover,
+                                  image: AssetImage(
+                                    'assets/images/fish.jpg',
                                   ),
                                 ),
                               ),
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Visibility(
-                                  visible: _isStarted,
-                                  child: Image.asset('assets/images/fish.jpg',
-                                      height: screenWidth * 0.3,
-                                      width: screenWidth * 0.3),
-                                )
-                              ],
+                            Visibility(
+                              visible: _isStarted,
+                              child: Image.asset('assets/images/fish.jpg',
+                                  height: screenWidth * 0.2,
+                                  width: screenWidth * 0.2),
                             )
                           ],
                         )
