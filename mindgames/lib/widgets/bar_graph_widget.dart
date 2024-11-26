@@ -10,11 +10,11 @@ class BarGraphWidget extends StatelessWidget {
   final bool aggregateByYear;
 
   const BarGraphWidget({
-    Key? key,
+    super.key,
     required this.graphData,
     required this.difficultyLabel,
     this.aggregateByYear = true,
-  }) : super(key: key);
+  });
 
   List<GraphData> _getYearlyAverages() {
     final groupedByYear = groupBy(graphData, (GraphData data) => data.year);
@@ -45,7 +45,7 @@ class BarGraphWidget extends StatelessWidget {
           style: TextStyle(
               fontSize: containerWidth * 0.04, fontWeight: FontWeight.bold),
         ),
-        Container(
+        SizedBox(
           height: containerHeight * 0.2,
           width: containerWidth,
           child: SingleChildScrollView(
@@ -93,13 +93,13 @@ class BarGraphWidget extends StatelessWidget {
                     xValueMapper: (GraphData data, _) =>
                         DateTime(data.year, aggregateByYear ? 1 : data.month),
                     yValueMapper: (GraphData data, _) => data.data,
-                    color: Color(0xFF309092),
+                    color: const Color(0xFF309092),
                     dataLabelSettings:
                         const DataLabelSettings(isVisible: false),
                     width: 0.15,
                     spacing: 0.1,
                     animationDuration: 0,
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(10),
                       topRight: Radius.circular(10),
                     ),

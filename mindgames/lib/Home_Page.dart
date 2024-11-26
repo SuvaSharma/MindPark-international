@@ -20,7 +20,6 @@ import 'package:mindgames/services/auth_service.dart';
 import 'package:mindgames/settings.dart';
 import 'package:mindgames/social_detail_page.dart';
 import 'package:mindgames/utils/difficulty_enum.dart';
-import 'package:mindgames/utils/handle_payment.dart';
 import 'package:mindgames/verbal_detail_page.dart';
 import 'package:mindgames/widgets/Container_widget.dart';
 import 'package:mindgames/widgets/carousel_slider.dart';
@@ -340,13 +339,13 @@ class _MainPageState extends ConsumerState<MainPage> {
                           }
                         },
                         child: CircleAvatar(
-                          child: Icon(
-                            Icons.person,
-                            color: Color(0xFF309092),
-                            size: screenWidth * 0.09,
-                          ),
                           radius: screenWidth * 0.05, // 5% of screen width
                           backgroundColor: Colors.white,
+                          child: Icon(
+                            Icons.person,
+                            color: const Color(0xFF309092),
+                            size: screenWidth * 0.09,
+                          ),
                         ),
                       ),
                     ],
@@ -358,7 +357,7 @@ class _MainPageState extends ConsumerState<MainPage> {
                   right: 0,
                   child: Center(
                     child: Text(
-                      "Welcome, ".tr + selectedChild!.name + "!",
+                      "${"Welcome, ".tr}${selectedChild!.name}!",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: screenWidth * 0.07,
@@ -389,13 +388,13 @@ class _MainPageState extends ConsumerState<MainPage> {
                 child: Text(
                   'Behavioral Performance'.tr,
                   style: TextStyle(
-                      color: Color(0xFF309092),
+                      color: const Color(0xFF309092),
                       fontSize: screenWidth * 0.07,
                       fontWeight: FontWeight.bold),
                 ),
               ),
             ),
-            Divider(
+            const Divider(
               thickness: 2,
               indent: 15,
               endIndent: 25,
@@ -408,7 +407,7 @@ class _MainPageState extends ConsumerState<MainPage> {
                 child: Text(
                   'Autism'.tr,
                   style: TextStyle(
-                    color: Color(0xFF309092),
+                    color: const Color(0xFF309092),
                     fontSize: screenWidth * 0.06,
                   ),
                 ),
@@ -508,7 +507,7 @@ class _MainPageState extends ConsumerState<MainPage> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    ASDTrackingPage()));
+                                                    const ASDTrackingPage()));
                                       },
                                       child: AnimatedButton(
                                         width: screenWidth * 0.45,
@@ -554,7 +553,7 @@ class _MainPageState extends ConsumerState<MainPage> {
                 child: Text(
                   'ADHD'.tr,
                   style: TextStyle(
-                    color: Color(0xFF309092),
+                    color: const Color(0xFF309092),
                     fontSize: screenWidth * 0.06,
                   ),
                 ),
@@ -596,7 +595,7 @@ class _MainPageState extends ConsumerState<MainPage> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => ADHD()),
+                                          builder: (context) => const ADHD()),
                                     );
                                   },
                                   child: Text(
@@ -615,7 +614,7 @@ class _MainPageState extends ConsumerState<MainPage> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            ADHDTrackingPage()));
+                                            const ADHDTrackingPage()));
                               },
                               child: Align(
                                 alignment: Alignment.center,
@@ -655,7 +654,7 @@ class _MainPageState extends ConsumerState<MainPage> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        ADHDTrackingPage()));
+                                                        const ADHDTrackingPage()));
                                           },
                                           child: AnimatedButton(
                                             width: screenWidth * 0.45,
@@ -696,13 +695,13 @@ class _MainPageState extends ConsumerState<MainPage> {
                 child: Text(
                   'Key Skills Scores'.tr,
                   style: TextStyle(
-                      color: Color(0xFF309092),
+                      color: const Color(0xFF309092),
                       fontSize: screenWidth * 0.06,
                       fontWeight: FontWeight.bold),
                 ),
               ),
             ),
-            Divider(
+            const Divider(
               thickness: 2,
               indent: 15,
               endIndent: 25,
@@ -718,7 +717,7 @@ class _MainPageState extends ConsumerState<MainPage> {
                 child: Text(
                   'Fine Motor'.tr,
                   style: TextStyle(
-                    color: Color(0xFF309092),
+                    color: const Color(0xFF309092),
                     fontSize: screenWidth * 0.06,
                   ),
                 ),
@@ -731,7 +730,7 @@ class _MainPageState extends ConsumerState<MainPage> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => FinemotorDetailPage(),
+                      builder: (context) => const FinemotorDetailPage(),
                     ),
                   );
                 },
@@ -791,7 +790,7 @@ class _MainPageState extends ConsumerState<MainPage> {
                 child: Text(
                   'Social'.tr,
                   style: TextStyle(
-                    color: Color(0xFF309092),
+                    color: const Color(0xFF309092),
                     fontSize: screenWidth * 0.06,
                   ),
                 ),
@@ -804,7 +803,7 @@ class _MainPageState extends ConsumerState<MainPage> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => SocialDetailPage()));
+                          builder: (context) => const SocialDetailPage()));
                 },
                 child: ContainerWidget(
                   screenWidth: screenWidth,
@@ -860,7 +859,7 @@ class _MainPageState extends ConsumerState<MainPage> {
                 child: Text(
                   'Verbal'.tr,
                   style: TextStyle(
-                    color: Color(0xFF309092),
+                    color: const Color(0xFF309092),
                     fontSize: screenWidth * 0.06,
                   ),
                 ),
@@ -873,7 +872,7 @@ class _MainPageState extends ConsumerState<MainPage> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => VerbalDetailPage()));
+                          builder: (context) => const VerbalDetailPage()));
                 },
                 child: ContainerWidget(
                   screenWidth: screenWidth,
@@ -929,7 +928,7 @@ class _MainPageState extends ConsumerState<MainPage> {
                 child: Text(
                   'Math'.tr,
                   style: TextStyle(
-                    color: Color(0xFF309092),
+                    color: const Color(0xFF309092),
                     fontSize: screenWidth * 0.06,
                   ),
                 ),
@@ -942,7 +941,7 @@ class _MainPageState extends ConsumerState<MainPage> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => MathDetailPage()));
+                          builder: (context) => const MathDetailPage()));
                 },
                 child: ContainerWidget(
                   screenWidth: screenWidth,
@@ -998,7 +997,7 @@ class _MainPageState extends ConsumerState<MainPage> {
                 child: Text(
                   'Cognitive'.tr,
                   style: TextStyle(
-                    color: Color(0xFF309092),
+                    color: const Color(0xFF309092),
                     fontSize: screenWidth * 0.06,
                   ),
                 ),
@@ -1011,7 +1010,7 @@ class _MainPageState extends ConsumerState<MainPage> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => CognitiveDetailPage()));
+                          builder: (context) => const CognitiveDetailPage()));
                 },
                 child: ContainerWidget(
                   screenWidth: screenWidth,
@@ -1067,7 +1066,7 @@ class _MainPageState extends ConsumerState<MainPage> {
                 child: Text(
                   'Executive'.tr,
                   style: TextStyle(
-                      color: Color(0xFF309092),
+                      color: const Color(0xFF309092),
                       fontSize: screenWidth * 0.06,
                       fontWeight: FontWeight.bold),
                 ),

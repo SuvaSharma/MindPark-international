@@ -429,7 +429,7 @@ class _JungleJinglesDemoPageState extends ConsumerState<JungleJinglesDemoPage>
                                               baseSize * 0.03),
                                         ),
                                         child: IconButton(
-                                          icon: Icon(Icons.pause),
+                                          icon: const Icon(Icons.pause),
                                           iconSize: baseSize * 0.07,
                                           onPressed: onBackPressed,
                                         ),

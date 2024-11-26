@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mindgames/cloud_store_service.dart';
@@ -6,11 +8,10 @@ import 'package:mindgames/utils/convert_to_nepali_numbers.dart';
 class QuestionnaireResponsePage extends StatefulWidget {
   final String assessmentId;
 
-  const QuestionnaireResponsePage({Key? key, required this.assessmentId})
-      : super(key: key);
+  const QuestionnaireResponsePage({super.key, required this.assessmentId});
 
   @override
-  _QuestionnaireResponsePageState createState() =>
+  State<QuestionnaireResponsePage> createState() =>
       _QuestionnaireResponsePageState();
 }
 
@@ -37,7 +38,7 @@ class _QuestionnaireResponsePageState extends State<QuestionnaireResponsePage> {
         isLoading = false;
       });
     } catch (e) {
-      print('Error fetching questionnaire response: $e');
+      log('Error fetching questionnaire response: $e');
       setState(() {
         isLoading = false;
       });
@@ -84,10 +85,10 @@ class _QuestionnaireResponsePageState extends State<QuestionnaireResponsePage> {
                               style: TextStyle(
                                 fontSize: screenWidth * 0.06,
                                 fontWeight: FontWeight.bold,
-                                color: Color.fromARGB(255, 51, 152, 154),
+                                color: const Color.fromARGB(255, 51, 152, 154),
                               ),
                             ),
-                            Divider(
+                            const Divider(
                               indent: 80,
                               endIndent: 80,
                               thickness: 3,
@@ -100,8 +101,7 @@ class _QuestionnaireResponsePageState extends State<QuestionnaireResponsePage> {
                               if (entry is Map<String, dynamic>) {
                                 String questionIndex =
                                     entry['question'].split(". ")[0];
-                                String questionKey =
-                                    entry['question'].split(". ")[1];
+
                                 double numericAnswer = entry['answer'] ?? -1.0;
                                 String answerKey =
                                     answerMapping[numericAnswer.toInt()] ??
@@ -170,7 +170,7 @@ class _QuestionnaireResponsePageState extends State<QuestionnaireResponsePage> {
                                                         screenWidth * 0.045,
                                                   ),
                                                 ),
-                                                Divider(),
+                                                const Divider(),
                                               ],
                                             ),
                                           ),

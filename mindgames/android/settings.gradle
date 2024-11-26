@@ -30,3 +30,6 @@ plugins {
 }
 
 include ":app"
+include ':app', ':lvl_library'
+project(':lvl_library').projectDir = new File(rootProject.projectDir, "lvl_library")
+

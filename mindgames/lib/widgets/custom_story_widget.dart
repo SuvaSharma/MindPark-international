@@ -7,7 +7,7 @@ typedef Widget ProgressSegmentBuilder(
 
 class CustomStory extends StatefulWidget {
   const CustomStory({
-    Key? key,
+    super.key,
     required this.momentBuilder,
     required this.momentDurationGetter,
     required this.momentCount,
@@ -26,8 +26,7 @@ class CustomStory extends StatefulWidget {
         assert(progressSegmentGap >= 0),
         assert(momentSwitcherFraction < double.infinity),
         assert(startAt >= 0),
-        assert(startAt < momentCount),
-        super(key: key);
+        assert(startAt < momentCount);
 
   final IndexedWidgetBuilder momentBuilder;
   final MomentDurationGetter momentDurationGetter;
@@ -62,7 +61,7 @@ class CustomStory extends StatefulWidget {
   }
 
   @override
-  _CustomStoryState createState() => _CustomStoryState();
+  State<CustomStory> createState() => _CustomStoryState();
 }
 
 class _CustomStoryState extends State<CustomStory>

@@ -38,7 +38,7 @@ class _RecoverPasswordpageState extends State<RecoverPasswordpage> {
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('assets/images/homepage2.png'),
                 fit: BoxFit.cover)),
@@ -55,7 +55,7 @@ class _RecoverPasswordpageState extends State<RecoverPasswordpage> {
                   style: TextStyle(
                     fontSize: screenWidth * 0.1,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF309092),
+                    color: const Color(0xFF309092),
                   ),
                 ),
                 SizedBox(height: screenHeight * 0.0025),
@@ -93,7 +93,8 @@ class _RecoverPasswordpageState extends State<RecoverPasswordpage> {
                           ? SizedBox(
                               width: screenWidth * 0.05,
                               height: screenWidth * 0.05,
-                              child: CircularProgressIndicator(color: white),
+                              child:
+                                  const CircularProgressIndicator(color: white),
                             )
                           : Text('Send me a recovery link!',
                               style: TextStyle(fontSize: screenWidth * 0.05)),

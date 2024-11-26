@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -39,8 +41,7 @@ class _ChildProfileListState extends ConsumerState<ChildProfileList> {
     setState(() {
       isLoading = false;
     });
-    print(
-        'child profile $profileList'); // Ensure the UI updates after fetching the data
+    log('child profile $profileList'); // Ensure the UI updates after fetching the data
   }
 
   @override
@@ -51,7 +52,7 @@ class _ChildProfileListState extends ConsumerState<ChildProfileList> {
     getData().then((_) {
       if (widget.shownWhen == 'launch') {
         if (profileList.length == 1) {
-          print('Only one child');
+          log('Only one child');
           final child = profileList[0];
           Map<String, dynamic> childData = {
             'childId': child['childId'],
@@ -475,7 +476,7 @@ class _ChildProfileListState extends ConsumerState<ChildProfileList> {
         children: [
           GestureDetector(
             onTap: () {
-              print('Selecting profile $name $childId $gender $age');
+              log('Selecting profile $name $childId $gender $age');
               // Update the provider with the selected child's data
               Map<String, dynamic> childData = {
                 'childId': childId,

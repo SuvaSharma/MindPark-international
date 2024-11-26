@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:mindgames/cloud_store_service.dart';
 import 'package:mindgames/models/story.dart';
@@ -9,7 +11,7 @@ class StoryViewPage extends StatefulWidget {
   final int categoryId;
 
   @override
-  _StoryViewPageState createState() => _StoryViewPageState();
+  State<StoryViewPage> createState() => _StoryViewPageState();
 }
 
 class _StoryViewPageState extends State<StoryViewPage>
@@ -83,8 +85,8 @@ class _StoryViewPageState extends State<StoryViewPage>
             }
 
             final stories = snapshot.data!;
-            print('printing the stories');
-            print(stories);
+            log('printing the stories');
+            log('$stories');
 
             return CustomStory(
               momentCount: stories.length,

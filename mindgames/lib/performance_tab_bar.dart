@@ -5,7 +5,7 @@ import 'package:mindgames/cognitive_test_page.dart'; // Assuming CognitiveTestSc
 import 'package:mindgames/tracking_page.dart';
 
 class PerformanceTab extends StatelessWidget {
-  const PerformanceTab({Key? key}) : super(key: key);
+  const PerformanceTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +27,8 @@ class PerformanceTab extends StatelessWidget {
             body: Column(
               children: [
                 TabBar(
-                  indicatorColor: Color(0xFF309092),
-                  labelColor: Color(0xFF309092),
+                  indicatorColor: const Color(0xFF309092),
+                  labelColor: const Color(0xFF309092),
                   labelStyle: TextStyle(
                       fontSize: screenWidth * 0.04, fontFamily: 'ShantellSans'),
                   tabs: [
@@ -38,10 +38,10 @@ class PerformanceTab extends StatelessWidget {
                     Tab(height: screenHeight * 0.07, text: 'Level Data'.tr),
                   ],
                 ),
-                Expanded(
+                const Expanded(
                   child: TabBarView(
                     children: [
-                      TrackingPage(),
+                      const TrackingPage(),
                       CognitiveTestScreen(), // Assuming this is the correct import
                     ],
                   ),

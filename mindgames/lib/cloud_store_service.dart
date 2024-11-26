@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:crypto/crypto.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' hide Transaction;
 import 'package:mindgames/CPTDataModel.dart';
@@ -57,7 +58,7 @@ class CloudStoreService {
       }
     } catch (e) {
       // Handle any errors that occur
-      print('Error fetching terms status: $e');
+      log('Error fetching terms status: $e');
       return false;
     }
   }
@@ -72,8 +73,8 @@ class CloudStoreService {
         'result': gameData.result,
         'responseTime': gameData.responseTime,
         'symbolDisplayTime': gameData.symbolDisplayTime
-      }).then((DocumentReference doc) =>
-          print('Document added with ID: ${doc.id}'));
+      }).then(
+          (DocumentReference doc) => log('Document added with ID: ${doc.id}'));
     }
   }
 
@@ -88,7 +89,7 @@ class CloudStoreService {
       'accuracy': sdmtResult.accuracy,
       'meanReactionTime': sdmtResult.meanReactionTime,
     }).then(
-        (DocumentReference doc) => print('Document added with ID: ${doc.id}'));
+        (DocumentReference doc) => log('Document added with ID: ${doc.id}'));
   }
 
   Future<List<Map<String, dynamic>>> getSDMTData(String? userId) async {
@@ -124,8 +125,8 @@ class CloudStoreService {
         'type': wordData.type,
         'result': wordData.result,
         'responseTime': wordData.responseTime,
-      }).then((DocumentReference doc) =>
-          print('Document added with ID: ${doc.id}'));
+      }).then(
+          (DocumentReference doc) => log('Document added with ID: ${doc.id}'));
     }
   }
 
@@ -141,7 +142,7 @@ class CloudStoreService {
       'incorrectResponse': stroopResult.incorrectResponse,
       'accuracy': stroopResult.accuracy,
     }).then(
-        (DocumentReference doc) => print('Document added with ID: ${doc.id}'));
+        (DocumentReference doc) => log('Document added with ID: ${doc.id}'));
   }
 
   Future<List<Map<String, dynamic>>> getStroopData(String? userId) async {
@@ -176,8 +177,8 @@ class CloudStoreService {
         'sequenceEntered': dstData.sequenceEntered,
         'result': dstData.result,
         'responseTime': dstData.responseTime,
-      }).then((DocumentReference doc) =>
-          print('Document added with ID: ${doc.id}'));
+      }).then(
+          (DocumentReference doc) => log('Document added with ID: ${doc.id}'));
     }
   }
 
@@ -189,7 +190,7 @@ class CloudStoreService {
       'score': dstResult.score,
       'span': dstResult.span,
     }).then(
-        (DocumentReference doc) => print('Document added with ID: ${doc.id}'));
+        (DocumentReference doc) => log('Document added with ID: ${doc.id}'));
   }
 
   Future<List<Map<String, dynamic>>> getDSTData(String? userId) async {
@@ -220,8 +221,8 @@ class CloudStoreService {
         'letter': cptData.letter,
         'result': cptData.result,
         'responseTime': cptData.responseTime,
-      }).then((DocumentReference doc) =>
-          print('Document added with ID: ${doc.id}'));
+      }).then(
+          (DocumentReference doc) => log('Document added with ID: ${doc.id}'));
     }
   }
 
@@ -236,7 +237,7 @@ class CloudStoreService {
       'omissionError': cptResult.omissionError,
       'inhibitoryControl': cptResult.inhibitoryControl,
     }).then(
-        (DocumentReference doc) => print('Document added with ID: ${doc.id}'));
+        (DocumentReference doc) => log('Document added with ID: ${doc.id}'));
   }
 
   Future<List<Map<String, dynamic>>> getCPTData(String? userId) async {
@@ -262,7 +263,7 @@ class CloudStoreService {
   }
 
   Future<void> addTMTResult(TMTResult tmtResult) async {
-    print(tmtResult);
+    log('$tmtResult');
     await db.collection('level-result').add({
       'userId': tmtResult.userId,
       'level': tmtResult.level,
@@ -272,7 +273,7 @@ class CloudStoreService {
       'averageTime': tmtResult.averageTime,
       'gameData': tmtResult.gameData,
     }).then(
-        (DocumentReference doc) => print('Document added with ID: ${doc.id}'));
+        (DocumentReference doc) => log('Document added with ID: ${doc.id}'));
   }
 
   Future<List<Map<String, dynamic>>> getTMTData(String? userId) async {
@@ -310,7 +311,7 @@ class CloudStoreService {
       'accuracy': ertResult.accuracy,
       'score': ertResult.score,
     }).then(
-      (DocumentReference doc) => print('Document added with ID: ${doc.id}'),
+      (DocumentReference doc) => log('Document added with ID: ${doc.id}'),
     );
   }
 
@@ -335,7 +336,7 @@ class CloudStoreService {
 
   //Lego Game
   Future<void> addLegoGameData(LegoGameData legoGameData) async {
-    print("added lego game data");
+    log("added lego game data");
     await db.collection('level-result').add({
       'userId': legoGameData.userId,
       'sessionId': legoGameData.sessionId,
@@ -344,7 +345,7 @@ class CloudStoreService {
       'accuracy': legoGameData.accuracy,
       'elapsedTime': legoGameData.elapsedTime,
     }).then(
-      (DocumentReference doc) => print('Document added with ID: ${doc.id}'),
+      (DocumentReference doc) => log('Document added with ID: ${doc.id}'),
     );
   }
 
@@ -385,7 +386,7 @@ class CloudStoreService {
       'status': voiceloonModel.status,
       'responseTime': voiceloonModel.responseTime,
     }).then(
-      (DocumentReference doc) => print('Document added with ID: ${doc.id}'),
+      (DocumentReference doc) => log('Document added with ID: ${doc.id}'),
     );
   }
 
@@ -417,7 +418,7 @@ class CloudStoreService {
   //Picture Sorting Game
   Future<void> addPictureSortingGameData(
       PictureSortingGameData pictureSortingGameData) async {
-    print("added Picture sorting game data");
+    log("added Picture sorting game data");
     await db.collection('level-result').add({
       'userId': pictureSortingGameData.userId,
       'sessionId': pictureSortingGameData.sessionId,
@@ -426,7 +427,7 @@ class CloudStoreService {
       'accuracy': pictureSortingGameData.accuracy,
       'elapsedTime': pictureSortingGameData.elapsedTime,
     }).then(
-      (DocumentReference doc) => print('Document added with ID: ${doc.id}'),
+      (DocumentReference doc) => log('Document added with ID: ${doc.id}'),
     );
   }
 
@@ -464,7 +465,7 @@ class CloudStoreService {
       'difficulty': simonSaysModel.difficulty.name,
       'score': simonSaysModel.score,
       'gameData': simonSaysModel.gameData
-    }).then((DocumentReference doc) => print("Document added with ID $doc"));
+    }).then((DocumentReference doc) => log("Document added with ID $doc"));
   }
 
   // Retrieve Simon Says Data
@@ -501,7 +502,7 @@ class CloudStoreService {
       'averageStareTime': gazeMazeModel.averageStareTime,
       'accuracy': gazeMazeModel.accuracy,
       'gameData': gazeMazeModel.gameData
-    }).then((DocumentReference doc) => print("Document added with ID $doc"));
+    }).then((DocumentReference doc) => log("Document added with ID $doc"));
   }
 
   // Retrieve Simon Says Data
@@ -540,7 +541,7 @@ class CloudStoreService {
       'difficulty': puzzleParadiseModel.difficulty.name,
       'imageName': puzzleParadiseModel.imageName,
       'timeTaken': puzzleParadiseModel.timeTaken,
-    }).then((DocumentReference doc) => print("Document added with ID $doc"));
+    }).then((DocumentReference doc) => log("Document added with ID $doc"));
   }
 
   // Retrieve Puzzle Paradise Data
@@ -576,7 +577,7 @@ class CloudStoreService {
       'level': jungleJinglesModel.level,
       'difficulty': jungleJinglesModel.difficulty.name,
       'score': jungleJinglesModel.score,
-    }).then((DocumentReference doc) => print("Document added with ID $doc"));
+    }).then((DocumentReference doc) => log("Document added with ID $doc"));
   }
 
   // Retrieve Number Counting Data
@@ -612,7 +613,7 @@ class CloudStoreService {
       'difficulty': numberCountingModel.difficulty.name,
       'score': numberCountingModel.score,
       'accuracy': numberCountingModel.accuracy,
-    }).then((DocumentReference doc) => print("Document added with ID $doc"));
+    }).then((DocumentReference doc) => log("Document added with ID $doc"));
   }
 
   // Retrieve Number Counting Data
@@ -643,7 +644,7 @@ class CloudStoreService {
       'status': mazeMagicModel.status,
       'difficulty': mazeMagicModel.difficulty.name,
       'timeTaken': mazeMagicModel.timeTaken,
-    }).then((DocumentReference doc) => print("Document added with ID $doc"));
+    }).then((DocumentReference doc) => log("Document added with ID $doc"));
   }
 
   // Retrieve Simon Says Data
@@ -683,7 +684,7 @@ class CloudStoreService {
         // double mean = calculateMedian(dataList);
         double median = calculateMedian(dataList);
 
-        print('Attention - ${double.parse(median.toStringAsFixed(2))}');
+        log('Attention - ${double.parse(median.toStringAsFixed(2))}');
         return double.parse(median.toStringAsFixed(2));
       } else {
         return 0;
@@ -710,7 +711,7 @@ class CloudStoreService {
         // double mean = calculateMedian(dataList);
         double median = calculateMedian(dataList);
 
-        print('Memory - ${double.parse(median.toStringAsFixed(2))}');
+        log('Memory - ${double.parse(median.toStringAsFixed(2))}');
         return double.parse(median.toStringAsFixed(2));
       } else {
         return 0;
@@ -737,7 +738,7 @@ class CloudStoreService {
         // double mean = calculateMedian(dataList);
         double median = calculateMedian(dataList);
 
-        print('Inhibition - ${double.parse(median.toStringAsFixed(2))}');
+        log('Inhibition - ${double.parse(median.toStringAsFixed(2))}');
         return double.parse(median.toStringAsFixed(2));
       } else {
         return 0;
@@ -779,13 +780,13 @@ class CloudStoreService {
         // double mean = calculateMedian(dataList);
         double median = calculateMedian(dataList);
 
-        print('Speed - ${double.parse(median.toStringAsFixed(2))}');
+        log('Speed - ${double.parse(median.toStringAsFixed(2))}');
         return double.parse(median.toStringAsFixed(2));
       } else {
         return 0;
       }
     } catch (e) {
-      print(e);
+      log('$e');
       return 0.0;
     }
   }
@@ -971,9 +972,9 @@ class CloudStoreService {
 
       await userRef.update({'children': updatedChildren});
 
-      print(userData);
+      log('$userData');
     } catch (e) {
-      print(e);
+      log('$e');
     }
   }
 
@@ -986,7 +987,7 @@ class CloudStoreService {
   }
 
   Future<List<Map<String, dynamic>>> getChildren(String? userId) async {
-    print('getting children');
+    log('getting children');
     List<Map<String, dynamic>> childList = [];
     QuerySnapshot querySnapshot =
         await db.collection('users').where('userId', isEqualTo: userId).get();
@@ -1029,7 +1030,7 @@ class CloudStoreService {
       'assessmentDate': questionnaireResponse.assessmentDate,
       'response': questionnaireResponse.response
     }).then(
-        (DocumentReference doc) => print('Document added with ID: ${doc.id}'));
+        (DocumentReference doc) => log('Document added with ID: ${doc.id}'));
   }
 
   Future<List<Map<String, dynamic>>> getQuestionnaireResponse(
@@ -1180,7 +1181,7 @@ class CloudStoreService {
           'PIN': hashPin(pin),
         });
       } catch (e) {
-        print(e);
+        log('$e');
       }
     }
   }
@@ -1204,11 +1205,11 @@ class CloudStoreService {
         final hashedInputPIN = hashPin(pin);
         return hashedInputPIN == storedHashedPIN;
       } else {
-        print('No user found with the provided userId');
+        log('No user found with the provided userId');
         return false;
       }
     } catch (e) {
-      print(e);
+      log('$e');
       return false;
     }
   }
@@ -1332,8 +1333,7 @@ class CloudStoreService {
         // double mean = calculateMedian(dataList);
         double median = calculateMedian(dataList);
 
-        print(
-            'TMT - ${difficulty.name} - ${double.parse(median.toStringAsFixed(2))}');
+        log('TMT - ${difficulty.name} - ${double.parse(median.toStringAsFixed(2))}');
         return double.parse(median.toStringAsFixed(2));
       } else {
         return 0;
@@ -1362,8 +1362,7 @@ class CloudStoreService {
         // double mean = calculateMedian(dataList);
         double median = calculateMedian(dataList);
 
-        print(
-            'Logi Game - ${difficulty.name} - ${double.parse(median.toStringAsFixed(2))}');
+        log('Logi Game - ${difficulty.name} - ${double.parse(median.toStringAsFixed(2))}');
         return double.parse(median.toStringAsFixed(2));
       } else {
         return 0;
@@ -1384,7 +1383,6 @@ class CloudStoreService {
           .get();
 
       if (querySnapshot.docs.isNotEmpty) {
-        // TODO: fetch this month and year's completed record
         final totalGamesPlayed = querySnapshot.docs.length;
 
         QuerySnapshot totalGamesCompleted = await db
@@ -1399,8 +1397,7 @@ class CloudStoreService {
           double successRate =
               totalGamesCompleted.docs.length / totalGamesPlayed * 100;
 
-          print(
-              'Puzzle Paradise - ${difficulty.name} - ${double.parse(successRate.toStringAsFixed(2))}');
+          log('Puzzle Paradise - ${difficulty.name} - ${double.parse(successRate.toStringAsFixed(2))}');
           return double.parse(successRate.toStringAsFixed(2));
         } else {
           return 0.0;
@@ -1409,7 +1406,7 @@ class CloudStoreService {
         return 0.0;
       }
     } catch (e) {
-      print("Error $e");
+      log("Error $e");
       return 0;
     }
   }
@@ -1433,8 +1430,7 @@ class CloudStoreService {
         // double mean = calculateMedian(dataList);
         double median = calculateMedian(dataList);
 
-        print(
-            'Picture Sorting - ${difficulty.name} - ${double.parse(median.toStringAsFixed(2))}');
+        log('Picture Sorting - ${difficulty.name} - ${double.parse(median.toStringAsFixed(2))}');
         return double.parse(median.toStringAsFixed(2));
       } else {
         return 0;
@@ -1484,8 +1480,7 @@ class CloudStoreService {
         // double mean = calculateMedian(dataList);
         double median = calculateMedian(dataList);
 
-        print(
-            'Simon Says - ${difficulty.name} - ${double.parse(median.toStringAsFixed(2))}');
+        log('Simon Says - ${difficulty.name} - ${double.parse(median.toStringAsFixed(2))}');
         return double.parse(median.toStringAsFixed(2));
       } else {
         return 0;
@@ -1514,8 +1509,7 @@ class CloudStoreService {
         // double mean = calculateMedian(dataList);
         double median = calculateMedian(dataList);
 
-        print(
-            'ERT - ${difficulty.name} - ${double.parse(median.toStringAsFixed(2))}');
+        log('ERT - ${difficulty.name} - ${double.parse(median.toStringAsFixed(2))}');
         return double.parse(median.toStringAsFixed(2));
       } else {
         return 0;
@@ -1544,8 +1538,7 @@ class CloudStoreService {
         // double mean = calculateMedian(dataList);
         double median = calculateMedian(dataList);
 
-        print(
-            'Jungle Jingles - ${difficulty.name} - ${double.parse(median.toStringAsFixed(2))}');
+        log('Jungle Jingles - ${difficulty.name} - ${double.parse(median.toStringAsFixed(2))}');
         return double.parse(median.toStringAsFixed(2));
       } else {
         return 0;
@@ -1574,8 +1567,7 @@ class CloudStoreService {
         // double mean = calculateMedian(dataList);
         double median = calculateMedian(dataList);
 
-        print(
-            'Gaze Maze - ${difficulty.name} - ${double.parse(median.toStringAsFixed(2))}');
+        log('Gaze Maze - ${difficulty.name} - ${double.parse(median.toStringAsFixed(2))}');
         return double.parse(median.toStringAsFixed(2));
       } else {
         return 0;
@@ -1631,8 +1623,7 @@ class CloudStoreService {
           double successRate =
               totalGamesCompleted.docs.length / totalGamesPlayed * 100;
 
-          print(
-              'Voiceloon - ${difficulty.name} - ${double.parse(successRate.toStringAsFixed(2))}');
+          log('Voiceloon - ${difficulty.name} - ${double.parse(successRate.toStringAsFixed(2))}');
           return double.parse(successRate.toStringAsFixed(2));
         } else {
           return 0.0;
@@ -1641,7 +1632,7 @@ class CloudStoreService {
         return 0.0;
       }
     } catch (e) {
-      print("Error $e");
+      log("Error $e");
       return 0;
     }
   }
@@ -1679,8 +1670,7 @@ class CloudStoreService {
         // double mean = calculateMedian(dataList);
         double median = calculateMedian(dataList);
 
-        print(
-            'Counting Game - ${difficulty.name} - ${double.parse(median.toStringAsFixed(2))}');
+        log('Counting Game - ${difficulty.name} - ${double.parse(median.toStringAsFixed(2))}');
         return double.parse(median.toStringAsFixed(2));
       } else {
         return 0;
@@ -1729,8 +1719,7 @@ class CloudStoreService {
           double successRate =
               totalGamesCompleted.docs.length / totalGamesPlayed * 100;
 
-          print(
-              'Maze Magic - ${difficulty.name} - ${double.parse(successRate.toStringAsFixed(2))}');
+          log('Maze Magic - ${difficulty.name} - ${double.parse(successRate.toStringAsFixed(2))}');
           return double.parse(successRate.toStringAsFixed(2));
         } else {
           return 0.0;
@@ -1739,7 +1728,7 @@ class CloudStoreService {
         return 0.0;
       }
     } catch (e) {
-      print("Error $e");
+      log("Error $e");
       return 0;
     }
   }
@@ -1812,7 +1801,7 @@ class CloudStoreService {
 
       return graphDataList;
     } catch (e) {
-      print(e);
+      log('$e');
       return [];
     }
   }
@@ -1869,7 +1858,7 @@ class CloudStoreService {
 
       return graphDataList;
     } catch (e) {
-      print(e);
+      log('$e');
       return [];
     }
   }
@@ -1926,7 +1915,7 @@ class CloudStoreService {
 
       return graphDataList;
     } catch (e) {
-      print(e);
+      log('$e');
       return [];
     }
   }
@@ -1942,7 +1931,7 @@ class CloudStoreService {
           .get();
 
       if (querySnapshot.docs.isEmpty) {
-        print('Got no data');
+        log('Got no data');
         return [];
       }
 
@@ -1990,7 +1979,7 @@ class CloudStoreService {
 
       return graphDataList;
     } catch (e) {
-      print('error caught');
+      log('error caught');
       return [];
     }
   }
@@ -2044,7 +2033,7 @@ class CloudStoreService {
 
       return graphDataList;
     } catch (e) {
-      print(e);
+      log('$e');
       return [];
     }
   }
@@ -2101,7 +2090,7 @@ class CloudStoreService {
 
       return graphDataList;
     } catch (e) {
-      print(e);
+      log('$e');
       return [];
     }
   }
@@ -2158,7 +2147,7 @@ class CloudStoreService {
 
       return graphDataList;
     } catch (e) {
-      print(e);
+      log('$e');
       return [];
     }
   }
@@ -2215,7 +2204,7 @@ class CloudStoreService {
 
       return graphDataList;
     } catch (e) {
-      print(e);
+      log('$e');
       return [];
     }
   }
@@ -2272,7 +2261,7 @@ class CloudStoreService {
 
       return graphDataList;
     } catch (e) {
-      print(e);
+      log('$e');
       return [];
     }
   }
@@ -2319,7 +2308,7 @@ class CloudStoreService {
       }
       return graphDataList;
     } catch (e) {
-      print(e);
+      log('$e');
       return [];
     }
   }
@@ -2335,7 +2324,7 @@ class CloudStoreService {
           .get();
 
       if (querySnapshot.docs.isEmpty) {
-        print('Got no data');
+        log('Got no data');
         return [];
       }
 
@@ -2383,7 +2372,7 @@ class CloudStoreService {
 
       return graphDataList;
     } catch (e) {
-      print('error caught');
+      log('error caught');
       return [];
     }
   }
@@ -2402,7 +2391,7 @@ class CloudStoreService {
         int year = result[i].year;
         int month = result[i].month;
 
-        print('${voiceloonGraphData[i].data}');
+        log('${voiceloonGraphData[i].data}');
 
         final voiceloonData =
             i < voiceloonGraphData.length ? voiceloonGraphData[i].data : 0;
@@ -2414,7 +2403,7 @@ class CloudStoreService {
       }
       return graphDataList;
     } catch (e) {
-      print(e);
+      log('$e');
       return [];
     }
   }
@@ -2430,7 +2419,7 @@ class CloudStoreService {
           .get();
 
       if (querySnapshot.docs.isEmpty) {
-        print('Got no data');
+        log('Got no data');
         return [];
       }
 
@@ -2478,7 +2467,7 @@ class CloudStoreService {
 
       return graphDataList;
     } catch (e) {
-      print('error caught');
+      log('error caught');
       return [];
     }
   }
@@ -2506,7 +2495,7 @@ class CloudStoreService {
       }
       return graphDataList;
     } catch (e) {
-      print(e);
+      log('$e');
       return [];
     }
   }
@@ -2563,7 +2552,7 @@ class CloudStoreService {
 
       return graphDataList;
     } catch (e) {
-      print(e);
+      log('$e');
       return [];
     }
   }
@@ -2593,7 +2582,7 @@ class CloudStoreService {
       }
       return graphDataList;
     } catch (e) {
-      print(e);
+      log('$e');
       return [];
     }
   }
@@ -2610,7 +2599,7 @@ class CloudStoreService {
   //       await doc.reference.delete();
   //     }
   //   } catch (e) {
-  //     print(e);
+  //     log('$e');
   //   }
   // }
 
@@ -2644,7 +2633,7 @@ class CloudStoreService {
         return [];
       }
     } catch (e) {
-      print(e);
+      log('$e');
       return [];
     }
   }
@@ -2675,7 +2664,7 @@ class CloudStoreService {
 
                   String content = cleanText(item['content']['rendered']);
                   int wordCount = content.split(RegExp(r'\s+')).length;
-                  print(content);
+                  log(content);
                   int readTime = (wordCount / 225).ceil(); // Assuming 225 wpm
                   String cleanContent =
                       removeFigureTag(item['content']['rendered']);
@@ -2707,7 +2696,7 @@ class CloudStoreService {
         throw Exception('Failed to load posts');
       }
     } catch (e) {
-      print(e);
+      log('$e');
       return [];
     }
   }
@@ -2750,7 +2739,7 @@ class CloudStoreService {
         throw Exception('Failed to load posts');
       }
     } catch (e) {
-      print(e);
+      log('$e');
       return [];
     }
   }
@@ -2799,7 +2788,7 @@ class CloudStoreService {
         throw Exception('Failed to load posts');
       }
     } catch (e) {
-      print(e);
+      log('$e');
       return [];
     }
   }
@@ -2827,7 +2816,7 @@ class CloudStoreService {
             transaction['invoiceId'] ==
             subscriptionModel.transactionHistory![0].invoiceId);
 
-        print('The transaction exists: $transactionExists');
+        log('The transaction exists: $transactionExists');
 
         if (!transactionExists) {
           // If the transaction does not exist, add the new transaction
@@ -2840,17 +2829,17 @@ class CloudStoreService {
             ...subscriptionModel.toMap(),
             'transactionHistory':
                 currentTransactionHistory, // Update the other fields
-          }).then((_) => print('Document updated with new transaction'));
+          }).then((_) => log('Document updated with new transaction'));
         } else {
-          print('Transaction already exists in the history.');
+          log('Transaction already exists in the history.');
         }
       } else {
         await db.collection('subscription').add(subscriptionModel.toMap()).then(
             (DocumentReference doc) =>
-                print('New subscription created with ID: ${doc.id}'));
+                log('New subscription created with ID: ${doc.id}'));
       }
     } catch (e) {
-      print(e);
+      log('$e');
     }
   }
 
@@ -2862,7 +2851,7 @@ class CloudStoreService {
           .get();
 
       if (querySnapshot.docs.isEmpty) {
-        print('No subscription found for user email: $email');
+        log('No subscription found for user email: $email');
         return null;
       }
 
@@ -2870,16 +2859,16 @@ class CloudStoreService {
           querySnapshot.docs.map((doc) => doc.data()).toList();
 
       if (documents.isEmpty) {
-        print('No valid data found in query snapshot');
+        log('No valid data found in query snapshot');
         return null;
       }
-      print(documents[0]);
+      log('${documents[0]}');
       final subscriptionModel = SubscriptionModel.fromMap(documents[0]);
 
-      print('Subscription data loaded successfully');
+      log('Subscription data loaded successfully');
       return subscriptionModel;
     } catch (e) {
-      print('Error fetching subscription data: $e');
+      log('Error fetching subscription data: $e');
       rethrow;
     }
   }

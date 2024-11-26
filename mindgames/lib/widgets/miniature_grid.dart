@@ -4,7 +4,8 @@ class MiniatureGrid extends StatefulWidget {
   final List<Map<String, dynamic>> config;
   final int gridSize;
 
-  MiniatureGrid({
+  const MiniatureGrid({
+    super.key,
     required this.config,
     required this.gridSize,
   });

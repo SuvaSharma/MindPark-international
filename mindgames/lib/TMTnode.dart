@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class TMTNode extends StatelessWidget {
   final int number;
@@ -10,7 +9,8 @@ class TMTNode extends StatelessWidget {
   final Color color; // Add this line
   final Color textcolor;
 
-  TMTNode({
+  const TMTNode({
+    super.key,
     required this.number,
     required this.text,
     required this.xPosition,
@@ -22,7 +22,6 @@ class TMTNode extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MediaQueryData queryData = MediaQuery.of(context);
     double screenWidth = MediaQuery.of(context).size.width;
     double radius =
         screenWidth * 0.035; // Adjust the radius relative to screen width

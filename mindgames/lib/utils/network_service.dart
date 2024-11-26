@@ -11,21 +11,21 @@ class InternetController extends GetxController {
     _connectivity.onConnectivityChanged
         .listen((List<ConnectivityResult> result) {
       final firstResult = result.first;
-      Netstatus(firstResult);
+      netStatus(firstResult);
     });
   }
 
-  void Netstatus(ConnectivityResult cr) {
+  void netStatus(ConnectivityResult cr) {
     if (cr == ConnectivityResult.none) {
       Get.rawSnackbar(
         title: 'No Internet',
         message: 'Connect to internet to proceed',
-        icon: Icon(
+        icon: const Icon(
           Icons.wifi_off,
           color: Colors.white,
         ),
         isDismissible: true,
-        duration: Duration(days: 1),
+        duration: const Duration(days: 1),
         shouldIconPulse: true,
       );
     } else {

@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:core' as core;
 import 'dart:core';
+import 'dart:developer';
 
 /// A stack data structure
 ///
@@ -53,7 +54,7 @@ class Stack<T> {
   /// print stack
   void print() {
     for (var item in List<T>.from(_list).reversed) {
-      core.print(item);
+      log('$item');
     }
   }
 }

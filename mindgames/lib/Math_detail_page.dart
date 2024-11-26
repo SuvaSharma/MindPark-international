@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -15,7 +17,7 @@ class MathDetailPage extends ConsumerStatefulWidget {
   const MathDetailPage({super.key});
 
   @override
-  _MathDetailPageState createState() => _MathDetailPageState();
+  ConsumerState<MathDetailPage> createState() => _MathDetailPageState();
 }
 
 class _MathDetailPageState extends ConsumerState<MathDetailPage> {
@@ -53,7 +55,7 @@ class _MathDetailPageState extends ConsumerState<MathDetailPage> {
         isLoading = false;
       });
     } catch (e) {
-      print("Error fetching graph data: $e");
+      log("Error fetching graph data: $e");
       setState(() {
         isLoading = false;
       });
@@ -82,7 +84,7 @@ class _MathDetailPageState extends ConsumerState<MathDetailPage> {
       });
     } catch (e) {
       // Handle errors here
-      print('Error fetching data: $e');
+      log('Error fetching data: $e');
     }
   }
 
@@ -94,8 +96,8 @@ class _MathDetailPageState extends ConsumerState<MathDetailPage> {
     final showYear = _selectedTimePeriod[1];
     return WillPopScope(
         onWillPop: () async {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => MainWrapper()));
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const MainWrapper()));
           return false;
         },
         child: Scaffold(
@@ -145,8 +147,8 @@ class _MathDetailPageState extends ConsumerState<MathDetailPage> {
                           borderRadius:
                               const BorderRadius.all(Radius.circular(8)),
                           selectedColor: Colors.white,
-                          fillColor: Color(0xFF309092),
-                          color: Color(0xFF309092),
+                          fillColor: const Color(0xFF309092),
+                          color: const Color(0xFF309092),
                           constraints: BoxConstraints(
                             minHeight: screenWidth * 0.10,
                             minWidth: screenWidth * 0.20,
@@ -164,7 +166,7 @@ class _MathDetailPageState extends ConsumerState<MathDetailPage> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       if (isLoading)
                         Center(
                             child: SizedBox(
@@ -202,12 +204,12 @@ class _MathDetailPageState extends ConsumerState<MathDetailPage> {
                         child: Text(
                           'Math Skills Scores'.tr,
                           style: TextStyle(
-                              color: Color(0xFF309092),
+                              color: const Color(0xFF309092),
                               fontWeight: FontWeight.bold,
                               fontSize: screenWidth * 0.05),
                         ),
                       ),
-                      Divider(
+                      const Divider(
                         thickness: 2,
                         indent: 50,
                         endIndent: 50,
@@ -223,7 +225,7 @@ class _MathDetailPageState extends ConsumerState<MathDetailPage> {
                           child: Text(
                             'Counting Castle'.tr,
                             style: TextStyle(
-                              color: Color(0xFF309092),
+                              color: const Color(0xFF309092),
                               fontSize: screenWidth * 0.06,
                             ),
                           ),

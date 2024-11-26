@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -15,7 +17,7 @@ class VerbalDetailPage extends ConsumerStatefulWidget {
   const VerbalDetailPage({super.key});
 
   @override
-  _VerbalDetailPageState createState() => _VerbalDetailPageState();
+  ConsumerState<VerbalDetailPage> createState() => _VerbalDetailPageState();
 }
 
 class _VerbalDetailPageState extends ConsumerState<VerbalDetailPage> {
@@ -53,7 +55,7 @@ class _VerbalDetailPageState extends ConsumerState<VerbalDetailPage> {
         isLoading = false;
       });
     } catch (e) {
-      print("Error fetching graph data: $e");
+      log("Error fetching graph data: $e");
       setState(() {
         isLoading = false;
       });
@@ -82,7 +84,7 @@ class _VerbalDetailPageState extends ConsumerState<VerbalDetailPage> {
       });
     } catch (e) {
       // Handle errors here
-      print('Error fetching data: $e');
+      log('Error fetching data: $e');
     }
   }
 
@@ -94,8 +96,8 @@ class _VerbalDetailPageState extends ConsumerState<VerbalDetailPage> {
     final showYear = _selectedTimePeriod[1];
     return WillPopScope(
         onWillPop: () async {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => MainWrapper()));
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const MainWrapper()));
           return false;
         },
         child: Scaffold(
@@ -145,8 +147,8 @@ class _VerbalDetailPageState extends ConsumerState<VerbalDetailPage> {
                           borderRadius:
                               const BorderRadius.all(Radius.circular(8)),
                           selectedColor: Colors.white,
-                          fillColor: Color(0xFF309092),
-                          color: Color(0xFF309092),
+                          fillColor: const Color(0xFF309092),
+                          color: const Color(0xFF309092),
                           constraints: BoxConstraints(
                             minHeight: screenWidth * 0.10,
                             minWidth: screenWidth * 0.20,
@@ -164,7 +166,7 @@ class _VerbalDetailPageState extends ConsumerState<VerbalDetailPage> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       if (isLoading)
                         Center(
                             child: SizedBox(
@@ -202,12 +204,12 @@ class _VerbalDetailPageState extends ConsumerState<VerbalDetailPage> {
                         child: Text(
                           'Verbal Skills Scores'.tr,
                           style: TextStyle(
-                              color: Color(0xFF309092),
+                              color: const Color(0xFF309092),
                               fontWeight: FontWeight.bold,
                               fontSize: screenWidth * 0.05),
                         ),
                       ),
-                      Divider(
+                      const Divider(
                         thickness: 2,
                         indent: 50,
                         endIndent: 50,
@@ -223,7 +225,7 @@ class _VerbalDetailPageState extends ConsumerState<VerbalDetailPage> {
                           child: Text(
                             'Voiceloon'.tr,
                             style: TextStyle(
-                              color: Color(0xFF309092),
+                              color: const Color(0xFF309092),
                               fontSize: screenWidth * 0.06,
                             ),
                           ),

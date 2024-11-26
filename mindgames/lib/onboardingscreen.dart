@@ -30,7 +30,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             enableLoop: false,
             fullTransitionValue: 300,
             enableSideReveal: true,
-            slideIconWidget: Icon(
+            slideIconWidget: const Icon(
               Icons.arrow_back_ios,
               size: 40,
             ),
@@ -66,7 +66,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               child: AnimatedSmoothIndicator(
                 activeIndex: currentPage,
                 count: pages(context).length,
-                effect: ExpandingDotsEffect(
+                effect: const ExpandingDotsEffect(
                   dotHeight: 6,
                   activeDotColor: Colors.black,
                   dotColor: Colors.grey,
@@ -83,7 +83,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 40.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+                        backgroundColor:
+                            const Color.fromARGB(255, 255, 255, 255),
                         padding: EdgeInsets.symmetric(
                           vertical: screenHeight * 0.02,
                           horizontal: screenWidth * 0.05,
@@ -100,7 +101,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         'Get Started',
                         style: TextStyle(
                             fontSize: screenHeight * 0.025,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -118,9 +119,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null && user.emailVerified) {
-      Get.off(() => LanguageScreen());
+      Get.off(() => const LanguageScreen());
     } else {
-      Get.off(() => RegistrationPage());
+      Get.off(() => const RegistrationPage());
     }
   }
 }
@@ -133,7 +134,7 @@ List<Widget> pages(BuildContext context) {
     Container(
       width: screenWidth,
       height: screenHeight,
-      color: Color.fromARGB(255, 254, 233, 204),
+      color: const Color.fromARGB(255, 254, 233, 204),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -147,7 +148,7 @@ List<Widget> pages(BuildContext context) {
           ),
           Center(
             child: Padding(
-              padding: EdgeInsets.all(12.0),
+              padding: const EdgeInsets.all(12.0),
               child: Text.rich(
                 TextSpan(
                   text: "Boost Your Child's MindPower \n with ",
@@ -156,7 +157,7 @@ List<Widget> pages(BuildContext context) {
                     fontSize: screenHeight * 0.025,
                     fontWeight: FontWeight.bold,
                   ),
-                  children: <TextSpan>[
+                  children: const [
                     TextSpan(
                       text: '\nSuperFun',
                       style: TextStyle(color: Colors.red),
@@ -190,7 +191,7 @@ List<Widget> pages(BuildContext context) {
           ),
           Center(
             child: Padding(
-              padding: EdgeInsets.all(12.0),
+              padding: const EdgeInsets.all(12.0),
               child: Text.rich(
                 TextSpan(
                   text: "Track Your Child's ",
@@ -199,7 +200,7 @@ List<Widget> pages(BuildContext context) {
                     fontSize: screenHeight * 0.025,
                     fontWeight: FontWeight.bold,
                   ),
-                  children: <TextSpan>[
+                  children: const [
                     TextSpan(
                       text: 'Awesome',
                       style: TextStyle(color: Colors.red),
@@ -224,7 +225,7 @@ List<Widget> pages(BuildContext context) {
       ),
     ),
     Container(
-      color: Color(0xFFC5EAEA),
+      color: const Color(0xFFC5EAEA),
       width: screenWidth,
       height: screenHeight,
       child: Column(
@@ -240,7 +241,7 @@ List<Widget> pages(BuildContext context) {
           ),
           Center(
             child: Padding(
-              padding: EdgeInsets.all(12.0),
+              padding: const EdgeInsets.all(12.0),
               child: Text.rich(
                 TextSpan(
                   text: "Get ",
@@ -249,7 +250,7 @@ List<Widget> pages(BuildContext context) {
                     fontSize: screenHeight * 0.025,
                     fontWeight: FontWeight.bold,
                   ),
-                  children: <TextSpan>[
+                  children: const [
                     TextSpan(
                       text: 'Cool',
                       style: TextStyle(color: Colors.red),

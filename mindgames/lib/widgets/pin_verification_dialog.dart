@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mindgames/cloud_store_service.dart';
@@ -10,15 +12,15 @@ Future<void> showProfilePinVerificationDialog(
     BuildContext context, Map<String, dynamic> signedInUser) async {
   final currentUser = AuthService.user;
   CloudStoreService cloudStoreService = CloudStoreService();
-  final TextEditingController _pinController = TextEditingController();
+  final TextEditingController pinController = TextEditingController();
 
   Future<bool> checkPIN() async {
     try {
       bool isValid = await cloudStoreService.verifyPIN(
-          currentUser!.uid, _pinController.text);
+          currentUser!.uid, pinController.text);
       return isValid;
     } catch (e) {
-      print(e);
+      log('$e');
       return false;
     }
   }
@@ -27,7 +29,6 @@ Future<void> showProfilePinVerificationDialog(
     context: context,
     builder: (context) {
       final screenWidth = MediaQuery.of(context).size.width;
-      final screenHeight = MediaQuery.of(context).size.height;
 
       double dialogWidth = screenWidth * 0.8;
       if (screenWidth > 600) {
@@ -48,10 +49,10 @@ Future<void> showProfilePinVerificationDialog(
           style: TextStyle(
             fontSize: screenWidth * 0.06,
             fontWeight: FontWeight.bold,
-            color: Color(0xFF309092),
+            color: const Color(0xFF309092),
           ),
         ),
-        content: Container(
+        content: SizedBox(
           width: dialogWidth,
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -59,7 +60,7 @@ Future<void> showProfilePinVerificationDialog(
               TextField(
                 cursorColor: const Color(0xFF309092),
                 style: TextStyle(fontSize: screenWidth * 0.05),
-                controller: _pinController,
+                controller: pinController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   counterStyle: TextStyle(
@@ -72,11 +73,11 @@ Future<void> showProfilePinVerificationDialog(
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25),
-                    borderSide: BorderSide(color: Color(0xFF309092)),
+                    borderSide: const BorderSide(color: Color(0xFF309092)),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25),
-                    borderSide: BorderSide(color: Color(0xFF309092)),
+                    borderSide: const BorderSide(color: Color(0xFF309092)),
                   ),
                 ),
                 obscureText: true,
@@ -86,13 +87,14 @@ Future<void> showProfilePinVerificationDialog(
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
-                  Get.to(() => ParentalLockSetupPage(isRecoveryFlow: true));
+                  Get.to(
+                      () => const ParentalLockSetupPage(isRecoveryFlow: true));
                 },
                 child: Text(
                   'Forgot PIN?'.tr,
                   style: TextStyle(
                     fontSize: screenWidth * 0.045,
-                    color: Color.fromARGB(199, 48, 144, 146),
+                    color: const Color.fromARGB(199, 48, 144, 146),
                   ),
                 ),
               ),
@@ -105,6 +107,9 @@ Future<void> showProfilePinVerificationDialog(
               style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF309092)),
               onPressed: () async {
+                if (!context.mounted) {
+                  return;
+                }
                 if (await checkPIN()) {
                   Navigator.of(context).pop();
                   Get.to(() => const Profile());

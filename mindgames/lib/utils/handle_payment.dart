@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mindgames/cloud_store_service.dart';
 import 'package:mindgames/models/subscription_model.dart';
@@ -11,18 +13,18 @@ void handlePaymentAction() {
   final userId = AuthService.user?.uid;
   final email = AuthService.user?.email;
   final name = AuthService.user?.displayName;
-  // TODO: get the billing address if applicable
-  final planId = 'ABCDEF';
-  final planName = 'Basic';
-  final planType = 'Monthly';
-  final planPrice = 29.99;
-  final planDuration = 6;
-  final status = 'Active';
+
+  const planId = 'ABCDEF';
+  const planName = 'Basic';
+  const planType = 'Monthly';
+  const planPrice = 29.99;
+  const planDuration = 6;
+  const status = 'Active';
   final startDate = DateTime(now.year, now.month, now.day);
   final endDate = DateTime(now.year, now.month + planDuration, now.day);
   final nextBillingDate =
       DateTime(now.year, now.month + planDuration, now.day + 1);
-  final renewal = true;
+  const renewal = true;
   final paymentMethod = PaymentMethod(
       methodType: 'Visa', paymentStatus: 'paid', transactionId: 'ABCDE');
   List<Transaction> transactionHistory = [
@@ -50,7 +52,7 @@ void handlePaymentAction() {
     paymentMethod: paymentMethod,
     transactionHistory: transactionHistory,
   ));
-  print("Transaction verified");
+  log("Transaction verified");
 }
 
 Future<void> handleTrialAction() async {
@@ -61,7 +63,7 @@ Future<void> handleTrialAction() async {
   final email = AuthService.user?.email;
   final name = AuthService.user?.displayName;
 
-  final isTrial = true;
+  const isTrial = true;
   final trialStartDate = DateTime(now.year, now.month, now.day);
   final trialEndDate = DateTime(now.year, now.month, now.day + 7);
 
@@ -80,6 +82,6 @@ Future<bool> isPremium() async {
 
   final count = container.read(selectedSubscriptionDataProvider);
 
-  print('The current count is: $count');
+  log('The current count is: $count');
   return true;
 }

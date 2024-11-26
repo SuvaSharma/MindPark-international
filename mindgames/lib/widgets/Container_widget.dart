@@ -6,11 +6,11 @@ class ContainerWidget extends StatelessWidget {
   final bool showIcon;
 
   const ContainerWidget({
-    Key? key,
+    super.key,
     required this.screenWidth,
     required this.child,
     this.showIcon = false, //Defaultia
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +18,12 @@ class ContainerWidget extends StatelessWidget {
       elevation: 5,
       borderRadius: BorderRadius.circular(15),
       child: Container(
-        padding: EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(12.0),
         width: screenWidth * 0.9,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(15),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               color: Colors.black12,
               blurRadius: 2,

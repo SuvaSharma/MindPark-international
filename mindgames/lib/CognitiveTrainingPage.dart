@@ -27,7 +27,7 @@ class _CognitiveTrainingPageState extends State<CognitiveTrainingPage> {
                 'assets/images/comingsoon.gif',
                 width: screenWidth * 0.8,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Text(
                 'COMING SOON.........',
                 style: TextStyle(

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,7 +21,6 @@ class PuzzleDemoWidget extends ConsumerStatefulWidget {
 }
 
 class PuzzleDemoWidgetState extends ConsumerState<PuzzleDemoWidget> {
-  bool _isPaused = false;
   bool _isStarted = false;
   final AudioPlayer player = AudioPlayer();
   final GlobalKey<JigsawWidgetState> jigKey = GlobalKey<JigsawWidgetState>();
@@ -66,7 +66,7 @@ class PuzzleDemoWidgetState extends ConsumerState<PuzzleDemoWidget> {
       _showGame = true;
     });
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      Future.delayed(const Duration(milliseconds: 100), () async {
+      Future.delayed(const Duration(milliseconds: 500), () async {
         await jigKey.currentState?.generateJigsawCropImage();
       });
     });
@@ -97,13 +97,7 @@ class PuzzleDemoWidgetState extends ConsumerState<PuzzleDemoWidget> {
       );
     }
 
-    setState(() {
-      _isPaused = true;
-    });
     result = await displayPauseMenu();
-    setState(() {
-      _isPaused = false;
-    });
 
     return result ?? false;
   }
@@ -260,11 +254,7 @@ class PuzzleDemoWidgetState extends ConsumerState<PuzzleDemoWidget> {
                                 right: screenWidth * 0.02,
                               ),
                               child: GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    _isPaused = true;
-                                  });
-                                },
+                                onTap: () {},
                                 child: Align(
                                   alignment: Alignment.topRight,
                                   child: Material(
@@ -296,14 +286,10 @@ class PuzzleDemoWidgetState extends ConsumerState<PuzzleDemoWidget> {
                                 xSplitCount: 2,
                                 ySplitCount: 1,
                                 callbackFinish: () {
-                                  setState(() {
-                                    _isPaused = true;
-                                  });
-
                                   showCongratsDialog();
                                 },
                                 callbackSuccess: () {
-                                  print("callbackSuccess");
+                                  log("callbackSuccess");
                                   // lets fix error size
                                 },
                                 key: jigKey,

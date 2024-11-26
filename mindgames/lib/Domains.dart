@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mindgames/cognitive_skills_page.dart';
@@ -60,7 +59,7 @@ class _DomainPageState extends State<DomainPage> {
       onWillPop: () async {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => MainWrapper()),
+          MaterialPageRoute(builder: (context) => const MainWrapper()),
         );
         return false;
       },
@@ -69,7 +68,7 @@ class _DomainPageState extends State<DomainPage> {
           children: [
             FadeInImage(
               placeholder: MemoryImage(kTransparentImage),
-              image: AssetImage('assets/images/levelscreen.png'),
+              image: const AssetImage('assets/images/levelscreen.png'),
               fit: BoxFit.cover,
               height: double.infinity,
               width: double.infinity,
@@ -85,7 +84,7 @@ class _DomainPageState extends State<DomainPage> {
                       style: TextStyle(
                           fontSize: fontSize * 1.06,
                           fontWeight: FontWeight.w900,
-                          color: Color.fromARGB(255, 51, 106, 134)),
+                          color: const Color.fromARGB(255, 51, 106, 134)),
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(height: size.height * 0.02),

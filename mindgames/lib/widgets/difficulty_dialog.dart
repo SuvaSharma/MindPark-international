@@ -7,14 +7,14 @@ import 'package:mindgames/utils/difficulty_enum.dart';
 class DifficultyDialog extends StatefulWidget {
   final Function(Difficulty) onDifficultySelected;
 
-  const DifficultyDialog(
-      {Key? key,
-      required this.onDifficultySelected,
-      required Null Function() onBackPressed})
-      : super(key: key);
+  const DifficultyDialog({
+    super.key,
+    required this.onDifficultySelected,
+    required Null Function() onBackPressed,
+  });
 
   @override
-  _DifficultyDialogState createState() => _DifficultyDialogState();
+  State<DifficultyDialog> createState() => _DifficultyDialogState();
 }
 
 class _DifficultyDialogState extends State<DifficultyDialog>

@@ -26,7 +26,7 @@ class NoInternetPage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 'Please check your connection and try again.',
                 style: TextStyle(

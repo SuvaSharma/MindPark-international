@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:rate_my_app/rate_my_app.dart';
@@ -27,7 +27,7 @@ class _RateMyAppPageState extends State<RateMyAppPage> {
     rateMyApp.init().then((_) {
       rateMyApp.conditions.forEach((condition) {
         if (condition is DebuggableCondition) {
-          print(condition.toString());
+          log(condition.toString());
         }
       });
       if (rateMyApp.shouldOpenDialog) {
@@ -38,19 +38,20 @@ class _RateMyAppPageState extends State<RateMyAppPage> {
           rateButton: 'RATE',
           noButton: 'NO THANKS',
           laterButton: 'MAYBE LATER',
-          dialogStyle: DialogStyle(titleStyle: TextStyle(color: Colors.green)),
+          dialogStyle:
+              const DialogStyle(titleStyle: TextStyle(color: Colors.green)),
           listener: (button) {
             switch (button) {
               case RateMyAppDialogButton.rate:
-                print('Clicked on Rate');
+                log('Clicked on Rate');
                 break;
 
               case RateMyAppDialogButton.later:
-                print('Clicked on maybe later');
+                log('Clicked on maybe later');
                 break;
 
               case RateMyAppDialogButton.no:
-                print('Clicked on No Thanks');
+                log('Clicked on No Thanks');
                 break;
             }
             return true;
@@ -67,6 +68,6 @@ class _RateMyAppPageState extends State<RateMyAppPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold();
   }
 }

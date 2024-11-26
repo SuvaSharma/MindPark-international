@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,7 +13,7 @@ class Introduction extends StatefulWidget {
   const Introduction({super.key, required this.shownWhen});
 
   @override
-  _IntroductionState createState() => _IntroductionState();
+  State<Introduction> createState() => _IntroductionState();
 }
 
 class _IntroductionState extends State<Introduction> {
@@ -37,7 +39,7 @@ class _IntroductionState extends State<Introduction> {
 
   void _preloadAudio() {
     _audioCache.load('Instruction_Swipe.mp3').then((_) {
-      print('Sound pre-initialized');
+      log('Sound pre-initialized');
     });
   }
 
@@ -52,7 +54,7 @@ class _IntroductionState extends State<Introduction> {
     _pageController.dispose();
     super.dispose();
     if (widget.shownWhen == 'in-game') {
-      print('switching dispose landscape');
+      log('switching dispose landscape');
       SystemChrome.setPreferredOrientations([
         DeviceOrientation.landscapeLeft,
         DeviceOrientation.landscapeRight,
@@ -65,7 +67,7 @@ class _IntroductionState extends State<Introduction> {
 
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => Level8demo()),
+      MaterialPageRoute(builder: (context) => const Level8demo()),
     );
   }
 
@@ -218,7 +220,7 @@ class _IntroductionState extends State<Introduction> {
     return Scaffold(
       body: OrientationBuilder(
         builder: (context, orientation) {
-          print('switching info build portrait');
+          log('switching info build portrait');
           SystemChrome.setPreferredOrientations([
             DeviceOrientation.portraitDown,
             DeviceOrientation.portraitUp,

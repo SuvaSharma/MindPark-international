@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
@@ -91,15 +92,15 @@ class _ERTpageState extends ConsumerState<ERTpage>
     );
 
     _leftButtonAnimation = Tween<Offset>(
-      begin: Offset(-1.0, 0.0),
-      end: Offset(0.0, 0.0),
+      begin: const Offset(-1.0, 0.0),
+      end: const Offset(0.0, 0.0),
     ).animate(CurvedAnimation(
       parent: _animationController,
       curve: Curves.easeInOut,
     ));
     _rightButtonAnimation = Tween<Offset>(
-      begin: Offset(1.0, 0.0),
-      end: Offset(0.0, 0.0),
+      begin: const Offset(1.0, 0.0),
+      end: const Offset(0.0, 0.0),
     ).animate(
       CurvedAnimation(
         parent: _animationController,
@@ -147,7 +148,7 @@ class _ERTpageState extends ConsumerState<ERTpage>
       'PauseTap.mp3',
       'playbutton.mp3',
       'bounce.mp3'
-      'Instruction_Swipe.mp3'
+          'Instruction_Swipe.mp3'
     ]);
   }
 
@@ -156,14 +157,14 @@ class _ERTpageState extends ConsumerState<ERTpage>
   }
 
   void _displayContainer() {
-    print('container shown');
+    log('container shown');
     _currentTimerType = TimerType.Container;
     setState(() {
       showContainer = true;
       containerOpacity = 0;
     });
 
-    containerTimer = Timer(Duration(milliseconds: 10), () {
+    containerTimer = Timer(const Duration(milliseconds: 10), () {
       setState(() {
         containerOpacity = 1.0;
       });
@@ -172,13 +173,13 @@ class _ERTpageState extends ConsumerState<ERTpage>
   }
 
   void _displayFixation() {
-    print('fixation shown');
+    log('fixation shown');
     _fixationStartTime = DateTime.now().millisecondsSinceEpoch;
     _currentTimerType = TimerType.Fixation;
     setState(() {
       showFixationPoint = true;
     });
-    fixationTimer = Timer(Duration(milliseconds: 500), () {
+    fixationTimer = Timer(const Duration(milliseconds: 500), () {
       setState(() {
         showFixationPoint = false;
       });
@@ -187,13 +188,13 @@ class _ERTpageState extends ConsumerState<ERTpage>
   }
 
   void _displayImage() {
-    print('image shown');
+    log('image shown');
     _imageStartTime = DateTime.now().millisecondsSinceEpoch;
     _currentTimerType = TimerType.Image;
     setState(() {
       showImage = true;
     });
-    imageTimer = Timer(Duration(milliseconds: 500), () {
+    imageTimer = Timer(const Duration(milliseconds: 500), () {
       setState(() {
         showImage = false;
       });
@@ -202,12 +203,12 @@ class _ERTpageState extends ConsumerState<ERTpage>
   }
 
   void _displayNoise() {
-    print('noise shown');
+    log('noise shown');
     _currentTimerType = TimerType.Noise;
     setState(() {
       showNoise = true;
     });
-    noiseTimer = Timer(Duration(milliseconds: 500), () {
+    noiseTimer = Timer(const Duration(milliseconds: 500), () {
       setState(() {
         showNoise = false;
       });
@@ -216,7 +217,7 @@ class _ERTpageState extends ConsumerState<ERTpage>
   }
 
   void _displayOption() {
-    print('option shown');
+    log('option shown');
     _optionStartTime = DateTime.now().millisecondsSinceEpoch;
     _currentTimerType = TimerType.Option;
     setState(() {
@@ -225,7 +226,7 @@ class _ERTpageState extends ConsumerState<ERTpage>
       _animationController.forward();
     });
 
-    optionTimer = Timer(Duration(milliseconds: 5000), () {
+    optionTimer = Timer(const Duration(milliseconds: 5000), () {
       setState(() {
         showEmotionButtons = false;
       });
@@ -257,7 +258,7 @@ class _ERTpageState extends ConsumerState<ERTpage>
     String correctEmotion = imageToEmotion[currentImage]!;
 
     if (emotion == correctEmotion) {
-      print("Correct! The emotion is $emotion.");
+      log("Correct! The emotion is $emotion.");
       if (_vibrationEnabled) {
         Vibration.vibrate(
           duration: 100,
@@ -271,7 +272,7 @@ class _ERTpageState extends ConsumerState<ERTpage>
         score++;
       });
 
-      feedbackTimer = Timer(Duration(milliseconds: 500), () {
+      feedbackTimer = Timer(const Duration(milliseconds: 500), () {
         setState(() {
           showcorrectFeedbackImage = false;
         });
@@ -285,7 +286,7 @@ class _ERTpageState extends ConsumerState<ERTpage>
           _showGameOverDialog();
           isGameOver = true;
         } else {
-          Future.delayed(Duration(milliseconds: 10), () {
+          Future.delayed(const Duration(milliseconds: 10), () {
             setState(() {
               currentImageIndex = (currentImageIndex + 1) % images.length;
               _animationController.reset();
@@ -295,13 +296,13 @@ class _ERTpageState extends ConsumerState<ERTpage>
         }
       });
     } else {
-      print("Incorrect! Try again.");
+      log("Incorrect! Try again.");
       setState(() {
         showincorrectFeedbackImage = true;
         _playSound('wrong.mp3', player);
       });
 
-      feedbackTimer = Timer(Duration(milliseconds: 500), () {
+      feedbackTimer = Timer(const Duration(milliseconds: 500), () {
         setState(() {
           showincorrectFeedbackImage = false;
         });
@@ -315,10 +316,10 @@ class _ERTpageState extends ConsumerState<ERTpage>
           _showGameOverDialog();
           isGameOver = true;
         } else {
-          Future.delayed(Duration(milliseconds: 10), () {
+          Future.delayed(const Duration(milliseconds: 10), () {
             setState(() {
               currentImageIndex = (currentImageIndex + 1) % images.length;
-              print('animation was reset');
+              log('animation was reset');
               _animationController.reset();
             });
             _displayContainer();
@@ -329,7 +330,7 @@ class _ERTpageState extends ConsumerState<ERTpage>
   }
 
   Future<bool> _onBackPressed() async {
-    print('I was triggered');
+    log('I was triggered');
     _playSound('PauseTap.mp3', player);
 
     bool? result;
@@ -352,7 +353,7 @@ class _ERTpageState extends ConsumerState<ERTpage>
     }
 
     if (_currentTimerType == TimerType.Fixation) {
-      print('paused when fixation was shown');
+      log('paused when fixation was shown');
       fixationTimer.cancel();
       _fixationEndTime = DateTime.now().millisecondsSinceEpoch;
       int elapsedFixationTime = _fixationEndTime - _fixationStartTime;
@@ -369,7 +370,7 @@ class _ERTpageState extends ConsumerState<ERTpage>
         });
       }
     } else if (_currentTimerType == TimerType.Image) {
-      print('paused when image was shown');
+      log('paused when image was shown');
       imageTimer.cancel();
       _imageEndTime = DateTime.now().millisecondsSinceEpoch;
       int elapsedImageTime = _imageEndTime - _imageStartTime;
@@ -385,7 +386,7 @@ class _ERTpageState extends ConsumerState<ERTpage>
         });
       }
     } else if (_currentTimerType == TimerType.Option) {
-      print('paused when option was shown');
+      log('paused when option was shown');
       optionTimer.cancel();
       _optionEndTime = DateTime.now().millisecondsSinceEpoch;
       int elapsedOptionTime = _optionEndTime - _optionStartTime;
@@ -522,7 +523,7 @@ class _ERTpageState extends ConsumerState<ERTpage>
       onWillPop: _onBackPressed,
       child: Scaffold(
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/balloon_background.jpeg"),
               fit: BoxFit.cover,
@@ -569,7 +570,7 @@ class _ERTpageState extends ConsumerState<ERTpage>
                                             baseSize * 0.03),
                                       ),
                                       child: IconButton(
-                                        icon: Icon(Icons.pause),
+                                        icon: const Icon(Icons.pause),
                                         iconSize: baseSize * 0.07,
                                         onPressed: _onBackPressed,
                                       ),
@@ -608,7 +609,7 @@ class _ERTpageState extends ConsumerState<ERTpage>
                   Center(
                     child: AnimatedOpacity(
                       opacity: containerOpacity,
-                      duration: Duration(milliseconds: 500),
+                      duration: const Duration(milliseconds: 500),
                       child: Material(
                         elevation: 15,
                         borderRadius: BorderRadius.circular(25),
@@ -660,7 +661,7 @@ class _ERTpageState extends ConsumerState<ERTpage>
                   ),
                 if (showcorrectFeedbackImage)
                   Center(
-                    child: Container(
+                    child: SizedBox(
                       width: screenSize.width * 0.5,
                       height: screenSize.height * 0.25,
                       child: Image.asset(
@@ -671,7 +672,7 @@ class _ERTpageState extends ConsumerState<ERTpage>
                   ),
                 if (showincorrectFeedbackImage)
                   Center(
-                    child: Container(
+                    child: SizedBox(
                       width: screenSize.width * 0.5,
                       height: screenSize.height * 0.25,
                       child: Image.asset(

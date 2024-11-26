@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_flip_card/controllers/flip_card_controllers.dart';
 import 'package:flutter_flip_card/flipcard/gesture_flip_card.dart';
@@ -10,7 +9,7 @@ import 'package:mindgames/Level_one_screens.dart';
 import 'package:mindgames/Levels_screen.dart';
 
 class CognitiveLevelPage extends StatefulWidget {
-  CognitiveLevelPage({super.key, Key? superkey});
+  const CognitiveLevelPage({super.key});
 
   @override
   State<CognitiveLevelPage> createState() => _CognitiveLevelPageState();
@@ -148,22 +147,24 @@ class _CognitiveLevelPageState extends State<CognitiveLevelPage>
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      LevelOnePage(),
+                                                      const LevelOnePage(),
                                                 ),
                                               );
                                             },
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor:
-                                                  Color(0xFF309092),
+                                                  const Color(0xFF309092),
                                               foregroundColor: Colors.white,
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 20, vertical: 10),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 20,
+                                                      vertical: 10),
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(25),
                                               ),
                                             ),
-                                            child: Text(
+                                            child: const Text(
                                               "Play",
                                               style: TextStyle(
                                                 fontSize: 16,
@@ -172,7 +173,7 @@ class _CognitiveLevelPageState extends State<CognitiveLevelPage>
                                             ),
                                           )),
                                       IconButton(
-                                        icon: Icon(Icons.info_outline),
+                                        icon: const Icon(Icons.info_outline),
                                         onPressed: () {
                                           _flipController.flipcard();
                                         },
@@ -199,8 +200,8 @@ class _CognitiveLevelPageState extends State<CognitiveLevelPage>
                               ),
                               child: Stack(
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(6.0),
+                                  const Padding(
+                                    padding: EdgeInsets.all(6.0),
                                     child: Text(
                                       "Level is designed for highly autistic children, tailored to their needs.",
                                       style: TextStyle(
@@ -219,21 +220,22 @@ class _CognitiveLevelPageState extends State<CognitiveLevelPage>
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  LevelOnePage(),
+                                                  const LevelOnePage(),
                                             ),
                                           );
                                         },
                                         style: ElevatedButton.styleFrom(
-                                          backgroundColor: Color(0xFF309092),
+                                          backgroundColor:
+                                              const Color(0xFF309092),
                                           foregroundColor: Colors.white,
-                                          padding: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                               horizontal: 20, vertical: 10),
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(25),
                                           ),
                                         ),
-                                        child: Text(
+                                        child: const Text(
                                           "Play",
                                           style: TextStyle(
                                             fontSize: 16,
@@ -263,7 +265,7 @@ class _CognitiveLevelPageState extends State<CognitiveLevelPage>
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        CognitiveTrainingPage()));
+                                        const CognitiveTrainingPage()));
                           },
                           child: Container(
                             width: containerSize,
@@ -276,7 +278,7 @@ class _CognitiveLevelPageState extends State<CognitiveLevelPage>
                                   color: Colors.black.withOpacity(0.2),
                                   spreadRadius: 2,
                                   blurRadius: 10,
-                                  offset: Offset(0.5, -5),
+                                  offset: const Offset(0.5, -5),
                                 ),
                               ],
                             ),
@@ -286,7 +288,7 @@ class _CognitiveLevelPageState extends State<CognitiveLevelPage>
                                 style: TextStyle(
                                   fontSize: screenWidth * 0.06,
                                   fontWeight: FontWeight.bold,
-                                  color: Color(0xFF309092),
+                                  color: const Color(0xFF309092),
                                 ),
                               ),
                             ),
@@ -347,22 +349,24 @@ class _CognitiveLevelPageState extends State<CognitiveLevelPage>
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      LevelPage(),
+                                                      const LevelPage(),
                                                 ),
                                               );
                                             },
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor:
-                                                  Color(0xFF309092),
+                                                  const Color(0xFF309092),
                                               foregroundColor: Colors.white,
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 20, vertical: 10),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 20,
+                                                      vertical: 10),
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(25),
                                               ),
                                             ),
-                                            child: Text(
+                                            child: const Text(
                                               "Play",
                                               style: TextStyle(
                                                 fontSize: 16,
@@ -371,7 +375,7 @@ class _CognitiveLevelPageState extends State<CognitiveLevelPage>
                                             ),
                                           )),
                                       IconButton(
-                                        icon: Icon(Icons.info_outline),
+                                        icon: const Icon(Icons.info_outline),
                                         onPressed: () {
                                           _flipController.flipcard();
                                         },
@@ -398,8 +402,8 @@ class _CognitiveLevelPageState extends State<CognitiveLevelPage>
                               ),
                               child: Stack(
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(6.0),
+                                  const Padding(
+                                    padding: EdgeInsets.all(6.0),
                                     child: Text(
                                       "Level is designed for children with low levels of autism, featuring minimal structure and gentle challenges.",
                                       style: TextStyle(
@@ -417,21 +421,23 @@ class _CognitiveLevelPageState extends State<CognitiveLevelPage>
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) => LevelPage(),
+                                              builder: (context) =>
+                                                  const LevelPage(),
                                             ),
                                           );
                                         },
                                         style: ElevatedButton.styleFrom(
-                                          backgroundColor: Color(0xFF309092),
+                                          backgroundColor:
+                                              const Color(0xFF309092),
                                           foregroundColor: Colors.white,
-                                          padding: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                               horizontal: 20, vertical: 10),
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(25),
                                           ),
                                         ),
-                                        child: Text(
+                                        child: const Text(
                                           "Play",
                                           style: TextStyle(
                                             fontSize: 16,

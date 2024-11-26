@@ -9,7 +9,6 @@ class JigsawPainterBackground extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    // TODO: implement paint
     Paint paint = Paint()
       ..style = PaintingStyle.stroke
       ..color = Colors.black12

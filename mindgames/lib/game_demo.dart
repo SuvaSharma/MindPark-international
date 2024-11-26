@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class GameWithHandDemo extends StatefulWidget {
+  const GameWithHandDemo({super.key});
   @override
-  _GameWithHandDemoState createState() => _GameWithHandDemoState();
+  State<GameWithHandDemo> createState() => _GameWithHandDemoState();
 }
 
 class _GameWithHandDemoState extends State<GameWithHandDemo> {
@@ -112,7 +113,7 @@ class _GameWithHandDemoState extends State<GameWithHandDemo> {
 }
 
 void main() {
-  runApp(MaterialApp(
+  runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
     home: GameWithHandDemo(),
   ));

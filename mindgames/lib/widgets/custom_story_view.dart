@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 class CustomStoryView extends StatelessWidget {
   final List<String> imageUrls;
 
-  const CustomStoryView({Key? key, required this.imageUrls}) : super(key: key);
+  const CustomStoryView({
+    super.key,
+    required this.imageUrls,
+  });
 
   @override
   Widget build(BuildContext context) {

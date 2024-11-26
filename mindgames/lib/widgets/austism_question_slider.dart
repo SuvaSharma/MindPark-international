@@ -45,7 +45,8 @@ class CustomValueIndicatorShape extends SliderComponentShape {
         width: indicatorWidth * 2,
         height: indicatorHeight);
 
-    final RRect rrect = RRect.fromRectAndRadius(rect, Radius.circular(25.0));
+    final RRect rrect =
+        RRect.fromRectAndRadius(rect, const Radius.circular(25.0));
     context.canvas.drawRRect(rrect, paint);
 
     // Paint the label background with padding
@@ -59,7 +60,7 @@ class CustomValueIndicatorShape extends SliderComponentShape {
         height: labelPainter.height + padding); // Add padding around the text
 
     final RRect labelRRect =
-        RRect.fromRectAndRadius(labelRect, Radius.circular(8.0));
+        RRect.fromRectAndRadius(labelRect, const Radius.circular(8.0));
     context.canvas.drawRRect(labelRRect, labelBackgroundPaint);
 
     // Paint the label text
@@ -77,6 +78,7 @@ class AutismQuestionSlider extends StatelessWidget {
   final ValueChanged<double> onChanged;
 
   const AutismQuestionSlider({
+    super.key,
     required this.question,
     required this.answer,
     required this.onChanged,

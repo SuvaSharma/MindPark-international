@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:accordion/accordion.dart';
 import 'package:accordion/controllers.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -12,6 +14,7 @@ import 'package:mindgames/extensions/string_extensions.dart';
 import 'package:mindgames/utils/convert_to_nepali_numbers.dart';
 
 class CognitiveTestScreen extends ConsumerStatefulWidget {
+  const CognitiveTestScreen({super.key});
   @override
   ConsumerState<CognitiveTestScreen> createState() =>
       _CognitiveTestScreenState();
@@ -96,13 +99,13 @@ class _CognitiveTestScreenState extends ConsumerState<CognitiveTestScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage('assets/images/levelscreen.png'),
               fit: BoxFit.cover),
         ),
         child: isLoading
-            ? Center(child: CircularProgressIndicator())
+            ? const Center(child: CircularProgressIndicator())
             : Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: GridView.builder(
@@ -150,11 +153,13 @@ class CognitiveTestCard extends StatelessWidget {
   final IconData icon;
   final Color color;
 
-  CognitiveTestCard(
-      {required this.displayName,
-      required this.testName,
-      required this.icon,
-      required this.color});
+  const CognitiveTestCard({
+    super.key,
+    required this.displayName,
+    required this.testName,
+    required this.icon,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -201,7 +206,8 @@ class CognitiveTestDetailScreen extends ConsumerStatefulWidget {
   final List<Map<String, dynamic>>? data;
   final Color color;
 
-  CognitiveTestDetailScreen({
+  const CognitiveTestDetailScreen({
+    super.key,
     required this.displayName,
     required this.testName,
     required this.icon,
@@ -277,7 +283,6 @@ class _CognitiveTestDetailScreenState
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     final selectedChild = ref.read(selectedChildDataProvider);
     selectedChildUserId = selectedChild!.childId;
@@ -285,7 +290,7 @@ class _CognitiveTestDetailScreenState
   }
 
   Accordion _nestedAccordion(List<Map<String, dynamic>>? data) {
-    print(data);
+    log('$data');
     return Accordion(
       headerPadding: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
       contentBorderWidth: 3,
@@ -344,7 +349,20 @@ class _CognitiveTestDetailScreenState
                                 fontSize: screenWidth * 0.04),
                           ),
                           Text(
-                            '${gameEntry.key.endsWith('accuracy') || gameEntry.key.endsWith('Error') || gameEntry.key.endsWith('span') ? '${convertToNepaliNumbers(gameEntry.value.toStringAsFixed(2))}%' : gameEntry.value is double ? '${convertToNepaliNumbers(gameEntry.value.toStringAsFixed(2))} ms' : gameEntry.key.endsWith('time') ? '${convertToNepaliNumbers('${gameEntry.value}')} sec' : double.tryParse('${gameEntry.value}') != null ? convertToNepaliNumbers('${gameEntry.value}') : '${gameEntry.value}'.tr}',
+                            gameEntry.key.endsWith('accuracy') ||
+                                    gameEntry.key.endsWith('Error') ||
+                                    gameEntry.key.endsWith('span')
+                                ? '${convertToNepaliNumbers(gameEntry.value.toStringAsFixed(2))}%'
+                                : gameEntry.value is double
+                                    ? '${convertToNepaliNumbers(gameEntry.value.toStringAsFixed(2))} ms'
+                                    : gameEntry.key.endsWith('time')
+                                        ? '${convertToNepaliNumbers('${gameEntry.value}')} sec'
+                                        : double.tryParse(
+                                                    '${gameEntry.value}') !=
+                                                null
+                                            ? convertToNepaliNumbers(
+                                                '${gameEntry.value}')
+                                            : '${gameEntry.value}'.tr,
                             style: TextStyle(
                                 fontWeight: FontWeight.normal,
                                 fontSize: screenWidth * 0.04),
@@ -373,7 +391,18 @@ class _CognitiveTestDetailScreenState
                         fontSize: screenWidth * 0.04),
                   ),
                   Text(
-                    '${entry.key.capitalize().endsWith('Accuracy') || entry.key.capitalize().endsWith('Error') || entry.key.capitalize().endsWith('Span') || entry.key.capitalize().endsWith('Control') ? '${convertToNepaliNumbers(entry.value.toStringAsFixed(2))}%' : entry.value is double && !entry.key.endsWith('score') ? '${convertToNepaliNumbers(entry.value.toStringAsFixed(2))} ms' : entry.key.endsWith('Time') ? '${convertToNepaliNumbers(entry.value)} sec' : double.tryParse('${entry.value}') != null ? convertToNepaliNumbers('${entry.value}') : '${entry.value}'.tr}',
+                    entry.key.capitalize().endsWith('Accuracy') ||
+                            entry.key.capitalize().endsWith('Error') ||
+                            entry.key.capitalize().endsWith('Span') ||
+                            entry.key.capitalize().endsWith('Control')
+                        ? '${convertToNepaliNumbers(entry.value.toStringAsFixed(2))}%'
+                        : entry.value is double && !entry.key.endsWith('score')
+                            ? '${convertToNepaliNumbers(entry.value.toStringAsFixed(2))} ms'
+                            : entry.key.endsWith('Time')
+                                ? '${convertToNepaliNumbers(entry.value)} sec'
+                                : double.tryParse('${entry.value}') != null
+                                    ? convertToNepaliNumbers('${entry.value}')
+                                    : '${entry.value}'.tr,
                     style: TextStyle(
                         fontWeight: FontWeight.normal,
                         fontSize: screenWidth * 0.04),
@@ -401,12 +430,12 @@ class _CognitiveTestDetailScreenState
           ? color
           : item['status'] == 'Completed'
               ? color
-              : Color.fromARGB(255, 146, 48, 48),
+              : const Color.fromARGB(255, 146, 48, 48),
       headerBackgroundColorOpened: !item.containsKey('status')
           ? color
           : item['status'] == 'Completed'
               ? color
-              : Color.fromARGB(255, 146, 48, 48),
+              : const Color.fromARGB(255, 146, 48, 48),
       header: Text(
         sessionId,
         style: TextStyle(

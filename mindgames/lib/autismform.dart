@@ -73,7 +73,7 @@ class _AutismState extends ConsumerState<Autism> {
           context, 'Success'.tr, 'Questionnaire submitted successfully!'.tr);
     } catch (e) {
       if (!context.mounted) {
-        showCustomSnackbar(context, 'Error'.tr, '${e.toString()}'.tr);
+        showCustomSnackbar(context, 'Error'.tr, e.toString().tr);
       }
     }
   }

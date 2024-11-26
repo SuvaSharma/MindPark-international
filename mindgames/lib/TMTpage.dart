@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'dart:math';
+import 'dart:math' as math;
+import 'dart:developer';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,8 @@ import 'package:mindgames/config/hard_tmt_A_config.dart';
 import 'package:vibration/vibration.dart';
 
 class TMTpage extends StatefulWidget {
+  const TMTpage({super.key});
+
   @override
   State<TMTpage> createState() => _TMTpageState();
 }
@@ -44,7 +47,7 @@ class _TMTpageState extends State<TMTpage> {
   double overlayLeft = 0;
   double overlayTop = 0;
   late List<Map<String, dynamic>> nodeList;
-  final Random _random = Random();
+  final math.Random _random = math.Random();
   int correctNodeCount = 0;
 
   Timer? gameTimer;
@@ -62,13 +65,13 @@ class _TMTpageState extends State<TMTpage> {
   late ConfettiController _confettiController;
 
   bool gameExited = false;
-  bool _showGame = false;
+
   late Difficulty _selectedDifficulty;
 
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 1), () {
+    Timer(const Duration(seconds: 1), () {
       setState(() {
         showPartAText = false;
         showNodes =
@@ -97,7 +100,7 @@ class _TMTpageState extends State<TMTpage> {
           child: DifficultyDialog(
             onDifficultySelected: (Difficulty difficulty) {
               _startGameWithDifficulty(difficulty);
-              // TODO:
+
               _startGame();
             },
             onBackPressed: () {},
@@ -116,7 +119,7 @@ class _TMTpageState extends State<TMTpage> {
       showPartAText = true;
       showNodes = false;
       // Start a timer to hide the "PART A" text after 1 second
-      Timer(Duration(seconds: 1), () {
+      Timer(const Duration(seconds: 1), () {
         setState(() {
           showPartAText = false;
           showNodes = true;
@@ -129,7 +132,6 @@ class _TMTpageState extends State<TMTpage> {
   void _startGameWithDifficulty(Difficulty difficulty) {
     setState(() {
       _selectedDifficulty = difficulty;
-      _showGame = true;
     });
     _setGameParameters(_selectedDifficulty);
     _playSound('playbutton.mp3', player);
@@ -224,7 +226,7 @@ class _TMTpageState extends State<TMTpage> {
                           'Congratulations!'.tr,
                           style: TextStyle(
                             fontSize: screenWidth * 0.030,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -246,12 +248,12 @@ class _TMTpageState extends State<TMTpage> {
                       ),
                       Text(
                         'Response Time: '.tr +
-                            convertToNepaliNumbers('${secondsElapsed}') +
+                            convertToNepaliNumbers('$secondsElapsed') +
                             ' sec'.tr,
                         // Display the score
                         style: TextStyle(
                             fontSize: screenWidth * 0.025,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             fontWeight: FontWeight.bold),
                       ),
                       TextButton(
@@ -277,11 +279,11 @@ class _TMTpageState extends State<TMTpage> {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Color(0xff309092),
+                            color: const Color(0xff309092),
                             borderRadius: BorderRadius.circular(25),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: Icon(Icons.arrow_forward,
                                 color: Colors.white, size: screenWidth * 0.03),
                           ),
@@ -327,7 +329,7 @@ class _TMTpageState extends State<TMTpage> {
                           'Game Over!'.tr,
                           style: TextStyle(
                             fontSize: screenWidth * 0.030,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -349,11 +351,11 @@ class _TMTpageState extends State<TMTpage> {
                       ),
                       Text(
                         'Response Time: '.tr +
-                            convertToNepaliNumbers('${secondsElapsed}'),
+                            convertToNepaliNumbers('$secondsElapsed'),
                         // Display the score
                         style: TextStyle(
                             fontSize: screenWidth * 0.025,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             fontWeight: FontWeight.bold),
                       ),
                       TextButton(
@@ -379,11 +381,11 @@ class _TMTpageState extends State<TMTpage> {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Color(0xff309092),
+                            color: const Color(0xff309092),
                             borderRadius: BorderRadius.circular(25),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: Icon(Icons.arrow_forward,
                                 color: Colors.white, size: screenWidth * 0.03),
                           ),
@@ -418,7 +420,7 @@ class _TMTpageState extends State<TMTpage> {
   }
 
   void startGameTimer() {
-    gameTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+    gameTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         secondsElapsed++;
       });
@@ -438,22 +440,22 @@ class _TMTpageState extends State<TMTpage> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Container(
-        margin: EdgeInsets.symmetric(
+        margin: const EdgeInsets.symmetric(
             vertical: 4), // Add vertical margin for spacing between option rows
         decoration: BoxDecoration(
-          color: Color(0xFF309092),
+          color: const Color(0xFF309092),
           borderRadius: BorderRadius.circular(25),
           // Example border color, you can change it
         ),
         child: AnimatedButton(
           height: screenHeight * 0.12,
           width: screenWidth * 0.3,
-          color: Color(0xFF309092),
+          color: const Color(0xFF309092),
           onPressed: () {
             if (text == 'Resume'.tr) {
               Navigator.pop(context, false);
             } else if (text == 'Sound'.tr) {
-              print('Change sound');
+              log('Change sound');
             } else if (text == 'Instructions'.tr) {
               Navigator.push(
                 context,
@@ -511,7 +513,7 @@ class _TMTpageState extends State<TMTpage> {
         child: AlertDialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50.0),
-            side: BorderSide(
+            side: const BorderSide(
               color: Colors.black,
               width: 4.0,
             ),
@@ -526,7 +528,7 @@ class _TMTpageState extends State<TMTpage> {
                   'Pause Menu'.tr,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Color(0xFF309092),
+                    color: const Color(0xFF309092),
                     fontSize: screenWidth * 0.025,
                     fontWeight: FontWeight.bold,
                   ),
@@ -543,7 +545,7 @@ class _TMTpageState extends State<TMTpage> {
     );
 
     if (result == false) {
-      gameTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+      gameTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
         setState(() {
           secondsElapsed++;
         });
@@ -570,14 +572,8 @@ class _TMTpageState extends State<TMTpage> {
           double screenWidth = MediaQuery.of(context).size.width;
           double screenHeight = MediaQuery.of(context).size.height;
 
-          // Adjust UI elements based on screen size
-          double nodeSize =
-              screenWidth * 0.05; // Node size relative to screen width
-          double nodeSpacing = screenWidth *
-              0.02; // Spacing between nodes relative to screen width
-
           return OrientationBuilder(builder: (context, orientation) {
-            print('switching to landscape');
+            log('switching to landscape');
             SystemChrome.setPreferredOrientations([
               DeviceOrientation.landscapeLeft,
               DeviceOrientation.landscapeRight,
@@ -603,13 +599,13 @@ class _TMTpageState extends State<TMTpage> {
                                 style: TextStyle(
                                     fontSize: screenWidth * 0.07,
                                     fontWeight: FontWeight.bold,
-                                    color: Color(0xFF309092))),
+                                    color: const Color(0xFF309092))),
                           if (showPartAText)
                             Center(
                               child: Text(
                                 'PART A'.tr,
                                 style: TextStyle(
-                                  color: Color(0xFF309092),
+                                  color: const Color(0xFF309092),
                                   fontSize: screenWidth * 0.030,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -680,18 +676,18 @@ class _TMTpageState extends State<TMTpage> {
                         child: AnimatedButton(
                           height: screenWidth * 0.06,
                           width: screenWidth * 0.06,
+                          color: Colors.white,
+                          onPressed: () {
+                            log('I was triggered');
+                            _onBackPressed();
+                          },
+                          enabled: true,
+                          shadowDegree: ShadowDegree.light,
                           child: const Icon(
                             Icons.pause,
                             color: Colors.black,
                             size: 25.0,
                           ),
-                          color: Colors.white,
-                          onPressed: () {
-                            print('I was triggered');
-                            _onBackPressed();
-                          },
-                          enabled: true,
-                          shadowDegree: ShadowDegree.light,
                         ),
                       ),
                     ),
@@ -725,7 +721,7 @@ class _TMTpageState extends State<TMTpage> {
 
   //     setState(() {
   //       tappedNodes.add(nodeNumber);
-  //       print('Tapped Nodes: $tappedNodes');
+  //       log('Tapped Nodes: $tappedNodes');
 
   //       // Add line points only if more than one node is tapped
   //       if (tappedNodes.length > 1) {
@@ -749,7 +745,7 @@ class _TMTpageState extends State<TMTpage> {
   //     });
   //   } else {
   //     // Wrong node tapped, show error message
-  //     print('Wrong node tapped');
+  //     log('Wrong node tapped');
   //     // Increment the count of wrong node image shown
   //     setState(() {
   //       wrongNodeImageCount++;
@@ -773,9 +769,9 @@ class _TMTpageState extends State<TMTpage> {
   //     });
   //   }
 
-  //   // Check if the tapped node is correct and print a message
+  //   // Check if the tapped node is correct and log a message
   //   if (!showOverlay) {
-  //     print('Correct node tapped');
+  //     log('Correct node tapped');
   //     if (_vibrationEnabled) {
   //       Vibration.vibrate(
   //         duration: 100,
@@ -810,7 +806,7 @@ class _TMTpageState extends State<TMTpage> {
 
       setState(() {
         tappedNodes.add(nodeNumber);
-        print('Tapped Nodes: $tappedNodes');
+        log('Tapped Nodes: $tappedNodes');
 
         // Add line points only if more than one node is tapped
         if (tappedNodes.length > 1) {
@@ -852,7 +848,7 @@ class _TMTpageState extends State<TMTpage> {
       // If the node is not connected to a line, show the error overlay
       if (!isNodeConnected) {
         // Wrong node tapped, show error message
-        print('Wrong node tapped');
+        log('Wrong node tapped');
         // Increment the count of wrong node image shown
         setState(() {
           wrongNodeImageCount++;
@@ -869,7 +865,7 @@ class _TMTpageState extends State<TMTpage> {
         });
 
         // Hide image overlay after 500 milliseconds
-        Future.delayed(Duration(milliseconds: 200), () {
+        Future.delayed(const Duration(milliseconds: 200), () {
           setState(() {
             showOverlay = false;
           });
@@ -877,9 +873,9 @@ class _TMTpageState extends State<TMTpage> {
       }
     }
 
-    // Check if the tapped node is correct and print a message
+    // Check if the tapped node is correct and log a message
     if (!showOverlay) {
-      print('Correct node tapped');
+      log('Correct node tapped');
       if (_vibrationEnabled) {
         Vibration.vibrate(
           duration: 100,
@@ -887,7 +883,7 @@ class _TMTpageState extends State<TMTpage> {
         );
       }
       nodeColors[nodeNumber - 1] = Colors.white;
-      textColors[nodeNumber - 1] = Color(0xFF309092);
+      textColors[nodeNumber - 1] = const Color(0xFF309092);
       setState(() {
         correctNodeCount++;
       });
@@ -953,7 +949,7 @@ class LinePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Color(0xFF309092)
+      ..color = const Color(0xFF309092)
       ..strokeWidth = 3;
 
     canvas.drawLine(start, end, paint);

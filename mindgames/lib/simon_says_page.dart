@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -78,8 +79,7 @@ class _SimonSaysPageState extends ConsumerState<SimonSaysPage>
     );
 
     _audioCache.load('task_completed.mp3').then((_) {
-      print(
-          'right sound pre-initialized'); // Log a message when preloading is complete
+      log('right sound pre-initialized'); // Log a message when preloading is complete
     });
   }
 
@@ -246,6 +246,9 @@ class _SimonSaysPageState extends ConsumerState<SimonSaysPage>
           await fadeAnimation();
           if (!_isPaused) {
             if (!isChildMode!) {
+              if (!context.mounted) {
+                return;
+              }
               displayBottomSheet(context);
             } else {
               onTaskComplete(false);
@@ -515,7 +518,7 @@ class _SimonSaysPageState extends ConsumerState<SimonSaysPage>
                                       BorderRadius.circular(baseSize * 0.03),
                                 ),
                                 child: IconButton(
-                                  icon: Icon(Icons.pause),
+                                  icon: const Icon(Icons.pause),
                                   iconSize: baseSize * 0.07,
                                   onPressed: onBackPressed,
                                 ),

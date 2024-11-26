@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -25,15 +27,15 @@ Future<void> main() async {
       options: DefaultFirebaseOptions.currentPlatform,
     );
   } catch (e) {
-    print('Error initializing Firebase: $e');
+    log('Error initializing Firebase: $e');
   }
   Get.put(SettingsController());
 
   Map<String, Map<String, String>> languages = await dep.init();
   FlutterError.onError = (FlutterErrorDetails details) {
-    FlutterError.dumpErrorToConsole(details); // Log the error to the console
+    FlutterError.dumpErrorToConsole(details);
     if (details.stack != null) {
-      print(details.stack); // Print the stack trace for better debugging
+      log(details.stack.toString());
     }
   };
   runApp(ProviderScope(child: MyApp(languages: languages)));
@@ -82,7 +84,7 @@ class SplashScreenWrapper extends StatefulWidget {
   const SplashScreenWrapper({super.key});
 
   @override
-  _SplashScreenWrapperState createState() => _SplashScreenWrapperState();
+  State<SplashScreenWrapper> createState() => _SplashScreenWrapperState();
 }
 
 class _SplashScreenWrapperState extends State<SplashScreenWrapper> {
@@ -97,7 +99,7 @@ class _SplashScreenWrapperState extends State<SplashScreenWrapper> {
 
     User? user = FirebaseAuth.instance.currentUser;
     if (user != null && user.emailVerified) {
-      Get.off(() => LanguageScreen());
+      Get.off(() => const LanguageScreen());
     } else {
       Get.off(() => const RegistrationPage());
     }

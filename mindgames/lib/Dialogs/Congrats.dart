@@ -6,14 +6,14 @@ class CongratulationsDialog {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Congratulations!'),
-          content: Text('You tapped the numbers correctly!'),
+          title: const Text('Congratulations!'),
+          content: const Text('You tapped the numbers correctly!'),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         );
