@@ -11,13 +11,13 @@ class TaskLineChart extends StatefulWidget {
   final List<Map<String, dynamic>> graphData;
 
   const TaskLineChart({
-    Key? key,
+    super.key,
     required this.dataPoints,
     required this.avgDataPoints,
     required this.gradientColors,
     required this.title,
     required this.graphData,
-  }) : super(key: key);
+  });
 
   @override
   State<TaskLineChart> createState() => _TaskLineChartState();

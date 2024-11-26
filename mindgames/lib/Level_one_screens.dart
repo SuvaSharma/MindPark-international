@@ -12,7 +12,7 @@ import 'package:mindgames/simon_says_demo_page.dart';
 import 'package:mindgames/voiceloon_page.dart';
 
 class LevelOnePage extends StatefulWidget {
-  LevelOnePage({super.key, Key? superkey});
+  const LevelOnePage({super.key});
 
   @override
   State<LevelOnePage> createState() => _LevelOnePageState();
@@ -23,7 +23,7 @@ class _LevelOnePageState extends State<LevelOnePage> {
 
   final screens = [
     const Profile(),
-    LevelOnePage(),
+    const LevelOnePage(),
     const PerformanceTab(),
   ];
   final player = AudioPlayer();
@@ -32,14 +32,14 @@ class _LevelOnePageState extends State<LevelOnePage> {
     {
       "levelName": "Lego Game",
       "levelImage": "stroop.gif",
-      "levelPage": LegoGame(), //(shownWhen: 'before-game'),
+      "levelPage": const LegoGame(), //(shownWhen: 'before-game'),
       "imgWidth": 120,
       "imgHeight": 120,
     },
     {
       "levelName": "Number Count",
       "levelImage": "dst-3.gif",
-      "levelPage": NumberCountingGame(),
+      "levelPage": const NumberCountingGame(),
       //(shownWhen: 'before-game'),
       "imgWidth": 45,
       "imgHeight": 45,
@@ -55,14 +55,14 @@ class _LevelOnePageState extends State<LevelOnePage> {
     {
       "levelName": "Voiceloon ",
       "levelImage": "ert.png",
-      "levelPage": VoiceloonPage(),
+      "levelPage": const VoiceloonPage(),
       "imgWidth": 70,
       "imgHeight": 70,
     },
     {
       "levelName": "Simon Says",
       "levelImage": "sdmt.png",
-      "levelPage": SimonSaysDemoPage(),
+      "levelPage": const SimonSaysDemoPage(),
       "imgWidth": 75,
       "imgHeight": 75,
     },
@@ -121,7 +121,7 @@ class _LevelOnePageState extends State<LevelOnePage> {
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: MediaQuery.of(context).size.width * 0.06,
-                            color: Color.fromARGB(255, 51, 106, 134)),
+                            color: const Color.fromARGB(255, 51, 106, 134)),
                       )
                     ],
                   ),
@@ -170,7 +170,7 @@ class _LevelOnePageState extends State<LevelOnePage> {
         width: 160,
         height: 130,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
+          gradient: const LinearGradient(
             colors: [
               Color.fromARGB(255, 190, 226, 226),
               Color.fromARGB(255, 255, 255, 255)
@@ -198,7 +198,7 @@ class _LevelOnePageState extends State<LevelOnePage> {
                 Text(levelName.tr,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 51, 106, 134),
+                      color: const Color.fromARGB(255, 51, 106, 134),
                       fontSize: MediaQuery.of(context).size.width * 0.048,
                     )),
               ]),

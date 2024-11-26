@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:mindgames/picture_sorting_game.dart';
 import 'package:mindgames/utils/difficulty_enum.dart';
 
 class PictureSortingGameData {

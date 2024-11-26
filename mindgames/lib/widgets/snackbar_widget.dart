@@ -8,7 +8,7 @@ void showCustomSnackbar(BuildContext context, String title, String message) {
     '',
     '',
     backgroundColor: title == 'Success'.tr
-        ? Color(0xff40C2AB).withOpacity(0.8)
+        ? const Color(0xff40C2AB).withOpacity(0.8)
         : Colors.red.withOpacity(0.8),
     colorText: Colors.white,
     snackPosition: SnackPosition.TOP,
@@ -19,7 +19,7 @@ void showCustomSnackbar(BuildContext context, String title, String message) {
       color: Colors.white,
       size: screenWidth * 0.08,
     ),
-    duration: Duration(seconds: 1),
+    duration: const Duration(seconds: 1),
     snackStyle: SnackStyle.FLOATING,
     padding: EdgeInsets.symmetric(
       horizontal: screenWidth * 0.05,

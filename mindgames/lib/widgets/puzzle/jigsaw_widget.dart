@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
@@ -90,8 +91,7 @@ class JigsawWidgetState extends State<JigsawWidget> with ChangeNotifier {
         double xAxis = widthPerBlock * x;
         double yAxis = heightPerBlock * y;
 
-        print(
-            'width per block: $widthPerBlock\nheight per block: $heightPerBlock');
+        log('width per block: $widthPerBlock\nheight per block: $heightPerBlock');
 
         double minSize = math.min(widthPerBlock, heightPerBlock) / 15 * 4;
 
@@ -190,7 +190,7 @@ class JigsawWidgetState extends State<JigsawWidget> with ChangeNotifier {
                       key: _globalKey,
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.red,
+                          color: Colors.blue,
                           borderRadius:
                               BorderRadius.circular(size.width * 0.02),
                         ),

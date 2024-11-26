@@ -1,13 +1,12 @@
-import 'dart:math';
+import 'dart:developer';
+import 'dart:math' as math;
 import 'dart:ui';
 import 'package:animated_button/animated_button.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'dart:async';
 import 'package:get/get.dart';
-import 'package:mindgames/Levels_screen.dart';
 import 'package:mindgames/executiveskills.dart';
 import 'package:mindgames/level8infoscreen.dart';
 import 'package:mindgames/level8page.dart';
@@ -17,10 +16,10 @@ import 'package:mindgames/widgets/welcome_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ssinteractivedemo extends StatefulWidget {
-  ssinteractivedemo({Key? key}) : super(key: key);
+  const ssinteractivedemo({super.key});
 
   @override
-  _ssinteractivedemoState createState() => _ssinteractivedemoState();
+  State<ssinteractivedemo> createState() => _ssinteractivedemoState();
 }
 
 class NumberImagePair {
@@ -40,15 +39,6 @@ class _ssinteractivedemoState extends State<ssinteractivedemo>
   // Call this method each time a trial is completed
   void _insertGameData(bool isCorrect) {
     _trialId++;
-
-    // Convert boolean result to integer (1 for true, 0 for false)
-    int result = isCorrect ? 1 : 0;
-    // Calculate response time if the symbol has been displayed
-    int responseTime = _symbolDisplayTime != null
-        ? DateTime.now().difference(_symbolDisplayTime!).inMilliseconds
-        : 0;
-    // Capture the current time as symbol display time
-    DateTime symbolDisplayTime = DateTime.now();
 
     // Update score if the tap was correct
     if (isCorrect) {
@@ -89,13 +79,13 @@ class _ssinteractivedemoState extends State<ssinteractivedemo>
     // Preload the audio file during app initialization
 
     _audioCache.load('incorrect-c.mp3').then((_) {
-      print('wrong sound pre-loaded');
+      log('wrong sound pre-loaded');
     });
     _audioCache.load('GameOverDialog.mp3').then((_) {
-      print('gameover sound pre-loaded');
+      log('gameover sound pre-loaded');
     });
     _audioCache.load('verbalgood.mp3').then((_) {
-      print('verbal good sound pre-loaded');
+      log('verbal good sound pre-loaded');
     });
   }
 
@@ -109,11 +99,11 @@ class _ssinteractivedemoState extends State<ssinteractivedemo>
     _preloadAudio();
 
     // Initialize _currentSymbolIndex randomly
-    _currentSymbolIndex = Random().nextInt(allPairs.length);
+    _currentSymbolIndex = math.Random().nextInt(allPairs.length);
 
     _animationController1 = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
     );
 
     _animation1 =
@@ -147,7 +137,7 @@ class _ssinteractivedemoState extends State<ssinteractivedemo>
 
   void _preloadAudio() {
     _audioCache.load('Instruction_Swipe.mp3').then((_) {
-      print('Sound pre-initialized');
+      log('Sound pre-initialized');
     });
   }
 
@@ -158,7 +148,7 @@ class _ssinteractivedemoState extends State<ssinteractivedemo>
   }
 
   void _startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         _seconds++;
         // Update symbol every 2 minutes
@@ -227,7 +217,7 @@ class _ssinteractivedemoState extends State<ssinteractivedemo>
                         'Demo Completed!'.tr,
                         style: TextStyle(
                           fontSize: screenWidth * 0.03,
-                          color: Color(0xFF309092),
+                          color: const Color(0xFF309092),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -238,7 +228,7 @@ class _ssinteractivedemoState extends State<ssinteractivedemo>
                         'You nailed it!'.tr,
                         style: TextStyle(
                           fontSize: screenWidth * 0.028,
-                          color: Color(0xFF309092),
+                          color: const Color(0xFF309092),
                           // fontWeight: FontWeight.bold
                         ),
                       ),
@@ -254,10 +244,11 @@ class _ssinteractivedemoState extends State<ssinteractivedemo>
                         Navigator.pop(context, true);
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (context) => Level8page()),
+                          MaterialPageRoute(
+                              builder: (context) => const Level8page()),
                         );
                       },
-                      child: Container(
+                      child: SizedBox(
                         width: screenWidth * 0.12,
                         child: Stack(
                           children: [
@@ -305,21 +296,21 @@ class _ssinteractivedemoState extends State<ssinteractivedemo>
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Container(
-        margin: EdgeInsets.symmetric(vertical: 4),
+        margin: const EdgeInsets.symmetric(vertical: 4),
         decoration: BoxDecoration(
-          color: Color(0xFF309092),
+          color: const Color(0xFF309092),
           borderRadius: BorderRadius.circular(25),
           // Example border color, you can change it
         ),
         child: AnimatedButton(
           height: screenHeight * 0.12,
           width: screenWidth * 0.3,
-          color: Color(0xFF309092),
+          color: const Color(0xFF309092),
           onPressed: () {
             if (text == 'Resume'.tr) {
               Navigator.pop(context, false);
             } else if (text == 'Sound'.tr) {
-              print('Change sound');
+              log('Change sound');
             } else if (text == 'Instructions'.tr) {
               Navigator.push(
                 context,
@@ -364,7 +355,6 @@ class _ssinteractivedemoState extends State<ssinteractivedemo>
 
   Future<bool> _onBackPressed() async {
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     _playSound('PauseTap.mp3');
     _timer.cancel(); // Stop the timer when back button is pressed
     bool? result = await showDialog<bool>(
@@ -375,7 +365,7 @@ class _ssinteractivedemoState extends State<ssinteractivedemo>
         child: AlertDialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50.0),
-            side: BorderSide(
+            side: const BorderSide(
               color: Colors.black,
               width: 4.0,
             ),
@@ -390,7 +380,7 @@ class _ssinteractivedemoState extends State<ssinteractivedemo>
                   'Pause Menu'.tr,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Color(0xFF309092),
+                    color: const Color(0xFF309092),
                     fontSize: screenWidth * 0.025,
                     fontWeight: FontWeight.bold,
                   ),
@@ -424,7 +414,7 @@ class _ssinteractivedemoState extends State<ssinteractivedemo>
         backgroundColor: Colors.white,
         body: OrientationBuilder(
           builder: (context, orientation) {
-            print('switching demo build landscape');
+            log('switching demo build landscape');
             SystemChrome.setPreferredOrientations([
               DeviceOrientation.landscapeLeft,
               DeviceOrientation.landscapeRight,
@@ -448,7 +438,7 @@ class _ssinteractivedemoState extends State<ssinteractivedemo>
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              SizedBox(), // Placeholder for alignment
+                              const SizedBox(), // Placeholder for alignment
                               _startButtonVisible
                                   ? Padding(
                                       padding: EdgeInsets.only(
@@ -456,15 +446,6 @@ class _ssinteractivedemoState extends State<ssinteractivedemo>
                                       child: AnimatedButton(
                                         height: screenHeight * 0.1,
                                         width: screenWidth * 0.1,
-                                        child: Text(
-                                          'Skip'.tr,
-                                          style: TextStyle(
-                                            color: Color(0xFF309092),
-                                            fontSize: screenWidth * 0.030,
-                                            letterSpacing: 1,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
                                         color: Colors.white,
                                         onPressed: () {
                                           _playSound('playbutton.mp3');
@@ -474,11 +455,20 @@ class _ssinteractivedemoState extends State<ssinteractivedemo>
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    Level8page()),
+                                                    const Level8page()),
                                           );
                                         },
                                         enabled: true,
                                         shadowDegree: ShadowDegree.light,
+                                        child: Text(
+                                          'Skip'.tr,
+                                          style: TextStyle(
+                                            color: const Color(0xFF309092),
+                                            fontSize: screenWidth * 0.030,
+                                            letterSpacing: 1,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
                                       ),
                                     )
                                   : Padding(
@@ -487,18 +477,18 @@ class _ssinteractivedemoState extends State<ssinteractivedemo>
                                       child: AnimatedButton(
                                         height: baseSize * 0.05,
                                         width: baseSize * 0.05,
-                                        child: Icon(
-                                          Icons.pause,
-                                          color: const Color.fromARGB(
-                                              255, 66, 62, 62),
-                                          size: baseSize * 0.05,
-                                        ),
                                         color: Colors.white,
                                         onPressed: () {
                                           _onBackPressed();
                                         },
                                         enabled: true,
                                         shadowDegree: ShadowDegree.light,
+                                        child: Icon(
+                                          Icons.pause,
+                                          color: const Color.fromARGB(
+                                              255, 66, 62, 62),
+                                          size: baseSize * 0.05,
+                                        ),
                                       ),
                                     ),
                             ],
@@ -506,7 +496,7 @@ class _ssinteractivedemoState extends State<ssinteractivedemo>
                           Text(
                             'DEMO'.tr,
                             style: TextStyle(
-                                color: Color.fromARGB(255, 51, 106, 134),
+                                color: const Color.fromARGB(255, 51, 106, 134),
                                 fontSize: screenWidth * 0.023,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -548,10 +538,12 @@ class _ssinteractivedemoState extends State<ssinteractivedemo>
                                             } else if (rowIndex == 1) {
                                               return TableCell(
                                                 child: Padding(
-                                                  padding: EdgeInsets.all(8.0),
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
                                                   child: Center(
                                                     child: Text(
-                                                      '${'${allPairs[colIndex].number}'.tr}',
+                                                      '${allPairs[colIndex].number}'
+                                                          .tr,
                                                       style: TextStyle(
                                                         fontSize:
                                                             baseSize * 0.06,
@@ -563,7 +555,7 @@ class _ssinteractivedemoState extends State<ssinteractivedemo>
                                                 ),
                                               );
                                             } else {
-                                              return TableCell(
+                                              return const TableCell(
                                                 child: Padding(
                                                   padding: EdgeInsets.all(8.0),
                                                   child: Text('Fallback'),
@@ -591,7 +583,7 @@ class _ssinteractivedemoState extends State<ssinteractivedemo>
                                   _startButtonVisible = false;
                                 });
                               },
-                              child: Container(
+                              child: SizedBox(
                                 width: baseSize * 0.3,
                                 height: baseSize * 0.15,
                                 child: Stack(
@@ -656,8 +648,8 @@ class _ssinteractivedemoState extends State<ssinteractivedemo>
                                     child: Container(
                                       width: baseSize * 0.2,
                                       height: baseSize * 0.2,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
+                                      decoration: const BoxDecoration(
+                                        color: Colors.transparent,
                                       ),
                                       child: Image.asset(
                                         _lastTapCorrect
@@ -692,12 +684,10 @@ class _ssinteractivedemoState extends State<ssinteractivedemo>
                                             _currentSymbolIndex + 1) {
                                           // Adjust for 1-based indexing
                                           _lastTapCorrect = true;
-                                          print(
-                                              'Correct! Tapped number: $tappedNumber');
+                                          log('Correct! Tapped number: $tappedNumber');
                                         } else {
                                           _lastTapCorrect = false;
-                                          print(
-                                              'Wrong! Tapped number: $tappedNumber');
+                                          log('Wrong! Tapped number: $tappedNumber');
                                           _playSound(('incorrect-c.mp3'));
                                         }
 
@@ -716,31 +706,26 @@ class _ssinteractivedemoState extends State<ssinteractivedemo>
                                     child: Stack(
                                       alignment: Alignment.center,
                                       children: [
-                                        Container(
-                                          child: Material(
-                                            elevation: 15,
-                                            borderRadius:
-                                                BorderRadius.circular(100),
-                                            child: CircleAvatar(
-                                              radius: baseSize * 0.07,
-                                              backgroundColor:
-                                                  Color(0xFF309092),
-                                              child: Stack(
-                                                alignment: Alignment.center,
-                                                children: [
-                                                  Text(
-                                                    numbers[index]
-                                                        .toString()
-                                                        .tr,
-                                                    style: TextStyle(
-                                                      fontSize: baseSize * 0.04,
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
+                                        Material(
+                                          elevation: 15,
+                                          borderRadius:
+                                              BorderRadius.circular(100),
+                                          child: CircleAvatar(
+                                            radius: baseSize * 0.07,
+                                            backgroundColor:
+                                                const Color(0xFF309092),
+                                            child: Stack(
+                                              alignment: Alignment.center,
+                                              children: [
+                                                Text(
+                                                  numbers[index].toString().tr,
+                                                  style: TextStyle(
+                                                    fontSize: baseSize * 0.04,
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ),
@@ -761,17 +746,17 @@ class _ssinteractivedemoState extends State<ssinteractivedemo>
                         child: AnimatedButton(
                           height: baseSize * 0.1,
                           width: baseSize * 0.1,
-                          child: const Icon(
-                            Icons.pause,
-                            color: Colors.black,
-                            size: 25.0,
-                          ),
                           color: Colors.white,
                           onPressed: () {
                             _onBackPressed();
                           },
                           enabled: true,
                           shadowDegree: ShadowDegree.light,
+                          child: const Icon(
+                            Icons.pause,
+                            color: Colors.black,
+                            size: 25.0,
+                          ),
                         ),
                       ),
                     ),
@@ -800,7 +785,7 @@ class _ssinteractivedemoState extends State<ssinteractivedemo>
       _circleAvatarEnabled = false;
 
       // Delay for 1 second before hiding the feedback image and updating the symbol
-      Future.delayed(Duration(milliseconds: 500), () {
+      Future.delayed(const Duration(milliseconds: 500), () {
         setState(() {
           _feedbackImageVisible = false;
           _currentSymbolIndex =

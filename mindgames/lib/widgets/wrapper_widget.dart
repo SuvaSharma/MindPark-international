@@ -9,7 +9,7 @@ import 'package:mindgames/widgets/navigation_bar.dart';
 class MainWrapper extends StatefulWidget {
   const MainWrapper({super.key});
   @override
-  _MainWrapperState createState() => _MainWrapperState();
+  State<MainWrapper> createState() => _MainWrapperState();
 }
 
 class _MainWrapperState extends State<MainWrapper> {
@@ -17,7 +17,7 @@ class _MainWrapperState extends State<MainWrapper> {
 
   final List<Widget> _pages = [
     const CheckInternetWidget(onlinePage: ParentsPortalPage()),
-    MainPage(),
+    const MainPage(),
     const CheckInternetWidget(
       onlinePage: NewsPage(),
     ),
@@ -27,7 +27,6 @@ class _MainWrapperState extends State<MainWrapper> {
     setState(() {
       _selectedIndex = index;
     });
-    print('This is the selected index: ${_selectedIndex}');
   }
 
   @override

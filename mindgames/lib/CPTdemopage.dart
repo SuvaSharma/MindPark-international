@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'dart:math';
-
+import 'dart:math' as math;
+import 'dart:developer';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -75,23 +75,22 @@ class _CPTdemoPageState extends State<CPTdemoPage> {
   CPTdemoPage() {
     // Preload the audio file during app initialization
     _audioCache.load('correct.mp3').then((_) {
-      print(
-          'right sound pre-initialized'); // Log a message when preloading is complete
+      log('right sound pre-initialized'); // Log a message when preloading is complete
     });
     _audioCache.load('wrong.mp3').then((_) {
-      print('wrong sound pre-loaded');
+      log('wrong sound pre-loaded');
     });
     _audioCache.load('GaneOverDialog.mp3').then((_) {
-      print('wrong sound pre-loaded');
+      log('wrong sound pre-loaded');
     });
     _audioCache.load('PauseTap.mp3').then((_) {
-      print('wrong sound pre-loaded');
+      log('wrong sound pre-loaded');
     });
     _audioCache.load('playbutton.mp3').then((_) {
-      print('wrong sound pre-loaded');
+      log('wrong sound pre-loaded');
     });
     _audioCache.load('verbalgood.mp3').then((_) {
-      print('verbal good sound pre-loaded');
+      log('verbal good sound pre-loaded');
     });
   }
 
@@ -111,13 +110,13 @@ class _CPTdemoPageState extends State<CPTdemoPage> {
     for (int i = numberOfX; i < length; i++) {
       String randomChar;
       do {
-        randomChar = String.fromCharCode(Random().nextInt(26) + 65);
+        randomChar = String.fromCharCode(math.Random().nextInt(26) + 65);
       } while (randomChar == 'X');
 
       list.add(randomChar);
     }
 
-    list.shuffle(Random());
+    list.shuffle(math.Random());
 
     return list;
   }
@@ -160,12 +159,13 @@ class _CPTdemoPageState extends State<CPTdemoPage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       _vibrationEnabled = prefs.getBool('vibration_enabled') ?? false;
+      log('vibration is enabled: $_vibrationEnabled');
     });
   }
 
   void _preloadAudio() {
     _audioCache.load('Instruction_Swipe.mp3').then((_) {
-      print('Sound pre-initialized');
+      log('Sound pre-initialized');
     });
   }
 
@@ -182,7 +182,7 @@ class _CPTdemoPageState extends State<CPTdemoPage> {
   }
 
   void _changeWord() {
-    print(characters);
+    log('$characters');
     _displayFixation();
   }
 
@@ -193,7 +193,7 @@ class _CPTdemoPageState extends State<CPTdemoPage> {
     _elapsedFixationTime = 0;
     _currentTimerType = TimerType.Fixation;
 
-    print("display Fixation");
+    log("display Fixation");
     if (_isDialogVisible) {
       return; // Do nothing if dialog is visible
     }
@@ -221,7 +221,7 @@ class _CPTdemoPageState extends State<CPTdemoPage> {
     _currentTimerType = TimerType.Words;
     _wordsStartTime = DateTime.now().millisecondsSinceEpoch;
 
-    print("display Words");
+    log("display Words");
     if (_isDialogVisible) {
       return; // Do nothing if dialog is visible
     }
@@ -291,8 +291,7 @@ class _CPTdemoPageState extends State<CPTdemoPage> {
       } else {
         pauseTime = 0;
       }
-      print('this is being deducted from the pause time: ' +
-          pauseTime.toString());
+      log('this is being deducted from the pause time: $pauseTime');
       final duration =
           correctBuzzerTappedTime - wordDisplayStartTime! - pauseTime;
       if (letter != 'X') {
@@ -308,9 +307,9 @@ class _CPTdemoPageState extends State<CPTdemoPage> {
 
         if (wordDisplayStartTime != null) {
           notXDurations.add(duration);
-          print('Time taken to tap the buzzer: $duration milliseconds');
+          log('Time taken to tap the buzzer: $duration milliseconds');
         } else {
-          print('Error: wordDisplayStartTime is null.');
+          log('Error: wordDisplayStartTime is null.');
         }
       } else {
         commissionErrorCount++;
@@ -318,7 +317,7 @@ class _CPTdemoPageState extends State<CPTdemoPage> {
         _playSound('wrong.mp3', player);
       }
 
-      print('Adding to cpt data');
+      log('Adding to cpt data');
 
       _showPopup = true;
       _isPopupVisible = true;
@@ -344,7 +343,7 @@ class _CPTdemoPageState extends State<CPTdemoPage> {
 
   Future<bool> _onBackPressed() async {
     _playSound('PauseTap.mp3', player);
-    print('back press was triggered');
+    log('back press was triggered');
     bool? result;
 
     Future<bool?> displayQuitDialog() async {
@@ -370,7 +369,7 @@ class _CPTdemoPageState extends State<CPTdemoPage> {
       _fixationTimer.cancel();
       _fixationEndTime = DateTime.now().millisecondsSinceEpoch;
       _elapsedFixationTime = _fixationEndTime - _fixationStartTime;
-      print('Elapsed time fixation: ' + _elapsedFixationTime.toString());
+      log('Elapsed time fixation: $_elapsedFixationTime');
 
       _isDialogVisible = true;
       result = await displayQuitDialog();
@@ -399,18 +398,18 @@ class _CPTdemoPageState extends State<CPTdemoPage> {
       _isDialogVisible = false;
 
       if (result == false) {
-        print('Word resumed');
+        log('Word resumed');
 
         dialogBoxDisappearTime = DateTime.now().millisecondsSinceEpoch;
         _wordsTimer = Timer(
           Duration(milliseconds: 2000 - _elapsedWordsTime),
           () {
-            print('Word count: ${_currentWordIndex},  ${_totalWords - 1}');
+            log('Word count: $_currentWordIndex,  ${_totalWords - 1}');
             setState(() {
               _showPopup = false;
               _buzzerEnabled = false;
 
-              print('Adding to cpt data');
+              log('Adding to cpt data');
 
               if (_currentWordIndex == _totalWords - 1) {
                 _showGameOverDialog();
@@ -433,13 +432,13 @@ class _CPTdemoPageState extends State<CPTdemoPage> {
 
   void _showGameOverDialog() async {
     _confettiController.play();
-    print(notXDurations);
+    log('$notXDurations');
     double response_time = notXDurations.isNotEmpty
         ? notXDurations.reduce((a, b) => a + b) / notXDurations.length
         : 0;
     double accuracy = (score / _totalWords * 100);
-    print('Omitted letters: $omissionErrorCount');
-    print('80% of letters: ${0.8 * _totalWords}');
+    log('Omitted letters: $omissionErrorCount');
+    log('80% of letters: ${0.8 * _totalWords}');
 
     // Show the game over dialog
 
@@ -484,7 +483,7 @@ class _CPTdemoPageState extends State<CPTdemoPage> {
                           'Congratulations!'.tr,
                           style: TextStyle(
                             fontSize: screenWidth * 0.05,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -495,7 +494,7 @@ class _CPTdemoPageState extends State<CPTdemoPage> {
                           'You nailed it!'.tr,
                           style: TextStyle(
                             fontSize: screenWidth * 0.05,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             // fontWeight: FontWeight.bold
                           ),
                         ),
@@ -510,7 +509,7 @@ class _CPTdemoPageState extends State<CPTdemoPage> {
                                 '${accuracy.toStringAsFixed(0)}%'), // Display the score
                         style: TextStyle(
                             fontSize: screenWidth * 0.045,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
@@ -519,7 +518,7 @@ class _CPTdemoPageState extends State<CPTdemoPage> {
                                 '${response_time.toStringAsFixed(0)} ms'), // Display the score
                         style: TextStyle(
                             fontSize: screenWidth * 0.045,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
@@ -528,7 +527,7 @@ class _CPTdemoPageState extends State<CPTdemoPage> {
                                 '${(commissionErrorCount / (0.2 * _totalWords) * 100).toStringAsFixed(0)}%'), // Display the score
                         style: TextStyle(
                             fontSize: screenWidth * 0.045,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
@@ -537,7 +536,7 @@ class _CPTdemoPageState extends State<CPTdemoPage> {
                                 '${(omissionErrorCount / (0.8 * _totalWords) * 100).toStringAsFixed(0)}%'), // Display the score
                         style: TextStyle(
                             fontSize: screenWidth * 0.045,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             fontWeight: FontWeight.bold),
                       ),
                       TextButton(
@@ -552,11 +551,11 @@ class _CPTdemoPageState extends State<CPTdemoPage> {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Color(0xff309092),
+                            color: const Color(0xff309092),
                             borderRadius: BorderRadius.circular(25),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: Icon(
                               Icons.arrow_forward,
                               color: Colors.white,
@@ -615,7 +614,7 @@ class _CPTdemoPageState extends State<CPTdemoPage> {
       onWillPop: _onBackPressed,
       child: Scaffold(
           body: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/images/balloon_background.jpeg"),
                   fit: BoxFit.cover,
@@ -650,7 +649,7 @@ class _CPTdemoPageState extends State<CPTdemoPage> {
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => CPTPage()),
+                                        builder: (context) => const CPTPage()),
                                   );
                                 },
                                 child: Center(
@@ -683,7 +682,7 @@ class _CPTdemoPageState extends State<CPTdemoPage> {
                                             baseSize * 0.03),
                                       ),
                                       child: IconButton(
-                                        icon: Icon(Icons.pause),
+                                        icon: const Icon(Icons.pause),
                                         iconSize: baseSize * 0.07,
                                         onPressed: _onBackPressed,
                                       ),
@@ -702,7 +701,7 @@ class _CPTdemoPageState extends State<CPTdemoPage> {
                         style: TextStyle(
                           fontSize: screenWidth * 0.07,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF309092),
+                          color: const Color(0xFF309092),
                         ),
                       ),
                     ),
@@ -717,7 +716,7 @@ class _CPTdemoPageState extends State<CPTdemoPage> {
                       },
                       child: Visibility(
                         visible: _showStartButton,
-                        child: Container(
+                        child: SizedBox(
                             width: MediaQuery.of(context).size.width * 0.3,
                             height: MediaQuery.of(context).size.width * 0.15,
                             child: Stack(
@@ -747,7 +746,7 @@ class _CPTdemoPageState extends State<CPTdemoPage> {
                             )),
                       )),
                   Center(
-                    child: Container(
+                    child: SizedBox(
                       width: screenSize.height * 0.25,
                       height: screenSize.height * 0.25,
                       child: Material(
@@ -819,7 +818,7 @@ class _CPTdemoPageState extends State<CPTdemoPage> {
                     child: _showPopup
                         ? AnimatedOpacity(
                             opacity: _showPopup ? 1.0 : 0.0,
-                            duration: Duration(milliseconds: 0),
+                            duration: const Duration(milliseconds: 0),
                             child: Center(
                               child: Image.asset(
                                 _popupText == 'CORRECT'.tr
@@ -829,7 +828,7 @@ class _CPTdemoPageState extends State<CPTdemoPage> {
                               ),
                             ),
                           )
-                        : SizedBox(),
+                        : const SizedBox(),
                   )
                 ],
               ))),

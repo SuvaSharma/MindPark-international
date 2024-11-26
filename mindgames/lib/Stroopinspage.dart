@@ -1,9 +1,8 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mindgames/Levels_screen.dart';
 import 'package:mindgames/Stroopdemopage.dart';
-import 'package:mindgames/DatabaseHelper.dart';
+
 import 'package:mindgames/executiveskills.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -14,14 +13,13 @@ class StroopinfoScreen extends StatefulWidget {
   const StroopinfoScreen({super.key, required this.shownWhen});
 
   @override
-  _StroopinfoScreenState createState() => _StroopinfoScreenState();
+  State<StroopinfoScreen> createState() => _StroopinfoScreenState();
 }
 
 class _StroopinfoScreenState extends State<StroopinfoScreen> {
-  final DatabaseHelper _databaseHelper = DatabaseHelper();
   final PageController _pageController = PageController();
   int _currentPage = 0;
-  final AudioCache _audioCache = AudioCache();
+
   final player = AudioPlayer();
   bool _soundEnabled = true;
 

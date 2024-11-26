@@ -82,7 +82,7 @@ class _ADHDState extends ConsumerState<ADHD> {
       if (!context.mounted) {
         return;
       }
-      showCustomSnackbar(context, 'Error'.tr, '${e.toString()}'.tr);
+      showCustomSnackbar(context, 'Error'.tr, e.toString().tr);
     }
   }
 

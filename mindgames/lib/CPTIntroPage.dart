@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,8 +27,7 @@ class _CPTIntroPageState extends State<CPTIntroPage> {
   CPTIntroPage() {
     // Preload the audio file during app initialization
     _audioCache.load('Instruction_Swipe.mp3').then((_) {
-      print(
-          'Sound pre-initialized'); // Log a message when preloading is complete
+      log('Sound pre-initialized'); // Log a message when preloading is complete
     });
   }
 
@@ -46,7 +47,7 @@ class _CPTIntroPageState extends State<CPTIntroPage> {
 
   void _preloadAudio() {
     _audioCache.load('Instruction_Swipe.mp3').then((_) {
-      print('Sound pre-initialized');
+      log('Sound pre-initialized');
     });
   }
 

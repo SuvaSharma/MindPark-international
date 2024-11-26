@@ -38,7 +38,7 @@ class _ExecutiveskillsPageState extends State<ExecutiveskillsPage> {
     {
       "levelName": "Symbol Safari",
       "levelImage": "sdmt.png",
-      "levelPage": Level8demo(), //(shownWhen: 'before-game'),
+      "levelPage": const Level8demo(), //(shownWhen: 'before-game'),
     },
     {
       "levelName": "Alert Alphas",

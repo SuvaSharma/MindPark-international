@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mindgames/adhdform.dart';
@@ -6,7 +5,7 @@ import 'package:mindgames/autismform.dart';
 import 'package:mindgames/widgets/wrapper_widget.dart';
 
 class FormPage extends StatefulWidget {
-  const FormPage({super.key, Key? superkey});
+  const FormPage({super.key});
 
   @override
   State<FormPage> createState() => _FormPageState();
@@ -63,13 +62,13 @@ class _FormPageState extends State<FormPage>
       onWillPop: () async {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => MainWrapper()),
+          MaterialPageRoute(builder: (context) => const MainWrapper()),
         );
         return false;
       },
       child: Scaffold(
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/levelscreen.png"),
               fit: BoxFit.cover,
@@ -129,7 +128,7 @@ class _FormPageState extends State<FormPage>
                                   color: Colors.black.withOpacity(0.2),
                                   spreadRadius: 2,
                                   blurRadius: 10,
-                                  offset: Offset(0.5, -5),
+                                  offset: const Offset(0.5, -5),
                                 ),
                               ],
                             ),
@@ -213,7 +212,7 @@ class _FormPageState extends State<FormPage>
                             ),
                             borderRadius: BorderRadius.circular(25),
                             border: Border.all(
-                              color: Color(0xFF309092),
+                              color: const Color(0xFF309092),
                               width: 1,
                             ),
                             boxShadow: [
@@ -221,7 +220,7 @@ class _FormPageState extends State<FormPage>
                                 color: Colors.black.withOpacity(0.2),
                                 spreadRadius: 2,
                                 blurRadius: 10,
-                                offset: Offset(0.5, -5),
+                                offset: const Offset(0.5, -5),
                               ),
                             ],
                           ),

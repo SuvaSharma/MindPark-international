@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -112,7 +113,7 @@ class _GazeMazeDemoPageState extends ConsumerState<GazeMazeDemoPage> {
           onWillPop: () async => false,
           child: PauseMenu(
             onResume: () {
-              print("Resumed");
+              log("Resumed");
               Navigator.pop(context, false);
             },
             onQuit: () {},
@@ -173,7 +174,7 @@ class _GazeMazeDemoPageState extends ConsumerState<GazeMazeDemoPage> {
           _playSound('task_completed.mp3', player1);
           timer?.cancel();
           shrinkTimer = Timer.periodic(const Duration(seconds: 1), (_) {
-            print("I shrink every second");
+            log("I shrink every second");
             if (!_isPaused) {
               if (shrinkTimeRemaining > 0) {
                 animateContainer("shrinking");
@@ -197,19 +198,19 @@ class _GazeMazeDemoPageState extends ConsumerState<GazeMazeDemoPage> {
       growState = grow;
       if (grow == "growing") {
         containerSize += (maxContainerSize - minContainerSize) / timeLimit;
-        print("Container size: $containerSize");
+        log("Container size: $containerSize");
       } else if (grow == "shrinking") {
         containerSize -= (maxContainerSize - minContainerSize) / shrinkTime;
-        print("Container size: $containerSize");
+        log("Container size: $containerSize");
       } else if (grow == "reset") {
         containerSize = minContainerSize;
-        print("Container size: $containerSize");
+        log("Container size: $containerSize");
       }
     });
   }
 
   void showAndHideLookAway() async {
-    print("show and hide look away");
+    log("show and hide look away");
     setState(() {
       lookAwayOpacity = 1.0;
     });
@@ -427,7 +428,7 @@ class _GazeMazeDemoPageState extends ConsumerState<GazeMazeDemoPage> {
                                           baseSize * 0.03),
                                     ),
                                     child: IconButton(
-                                      icon: Icon(Icons.pause),
+                                      icon: const Icon(Icons.pause),
                                       iconSize: baseSize * 0.07,
                                       onPressed: _onBackPressed,
                                     ),

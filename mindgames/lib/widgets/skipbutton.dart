@@ -12,7 +12,7 @@ class SkipButton extends StatefulWidget {
   final Function() onPressed;
 
   const SkipButton({
-    Key? key,
+    super.key,
     required this.onPressed,
     this.buttonText = 'Skip',
     this.elevation = 15.0,
@@ -21,7 +21,7 @@ class SkipButton extends StatefulWidget {
     this.fontSize = 24.0,
     this.backgroundColor = Colors.white,
     this.textColor = Colors.black,
-  }) : super(key: key);
+  });
 
   @override
   State<SkipButton> createState() => _SkipButtonState();

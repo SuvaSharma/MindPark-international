@@ -1,5 +1,6 @@
+import 'dart:developer';
+
 import 'package:accordion/accordion.dart';
-import 'package:accordion/controllers.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,11 +8,8 @@ import 'package:get/get.dart';
 import 'package:mindgames/circular_chart.dart';
 import 'package:mindgames/cloud_store_service.dart';
 import 'package:mindgames/providers.dart';
-import 'package:mindgames/services/auth_service.dart';
 import 'package:mindgames/task_line_chart.dart';
-import 'package:mindgames/utils/convert_to_nepali_numbers.dart';
 import 'package:mindgames/widgets/star_display.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 
 class TrackingPage extends ConsumerStatefulWidget {
   const TrackingPage({super.key});
@@ -99,9 +97,10 @@ class _TrackingPageState extends ConsumerState<TrackingPage> {
 
   double calculateAverage(List<Map<String, dynamic>> data, String parameter) {
     double sum = 0;
-    data.forEach((element) {
+
+    for (final element in data) {
       sum += element[parameter];
-    });
+    }
 
     return sum / data.length;
   }
@@ -127,7 +126,7 @@ class _TrackingPageState extends ConsumerState<TrackingPage> {
               speedAverage) /
           5;
 
-      print('My performance: $performanceStrength');
+      log('My performance: $performanceStrength');
 
       // data to be used for circular chart
       dataList = [
@@ -204,7 +203,7 @@ class _TrackingPageState extends ConsumerState<TrackingPage> {
           speedSDMT.isNotEmpty;
     } catch (e) {
       // Handle any errors that might occur during data fetch
-      print('Error fetching data: $e');
+      log('Error fetching data: $e');
     }
   }
 
@@ -244,14 +243,14 @@ class _TrackingPageState extends ConsumerState<TrackingPage> {
 
   Widget _taskContent(String domainName, List<Map<String, dynamic>> data) {
     String parameter = '';
-    print('--------------------');
-    print(data);
+    log('--------------------');
+    log('$data');
     return SingleChildScrollView(
       child: Column(
         children: data.map((item) {
           String levelName = item['name'];
           List<Map<String, dynamic>> levelData = item['data'];
-          print(levelData);
+          log('$levelData');
           double avgData = item['avg'];
           switch (domainName) {
             case 'Attention':
@@ -311,7 +310,7 @@ class _TrackingPageState extends ConsumerState<TrackingPage> {
                     color: Colors.grey.withOpacity(0.5),
                     spreadRadius: 5,
                     blurRadius: 7,
-                    offset: Offset(0, 3), // changes position of shadow
+                    offset: const Offset(0, 3), // changes position of shadow
                   ),
                 ],
               ),
@@ -470,7 +469,7 @@ class _TrackingPageState extends ConsumerState<TrackingPage> {
     for (int i = 0; i < 9; i++) {
       int index = i + 1;
       if (index % 2 == 0) {
-        widgetList.add(SizedBox());
+        widgetList.add(const SizedBox());
       } else {
         widgetList.add(Column(
           mainAxisSize: MainAxisSize.min,
@@ -503,7 +502,7 @@ class _TrackingPageState extends ConsumerState<TrackingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
                 image: AssetImage('assets/images/levelscreen.png'),
                 fit: BoxFit.cover)),
@@ -518,13 +517,13 @@ class _TrackingPageState extends ConsumerState<TrackingPage> {
                         style: TextStyle(
                           fontSize: MediaQuery.of(context).size.width * 0.08,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF309092),
+                          color: const Color(0xFF309092),
                         )),
                   ),
                   isLoading
-                      ? Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: const CircularProgressIndicator())
+                      ? const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: CircularProgressIndicator())
                       : GridView.count(
                           shrinkWrap: true,
                           crossAxisCount: 3,
@@ -543,12 +542,12 @@ class _TrackingPageState extends ConsumerState<TrackingPage> {
                     topRight: Radius.circular(
                         MediaQuery.of(context).size.width * 0.070),
                   ),
-                  color: Color(0xffEFF0EE),
+                  color: const Color(0xffEFF0EE),
                 ),
                 child: Column(
                   children: [
                     Divider(
-                      color: Color.fromARGB(255, 107, 107, 107),
+                      color: const Color.fromARGB(255, 107, 107, 107),
                       height: 40,
                       thickness: MediaQuery.of(context).size.height * 0.003,
                       indent: MediaQuery.of(context).size.width * 0.47,
@@ -631,10 +630,10 @@ class _TrackingPageState extends ConsumerState<TrackingPage> {
                           right: MediaQuery.of(context).size.width * 0.025,
                         ),
                         child: isLoading
-                            ? Center(
+                            ? const Center(
                                 child: SizedBox(
-                                    child: const CircularProgressIndicator
-                                        .adaptive()))
+                                    child:
+                                        CircularProgressIndicator.adaptive()))
                             : _nestedAccordion(),
                       ),
                     ),

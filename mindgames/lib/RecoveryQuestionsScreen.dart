@@ -1,14 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:mindgames/Parentlockpage.dart';
 import 'package:mindgames/widgets/snackbar_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RecoveryQuestionsScreen extends StatefulWidget {
+  const RecoveryQuestionsScreen({super.key});
+
   @override
-  _RecoveryQuestionsScreenState createState() =>
+  State<RecoveryQuestionsScreen> createState() =>
       _RecoveryQuestionsScreenState();
 }
 
@@ -45,7 +45,7 @@ class _RecoveryQuestionsScreenState extends State<RecoveryQuestionsScreen> {
     }
 
     if (areAnswersCorrect) {
-      Get.to(() => ParentalLockSetupPage(isRecoveryFlow: true));
+      Get.to(() => const ParentalLockSetupPage(isRecoveryFlow: true));
     } else {
       showCustomSnackbar(
           context, 'Error'.tr, 'Incorrect answers to security questions'.tr);
@@ -92,7 +92,7 @@ class _RecoveryQuestionsScreenState extends State<RecoveryQuestionsScreen> {
               Center(
                 child: ElevatedButton(
                   onPressed: _validateAnswers,
-                  child: Text('Submit'),
+                  child: const Text('Submit'),
                 ),
               ),
             ],

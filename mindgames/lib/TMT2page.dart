@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'dart:math';
+import 'dart:math' as math;
+import 'dart:developer';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:mindgames/AnimatedButton.dart';
-import 'package:mindgames/Levels_screen.dart';
 import 'package:mindgames/TMTResult.dart';
 import 'package:mindgames/TMTinfoscreen.dart';
 import 'package:mindgames/TMTnode.dart';
@@ -17,7 +17,6 @@ import 'package:mindgames/cloud_store_service.dart';
 import 'package:mindgames/config/easy_tmt_B_config.dart';
 import 'package:mindgames/config/hard_tmt_B_config.dart';
 import 'package:mindgames/config/medium_tmt_B_config.dart';
-import 'package:mindgames/config/tmt_B_config.dart';
 import 'package:mindgames/motorskills.dart';
 import 'package:mindgames/providers.dart';
 import 'package:mindgames/utils/convert_to_nepali_numbers.dart';
@@ -64,7 +63,7 @@ class _TMTpage2State extends ConsumerState<TMTpage2> {
   bool showOverlay = false;
   double overlayLeft = 0;
   double overlayTop = 0;
-  final Random _random = Random();
+  final math.Random _random = math.Random();
   int correctNodeCount = 0;
   int timeLimit = 300;
   Timer? gameTimer;
@@ -144,7 +143,7 @@ class _TMTpage2State extends ConsumerState<TMTpage2> {
 
   void _preloadAudio() {
     _audioCache.load('Instruction_Swipe.mp3').then((_) {
-      print('Sound pre-initialized');
+      log('Sound pre-initialized');
     });
   }
 
@@ -432,7 +431,7 @@ class _TMTpage2State extends ConsumerState<TMTpage2> {
             if (text == 'Resume'.tr) {
               Navigator.pop(context, false);
             } else if (text == 'Sound'.tr) {
-              print('Change sound');
+              log('Change sound');
             } else if (text == 'Instructions'.tr) {
               Navigator.push(
                 context,
@@ -544,14 +543,9 @@ class _TMTpage2State extends ConsumerState<TMTpage2> {
           double screenWidth = MediaQuery.of(context).size.width;
           double screenHeight = MediaQuery.of(context).size.height;
 
-          // Adjust UI elements based on screen size
-          double nodeSize =
-              screenWidth * 0.05; // Node size relative to screen width
-          double nodeSpacing = screenWidth *
-              0.02; // Spacing between nodes relative to screen width
           return OrientationBuilder(
             builder: (context, orientation) {
-              print('switching to landscape tmt2');
+              log('switching to landscape tmt2');
               SystemChrome.setPreferredOrientations([
                 DeviceOrientation.landscapeLeft,
                 DeviceOrientation.landscapeRight,
@@ -693,7 +687,7 @@ class _TMTpage2State extends ConsumerState<TMTpage2> {
 
   //     setState(() {
   //       tappedNodes.add(nodeNumber);
-  //       print('Tapped Nodes: $tappedNodes');
+  //       log('Tapped Nodes: $tappedNodes');
 
   //       // Add line points only if more than one node is tapped
   //       if (tappedNodes.length > 1) {
@@ -702,7 +696,7 @@ class _TMTpage2State extends ConsumerState<TMTpage2> {
   //             getYPosition(nodeList[lastNode - 1]))); // Add start point
   //         linePoints.add(Offset(getXPosition(nodeList[nodeNumber - 1]),
   //             getYPosition(nodeList[nodeNumber - 1]))); // Add end point
-  //         print('Line Points: $linePoints');
+  //         log('Line Points: $linePoints');
   //       }
 
   //       // Check if all nodes are tapped
@@ -734,7 +728,7 @@ class _TMTpage2State extends ConsumerState<TMTpage2> {
   //     });
   //   } else {
   //     // Wrong node tapped, show error message
-  //     print('Wrong node tapped');
+  //     log('Wrong node tapped');
   //     // Increment the count of wrong node image shown
   //     setState(() {
   //       wrongNodeImageCount++;
@@ -757,9 +751,9 @@ class _TMTpage2State extends ConsumerState<TMTpage2> {
   //     });
   //   }
 
-  //   // Check if the tapped node is correct and print a message
+  //   // Check if the tapped node is correct and log a message
   //   if (!showOverlay) {
-  //     print('Correct node tapped');
+  //     log('Correct node tapped');
   //     if (_vibrationEnabled) {
   //       Vibration.vibrate(
   //         duration: 100,
@@ -794,7 +788,7 @@ class _TMTpage2State extends ConsumerState<TMTpage2> {
 
       setState(() {
         tappedNodes.add(nodeNumber);
-        print('Tapped Nodes: $tappedNodes');
+        log('Tapped Nodes: $tappedNodes');
 
         // Add line points only if more than one node is tapped
         if (tappedNodes.length > 1) {
@@ -803,7 +797,7 @@ class _TMTpage2State extends ConsumerState<TMTpage2> {
               getYPosition(nodeList[lastNode - 1]))); // Add start point
           linePoints.add(Offset(getXPosition(nodeList[nodeNumber - 1]),
               getYPosition(nodeList[nodeNumber - 1]))); // Add end point
-          print('Line Points: $linePoints');
+          log('Line Points: $linePoints');
         }
 
         // Check if all nodes are tapped
@@ -853,7 +847,7 @@ class _TMTpage2State extends ConsumerState<TMTpage2> {
       // If the node is not connected to a line, show the error overlay
       if (!isNodeConnected) {
         // Wrong node tapped, show error message
-        print('Wrong node tapped');
+        log('Wrong node tapped');
         // Increment the count of wrong node image shown
         setState(() {
           wrongNodeImageCount++;
@@ -877,9 +871,9 @@ class _TMTpage2State extends ConsumerState<TMTpage2> {
       }
     }
 
-    // Check if the tapped node is correct and print a message
+    // Check if the tapped node is correct and log a message
     if (!showOverlay) {
-      print('Correct node tapped');
+      log('Correct node tapped');
       if (_vibrationEnabled) {
         Vibration.vibrate(
           duration: 100,
@@ -933,7 +927,7 @@ class _TMTpage2State extends ConsumerState<TMTpage2> {
 
   @override
   void dispose() {
-    print('switching to portrait');
+    log('switching to portrait');
     _confettiController.dispose();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,

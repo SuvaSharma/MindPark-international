@@ -11,9 +11,9 @@ void showParentsConfirmationDialog(
           return AlertDialog(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(25),
-              side: BorderSide(color: Colors.black, width: 3),
+              side: const BorderSide(color: Colors.black, width: 3),
             ),
-            content: Container(
+            content: SizedBox(
               width: constraints.maxWidth * 0.8,
               height: constraints.maxHeight * 0.2,
               child: Column(

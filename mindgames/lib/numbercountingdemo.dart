@@ -23,7 +23,7 @@ class NumberCountingDemoPage extends StatefulWidget {
 
 class _NumberCountingDemoPageState extends State<NumberCountingDemoPage> {
   int _imageCount = 0;
-  int _selectedNumber = -1;
+
   final Random _random = Random();
   int _roundsPlayed = 0;
   String? _feedbackImagePath;
@@ -82,7 +82,6 @@ class _NumberCountingDemoPageState extends State<NumberCountingDemoPage> {
     } else {
       setState(() {
         _imageCount = _random.nextInt(16) + 5;
-        _selectedNumber = -1;
         _showFeedback = false;
       });
     }
@@ -330,7 +329,7 @@ class _NumberCountingDemoPageState extends State<NumberCountingDemoPage> {
                                                         baseSize * 0.03),
                                               ),
                                               child: IconButton(
-                                                icon: Icon(Icons.pause),
+                                                icon: const Icon(Icons.pause),
                                                 iconSize: baseSize * 0.07,
                                                 onPressed: _showPauseMenu,
                                               ),
@@ -399,7 +398,7 @@ class _NumberCountingDemoPageState extends State<NumberCountingDemoPage> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            NumberCountingGame()),
+                                            const NumberCountingGame()),
                                   );
                                 },
                                 height: screenHeight * 0.05,
@@ -418,7 +417,7 @@ class _NumberCountingDemoPageState extends State<NumberCountingDemoPage> {
                               SizedBox(height: baseSize * 0.05),
                               GestureDetector(
                                 onTap: () async {},
-                                child: Container(
+                                child: SizedBox(
                                   width: mediaQuery.size.width * 0.3,
                                   height: mediaQuery.size.width * 0.15,
                                   child: Stack(

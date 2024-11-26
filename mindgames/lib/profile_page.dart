@@ -84,18 +84,26 @@ class _ProfilePageState extends State<ProfilePage> {
           });
 
           await user!.updateDisplayName(nameController.text);
-
+          if (!context.mounted) {
+            return;
+          }
           showCustomSnackbar(
               context, 'Success'.tr, 'Profile updated successfully!'.tr);
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => Profile()),
+            MaterialPageRoute(builder: (context) => const Profile()),
           );
         } else {
+          if (!context.mounted) {
+            return;
+          }
           showCustomSnackbar(context, 'Error'.tr, 'User document not found'.tr);
         }
       }
     } else {
+      if (!context.mounted) {
+        return;
+      }
       showCustomSnackbar(context, 'Error'.tr, 'User not logged in'.tr);
     }
   }
@@ -147,7 +155,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             style: TextStyle(
                               fontSize: screenWidth * 0.1,
                               fontWeight: FontWeight.w600,
-                              color: Color(0xFF309092),
+                              color: const Color(0xFF309092),
                             ),
                           ),
                           SizedBox(height: screenHeight * 0.03),
@@ -165,7 +173,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             fillColor: Colors.white,
                             filled: true,
                             readOnly: true,
-                            suffixIcon: Icon(Icons.email_outlined),
+                            suffixIcon: const Icon(Icons.email_outlined),
                           ),
                           SizedBox(height: screenHeight * 0.01),
                           RegisterFormField(
@@ -199,7 +207,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          ChangePasswordScreen()),
+                                          const ChangePasswordScreen()),
                                 );
                               },
                               child: Text('Update Password'.tr,

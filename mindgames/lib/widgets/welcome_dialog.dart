@@ -9,14 +9,14 @@ class WelcomeDialog extends StatefulWidget {
   final String imagePath;
 
   const WelcomeDialog({
-    Key? key,
+    super.key,
     required this.title,
     required this.message,
     required this.imagePath,
-  }) : super(key: key);
+  });
 
   @override
-  _WelcomeDialogState createState() => _WelcomeDialogState();
+  State<WelcomeDialog> createState() => _WelcomeDialogState();
 }
 
 class _WelcomeDialogState extends State<WelcomeDialog>
@@ -72,7 +72,7 @@ class _WelcomeDialogState extends State<WelcomeDialog>
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ExecutiveskillsPage()),
+                          builder: (context) => const ExecutiveskillsPage()),
                     );
                   },
                 ),
@@ -143,7 +143,8 @@ class _WelcomeDialogState extends State<WelcomeDialog>
                   onPressed: () => Navigator.of(context).pop(),
                   child: Text(
                     "Let's Play!".tr,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),
               );

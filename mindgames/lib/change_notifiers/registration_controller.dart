@@ -101,7 +101,7 @@ class RegistrationController extends ChangeNotifier {
           isRegisterMode = false;
           // Navigate to language screen after email verification
           if (!context.mounted) return;
-          Get.off(() => LanguageScreen());
+          Get.off(() => const LanguageScreen());
         }
       } else {
         // Sign in the user
@@ -114,7 +114,7 @@ class RegistrationController extends ChangeNotifier {
         if (AuthService.isEmailVerified) {
           // Navigate to language screen if email is verified
           if (!context.mounted) return;
-          Get.off(() => LanguageScreen());
+          Get.off(() => const LanguageScreen());
         } else {
           // If not verified, send verification email and show a message
           await AuthService.user?.sendEmailVerification();
@@ -149,7 +149,7 @@ class RegistrationController extends ChangeNotifier {
 
       // Navigate to language screen after Google sign-in
       if (!context.mounted) return;
-      Get.off(() => LanguageScreen());
+      Get.off(() => const LanguageScreen());
     } on NoGoogleAccountChosenException {
       return;
     } catch (e) {

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -233,7 +234,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                                       try {
                                         final feedback = UserFeedback(
                                             text: textController.text);
-                                        print(feedback);
+                                        log('$feedback');
 
                                         final Email email = Email(
                                           body: feedback.text,
@@ -246,6 +247,9 @@ class _FeedbackPageState extends State<FeedbackPage> {
                                         );
 
                                         await FlutterEmailSender.send(email);
+                                        if (!context.mounted) {
+                                          return;
+                                        }
                                         Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(

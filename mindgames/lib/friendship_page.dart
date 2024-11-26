@@ -51,7 +51,7 @@ class _FriendshipPageState extends State<FriendshipPage> {
                   texts: FriendshipsTexts.sublist(5),
                   label: "Don'ts",
                   labelColor: Colors.red,
-                  containerColor: Color.fromARGB(255, 242, 255, 243)),
+                  containerColor: const Color.fromARGB(255, 242, 255, 243)),
             ],
           ),
         ),

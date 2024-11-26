@@ -8,7 +8,8 @@ class CarouselSlide extends StatelessWidget {
   final Function(int, CarouselPageChangedReason) onPageChanged;
   final int currentIndex;
 
-  CarouselSlide({
+  const CarouselSlide({
+    super.key,
     required this.carouselItems,
     required this.screenHeight,
     required this.screenWidth,
@@ -72,10 +73,10 @@ class CarouselSlide extends StatelessWidget {
                 Container(
                   width: double.infinity,
                   height: _getResponsiveHeight(carouselItems[index]['name']),
-                  padding: EdgeInsets.only(top: 6),
+                  padding: const EdgeInsets.only(top: 6),
                   decoration: BoxDecoration(
                     color: Colors.black.withOpacity(0.7),
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(23),
                       bottomRight: Radius.circular(23),
                     ),
@@ -102,7 +103,7 @@ class CarouselSlide extends StatelessWidget {
         aspectRatio: 16 / 9,
         autoPlayCurve: Curves.fastOutSlowIn,
         enableInfiniteScroll: true,
-        autoPlayAnimationDuration: Duration(milliseconds: 800),
+        autoPlayAnimationDuration: const Duration(milliseconds: 800),
         viewportFraction: 0.77,
         onPageChanged: onPageChanged,
       ),

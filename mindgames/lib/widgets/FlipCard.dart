@@ -7,15 +7,15 @@ class FlipCard extends StatefulWidget {
   final Duration duration;
 
   const FlipCard({
-    Key? key,
+    super.key,
     required this.front,
     required this.backText,
     this.isFlipping = false,
     this.duration = const Duration(milliseconds: 500),
-  }) : super(key: key);
+  });
 
   @override
-  _FlipCardState createState() => _FlipCardState();
+  State<FlipCard> createState() => _FlipCardState();
 }
 
 class _FlipCardState extends State<FlipCard>
@@ -82,7 +82,7 @@ class _FlipCardState extends State<FlipCard>
                       child: Center(
                         child: Text(
                           widget.backText,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,

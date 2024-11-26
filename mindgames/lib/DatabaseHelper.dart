@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:mindgames/CPTDataModel.dart';
 import 'package:mindgames/DSTDataModel.dart';
 import 'package:sqflite/sqflite.dart';
@@ -16,7 +18,7 @@ class DatabaseHelper {
 
   Future<Database> initDatabase() async {
     String path = join(await getDatabasesPath(), 'game_database.db');
-    print('Database path: $path'); // Debugging: Print database path
+    log('Database path: $path'); // Debugging: Print database path
     return await openDatabase(
       path,
       version: 1,
@@ -79,9 +81,9 @@ class DatabaseHelper {
           response_time INTEGER
         )
       ''');
-      print('Tables created successfully'); // Debugging: Print success message
+      log('Tables created successfully'); // Debugging: Print success message
     } catch (e) {
-      print('Error creating tables: $e'); // Debugging: Print error message
+      log('Error creating tables: $e'); // Debugging: Print error message
       throw Exception('Error creating tables');
     }
   }
@@ -92,11 +94,12 @@ class DatabaseHelper {
       var batch = db.batch();
       gameData.forEach((data) {
         batch.insert('game_data', data.toMap());
-        print('Inserting ${data.toString()}');
+        log('Inserting ${data.toString()}');
       });
+
       await batch.commit();
     } catch (e) {
-      print('Error inserting game data: $e');
+      log('Error inserting game data: $e');
       throw Exception('Error inserting game data');
     }
   }
@@ -107,11 +110,11 @@ class DatabaseHelper {
       var batch = db.batch();
       words.forEach((word) {
         batch.insert('Words', word.toMap());
-        print('Inserting ${word.toString()}');
+        log('Inserting ${word.toString()}');
       });
       await batch.commit();
     } catch (e) {
-      print('Error inserting words: $e');
+      log('Error inserting words: $e');
       throw Exception('Error inserting words');
     }
   }
@@ -121,11 +124,10 @@ class DatabaseHelper {
       Database db = await database;
       List<Map<String, dynamic>> words = await db.query('Words');
       words.forEach((word) {
-        print(
-            'UserID: ${word['user_id']} ${word['word']}, Color: ${word['color']}, Type: ${word['type']}, Result: ${word['result']}, Response: ${word['response_time']}');
+        log('UserID: ${word['user_id']} ${word['word']}, Color: ${word['color']}, Type: ${word['type']}, Result: ${word['result']}, Response: ${word['response_time']}');
       });
     } catch (e) {
-      print('Error viewing words: $e');
+      log('Error viewing words: $e');
     }
   }
 
@@ -135,11 +137,11 @@ class DatabaseHelper {
       var batch = db.batch();
       cptData.forEach((data) {
         batch.insert('CPTData', data.toMap());
-        print('Inserting ${data.toString()}');
+        log('Inserting ${data.toString()}');
       });
       await batch.commit();
     } catch (e) {
-      print('Error inserting cpt data: $e');
+      log('Error inserting cpt data: $e');
       throw Exception('Error inserting cpt data');
     }
   }
@@ -149,11 +151,10 @@ class DatabaseHelper {
       Database db = await database;
       List<Map<String, dynamic>> cptData = await db.query('CPTData');
       cptData.forEach((data) {
-        print(
-            'UserID: ${data['user_id']}, ${data['letter']}, Result: ${data['result']}, Response: ${data['response_time']}');
+        log('UserID: ${data['user_id']}, ${data['letter']}, Result: ${data['result']}, Response: ${data['response_time']}');
       });
     } catch (e) {
-      print('Error viewing data: $e');
+      log('Error viewing data: $e');
     }
   }
 
@@ -163,11 +164,11 @@ class DatabaseHelper {
       var batch = db.batch();
       dstData.forEach((data) {
         batch.insert('DSTData', data.toMap());
-        print('Inserting ${data.toString()}');
+        log('Inserting ${data.toString()}');
       });
       await batch.commit();
     } catch (e) {
-      print('Error inserting dst data');
+      log('Error inserting dst data');
       throw Exception('Error inserting dst data');
     }
   }
@@ -177,11 +178,10 @@ class DatabaseHelper {
       Database db = await database;
       List<Map<String, dynamic>> dstData = await db.query('DSTData');
       dstData.forEach((data) {
-        print(
-            'UserID: ${data['user_id']}, SequenceGiven: ${data['sequence_given']}, SequenceEntered: ${data['sequence_entered']}, Result: ${data['result']}, Response: ${data['response_time']}');
+        log('UserID: ${data['user_id']}, SequenceGiven: ${data['sequence_given']}, SequenceEntered: ${data['sequence_entered']}, Result: ${data['result']}, Response: ${data['response_time']}');
       });
     } catch (e) {
-      print('Error viewing data: $e');
+      log('Error viewing data: $e');
     }
   }
 
@@ -190,11 +190,10 @@ class DatabaseHelper {
       Database db = await database;
       List<Map<String, dynamic>> maps = await db.query('game_data');
       maps.forEach((data) {
-        print(
-            'UserId: ${data['user_id']}, Result: ${data['result']}, ResponseTime: ${data['response_time']}, SymbolDisplayTime: ${data['symbol_display_time']}');
+        log('UserId: ${data['user_id']}, Result: ${data['result']}, ResponseTime: ${data['response_time']}, SymbolDisplayTime: ${data['symbol_display_time']}');
       });
     } catch (e) {
-      print('Error getting game data: $e');
+      log('Error getting game data: $e');
       throw Exception('Error getting game data');
     }
   }

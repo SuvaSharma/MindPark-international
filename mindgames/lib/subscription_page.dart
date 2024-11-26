@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:mindgames/utils/esewa/esewa.dart';
 import 'package:mindgames/widgets/snackbar_widget.dart';
 
 class SubscriptionPage extends StatefulWidget {
@@ -35,14 +33,15 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
               ),
               Row(children: [
                 ElevatedButton.icon(
-                  label: Text(''),
-                  style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStatePropertyAll<Color>(Colors.white),
-                      side: MaterialStateProperty.all(BorderSide(
-                          color: Colors.black87,
-                          width: 1.0,
-                          style: BorderStyle.solid))),
+                  label: const Text(''),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    side: const BorderSide(
+                      color: Colors.black87,
+                      width: 1.0,
+                      style: BorderStyle.solid,
+                    ),
+                  ),
                   onPressed: () {
                     // Esewa esewa = Esewa(showSnackbar: showSnackbar);
                     // esewa.pay();

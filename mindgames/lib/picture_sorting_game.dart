@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -159,7 +160,7 @@ class _PictureSortingGameState extends ConsumerState<PictureSortingGame> {
   }
 
   void _startStopwatch() {
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         if (!_isPaused) {
           _seconds++;
@@ -190,7 +191,7 @@ class _PictureSortingGameState extends ConsumerState<PictureSortingGame> {
     setState(() {
       _isPaused = true;
     });
-    print(accuracy);
+    log('$accuracy');
     _cloudStoreService.addPictureSortingGameData(PictureSortingGameData(
       userId: selectedChildUserId,
       sessionId: sessionId,
@@ -317,13 +318,13 @@ class _PictureSortingGameState extends ConsumerState<PictureSortingGame> {
     final double leftPadding = screenWidth * 0.33;
     final double rightPadding = screenWidth * 0.05;
 
-    print('total attempts: $_totalAttempts');
+    log('total attempts: $_totalAttempts');
     setState(() {
       accuracy =
           _totalAttempts > 0 ? (_correctAttempts / _totalAttempts) * 100 : 0;
     });
 
-    print('Accuracy aaya: ${accuracy.toStringAsFixed(2)}%');
+    log('Accuracy aaya: ${accuracy.toStringAsFixed(2)}%');
 
     return Column(
       children: [
@@ -482,7 +483,7 @@ class _PictureSortingGameState extends ConsumerState<PictureSortingGame> {
               child: DraggableStack(
                 key: _draggableStackKey2,
                 onDragCompleted: (image) {
-                  print('Drag completed with image: $image');
+                  log('Drag completed with image: $image');
                 },
                 onImagePlaced: _onImagePlaced,
                 gridImages: _gridImages,

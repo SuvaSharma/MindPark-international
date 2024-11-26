@@ -75,7 +75,7 @@ class Maze extends StatefulWidget {
   final double? width;
 
   @override
-  _MazeState createState() => _MazeState();
+  State<Maze> createState() => _MazeState();
 }
 
 class _MazeState extends State<Maze> {

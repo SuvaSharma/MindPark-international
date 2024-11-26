@@ -8,10 +8,13 @@ import 'package:get/get.dart';
 class ParentalLockSetupPage extends StatefulWidget {
   final bool isRecoveryFlow;
 
-  ParentalLockSetupPage({this.isRecoveryFlow = false});
+  const ParentalLockSetupPage({
+    super.key,
+    this.isRecoveryFlow = false,
+  });
 
   @override
-  _ParentalLockSetupPageState createState() => _ParentalLockSetupPageState();
+  State<ParentalLockSetupPage> createState() => _ParentalLockSetupPageState();
 }
 
 class _ParentalLockSetupPageState extends State<ParentalLockSetupPage> {
@@ -43,6 +46,9 @@ class _ParentalLockSetupPageState extends State<ParentalLockSetupPage> {
               'security_answer_$i', _securityAnswerControllers[i].text);
         }
       }
+      if (!context.mounted) {
+        return;
+      }
       showCustomSnackbar(context, 'Success'.tr,
           'PIN and security questions set successfully'.tr);
       Get.offAll(() => const ChildProfileList(shownWhen: 'launch'));
@@ -62,7 +68,7 @@ class _ParentalLockSetupPageState extends State<ParentalLockSetupPage> {
     return Scaffold(
         body: SafeArea(
       child: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/levelscreen.png"),
             fit: BoxFit.cover,
@@ -78,7 +84,7 @@ class _ParentalLockSetupPageState extends State<ParentalLockSetupPage> {
                   style: TextStyle(
                       fontSize: screenWidth * 0.08,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF309092)),
+                      color: const Color(0xFF309092)),
                 ),
               ),
               Padding(
@@ -113,8 +119,8 @@ class _ParentalLockSetupPageState extends State<ParentalLockSetupPage> {
                 ),
               ),
               if (!widget.isRecoveryFlow) ...[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
                   child: Text(
                     'Recovery Questions',
                     style: TextStyle(
@@ -123,14 +129,14 @@ class _ParentalLockSetupPageState extends State<ParentalLockSetupPage> {
                         color: Color(0xFF309092)),
                   ),
                 ),
-                Divider(
+                const Divider(
                   height: 5.0,
                   thickness: 2.0,
                   color: Color.fromARGB(255, 0, 0, 0),
                   indent: 70.0,
                   endIndent: 70.0,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 ...List.generate(3, (index) {
@@ -163,24 +169,22 @@ class _ParentalLockSetupPageState extends State<ParentalLockSetupPage> {
               ],
               Padding(
                 padding: EdgeInsets.all(screenWidth * 0.03),
-                child: Container(
+                child: SizedBox(
                   height: screenHeight * 0.07,
                   child: SwipeableButtonView(
                     buttonText: 'Swipe to Save PIN',
                     buttontextstyle: TextStyle(
                         fontSize: screenWidth * 0.05, color: Colors.white),
-                    buttonWidget: Container(
-                      child: Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        color: Colors.grey,
-                        size: screenHeight * 0.04,
-                      ),
+                    buttonWidget: Icon(
+                      Icons.arrow_forward_ios_rounded,
+                      color: Colors.grey,
+                      size: screenHeight * 0.04,
                     ),
-                    activeColor: Color(0xFF309092),
+                    activeColor: const Color(0xFF309092),
                     isFinished: isFinished,
                     onWaitingProcess: () {
                       // Simulate a delay for some process
-                      Future.delayed(Duration(seconds: 1), () {
+                      Future.delayed(const Duration(seconds: 1), () {
                         setState(() {
                           isFinished = true;
                         });

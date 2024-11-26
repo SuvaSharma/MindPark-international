@@ -80,5 +80,5 @@ flutter {
 }
 
 dependencies {
-
+    implementation project(':lvl_library')
 }

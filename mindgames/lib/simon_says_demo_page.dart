@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -60,8 +61,7 @@ class _SimonSaysDemoPageState extends State<SimonSaysDemoPage>
     );
 
     _audioCache.load('task_completed.mp3').then((_) {
-      print(
-          'right sound pre-initialized'); // Log a message when preloading is complete
+      log('right sound pre-initialized'); // Log a message when preloading is complete
     });
   }
 
@@ -197,6 +197,9 @@ class _SimonSaysDemoPageState extends State<SimonSaysDemoPage>
           // Show bottom sheet only if not paused
           if (!_isPaused) {
             if (!isChildMode!) {
+              if (!context.mounted) {
+                return;
+              }
               displayBottomSheet(context);
             } else {
               onTaskComplete(false);
@@ -394,11 +397,11 @@ class _SimonSaysDemoPageState extends State<SimonSaysDemoPage>
     return WillPopScope(
       onWillPop: () async {
         if (_isStarted) {
-          print("Went to pause menu.");
+          log("Went to pause menu.");
           bool result = await onBackPressed();
           return result;
         } else {
-          print("Went to social skills menu");
+          log("Went to social skills menu");
           // Navigate back to the homepage when the back button is pressed
           Navigator.pushReplacement(
             context,
@@ -559,7 +562,7 @@ class _SimonSaysDemoPageState extends State<SimonSaysDemoPage>
                                           baseSize * 0.03),
                                     ),
                                     child: IconButton(
-                                      icon: Icon(Icons.pause),
+                                      icon: const Icon(Icons.pause),
                                       iconSize: baseSize * 0.07,
                                       onPressed: onBackPressed,
                                     ),

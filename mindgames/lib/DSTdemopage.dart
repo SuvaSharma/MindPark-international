@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:animated_button/animated_button.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:confetti/confetti.dart';
@@ -15,10 +16,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vibration/vibration.dart';
 
 class DSTdemoPage extends StatefulWidget {
-  const DSTdemoPage({Key? key}) : super(key: key);
+  const DSTdemoPage({super.key});
 
   @override
-  _DSTdemoPageState createState() => _DSTdemoPageState();
+  State<DSTdemoPage> createState() => _DSTdemoPageState();
 }
 
 class _DSTdemoPageState extends State<DSTdemoPage> {
@@ -58,20 +59,19 @@ class _DSTdemoPageState extends State<DSTdemoPage> {
   DSTdemoPage() {
     // Preload the audio file during app initialization
     _audioCache.load('correct.mp3').then((_) {
-      print(
-          'right sound pre-initialized'); // Log a message when preloading is complete
+      log('right sound pre-initialized'); // Log a message when preloading is complete
     });
     _audioCache.load('wrong.mp3').then((_) {
-      print('wrong sound pre-loaded');
+      log('wrong sound pre-loaded');
     });
     _audioCache.load('GameOverDialog.mp3').then((_) {
-      print('gameover sound pre-loaded');
+      log('gameover sound pre-loaded');
     });
     _audioCache.load('PauseTap.mp3').then((_) {
-      print('Pause sound pre-loaded');
+      log('Pause sound pre-loaded');
     });
     _audioCache.load('verbalgood.mp3').then((_) {
-      print('verbal good sound pre-loaded');
+      log('verbal good sound pre-loaded');
     });
   }
 
@@ -120,7 +120,7 @@ class _DSTdemoPageState extends State<DSTdemoPage> {
 
   void _preloadAudio() {
     _audioCache.load('Instruction_Swipe.mp3').then((_) {
-      print('Sound pre-initialized');
+      log('Sound pre-initialized');
     });
   }
 
@@ -140,7 +140,7 @@ class _DSTdemoPageState extends State<DSTdemoPage> {
   }
 
   Future<bool> _onBackPressed() async {
-    print('I was triggered');
+    log('I was triggered');
     _playSound('PauseTap.mp3', player);
     bool? result;
     // Function to display the quit dialog
@@ -174,7 +174,7 @@ class _DSTdemoPageState extends State<DSTdemoPage> {
 
     // Check for different scenarios where the game can be paused
     if (showMemorizeText) {
-      print('Paused at prompt');
+      log('Paused at prompt');
       result = await displayQuitDialog();
       if (result == false) {
         renderTimer = Timer(const Duration(milliseconds: 500), () {
@@ -186,19 +186,18 @@ class _DSTdemoPageState extends State<DSTdemoPage> {
         });
       }
     } else if (showCharactersContainer) {
-      print('Paused while characters were being shown');
+      log('Paused while characters were being shown');
       characterEndTime = DateTime.now().millisecondsSinceEpoch;
 
       result = await displayQuitDialog();
       if (result == false) {
-        print('Digit time Start: $characterShowTime');
-        print('Digit time End: $characterEndTime');
-        print(
-            'Character was paused at: ${characterEndTime - characterShowTime}');
+        log('Digit time Start: $characterShowTime');
+        log('Digit time End: $characterEndTime');
+        log('Character was paused at: ${characterEndTime - characterShowTime}');
         startTimer();
       }
     } else if (!showStartButton && !_showPopup) {
-      print('Paused while taking input');
+      log('Paused while taking input');
       quitdialogStartTime = DateTime.now().millisecondsSinceEpoch;
       result = await displayQuitDialog();
       if (result == false) {
@@ -220,7 +219,7 @@ class _DSTdemoPageState extends State<DSTdemoPage> {
       onWillPop: _onBackPressed,
       child: Scaffold(
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/balloon_background.jpeg"),
               fit: BoxFit.cover,
@@ -256,7 +255,7 @@ class _DSTdemoPageState extends State<DSTdemoPage> {
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => EasyPage()),
+                                      builder: (context) => const EasyPage()),
                                 );
                               },
                               child: Center(
@@ -289,7 +288,7 @@ class _DSTdemoPageState extends State<DSTdemoPage> {
                                           baseSize * 0.03),
                                     ),
                                     child: IconButton(
-                                      icon: Icon(Icons.pause),
+                                      icon: const Icon(Icons.pause),
                                       iconSize: baseSize * 0.07,
                                       onPressed: _onBackPressed,
                                     ),
@@ -311,7 +310,7 @@ class _DSTdemoPageState extends State<DSTdemoPage> {
                           style: TextStyle(
                             fontSize: screenWidth * 0.08,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                           ),
                         ),
                       ),
@@ -323,7 +322,7 @@ class _DSTdemoPageState extends State<DSTdemoPage> {
                     onTap: () {
                       RenderSequence();
                     },
-                    child: Container(
+                    child: SizedBox(
                       width: screenWidth * 0.25,
                       height: screenWidth * 0.25,
                       child: Stack(
@@ -356,7 +355,7 @@ class _DSTdemoPageState extends State<DSTdemoPage> {
                 if (showMemorizeText)
                   Visibility(
                     visible: !showEndGameDialog,
-                    child: Container(
+                    child: SizedBox(
                       width: screenWidth * 0.8,
                       height: screenWidth * 0.35,
                       child: Center(
@@ -365,7 +364,7 @@ class _DSTdemoPageState extends State<DSTdemoPage> {
                           style: TextStyle(
                             fontSize: screenWidth * 0.075,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                           ),
                         ),
                       ),
@@ -390,7 +389,7 @@ class _DSTdemoPageState extends State<DSTdemoPage> {
                             child: Text(
                               characters[currentCharacterIndex].tr,
                               style: TextStyle(
-                                color: Color(0xFF309092),
+                                color: const Color(0xFF309092),
                                 fontSize: screenWidth * 0.3,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -407,7 +406,7 @@ class _DSTdemoPageState extends State<DSTdemoPage> {
                     !showMemorizeText &&
                     !_showPopup &&
                     !showEndGameDialog)
-                  Container(
+                  SizedBox(
                     width: screenWidth * 0.6,
                     child: GridView.count(
                       shrinkWrap: true,
@@ -424,7 +423,7 @@ class _DSTdemoPageState extends State<DSTdemoPage> {
                     ),
                   ),
 
-                Container(
+                SizedBox(
                   width: screenWidth,
                   child: Wrap(
                     alignment: WrapAlignment.center,
@@ -437,11 +436,11 @@ class _DSTdemoPageState extends State<DSTdemoPage> {
                           boxShadow: [
                             BoxShadow(
                               color: Colors.grey.shade600,
-                              offset: Offset(4, 4),
+                              offset: const Offset(4, 4),
                               blurRadius: 5,
                               spreadRadius: 1,
                             ),
-                            BoxShadow(
+                            const BoxShadow(
                               color: Colors.white,
                               offset: Offset(-1, -1),
                               blurRadius: 3,
@@ -469,9 +468,9 @@ class _DSTdemoPageState extends State<DSTdemoPage> {
 
                 SizedBox(height: screenHeight * 0.055),
                 Visibility(
-                  visible: selectedNumbersList.length > 0,
+                  visible: selectedNumbersList.isNotEmpty,
                   child: Padding(
-                    padding: EdgeInsets.only(top: 16.0),
+                    padding: const EdgeInsets.only(top: 16.0),
                     child: ElevatedButton(
                       onPressed: checkAnswer,
                       style: ElevatedButton.styleFrom(
@@ -543,13 +542,13 @@ class _DSTdemoPageState extends State<DSTdemoPage> {
             elevation: 8,
             borderRadius: BorderRadius.circular(borderRadius),
             child: AnimatedContainer(
-              duration: Duration(milliseconds: 200),
+              duration: const Duration(milliseconds: 200),
               alignment: Alignment.center,
               height: circleSize,
               width: circleSize,
               decoration: BoxDecoration(
                 gradient: selectedNumbers.contains(digit)
-                    ? LinearGradient(
+                    ? const LinearGradient(
                         colors: [Color(0xFF309092), Color(0xFF50B8B8)],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
@@ -572,7 +571,7 @@ class _DSTdemoPageState extends State<DSTdemoPage> {
                       fontWeight: FontWeight.bold,
                       color: selectedNumbers.contains(digit)
                           ? Colors.grey[200]
-                          : Color(0xFF309092),
+                          : const Color(0xFF309092),
                     ),
                   ),
                 ],
@@ -596,14 +595,14 @@ class _DSTdemoPageState extends State<DSTdemoPage> {
 
   void startTimer() {
     int index = currentCharacterIndex;
-    print('Characters: $characters');
+    log('Characters: $characters');
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         // if the
         if (index < characters.length) {
           characterShowTime = DateTime.now().millisecondsSinceEpoch;
-          print('Character was shown at $characterShowTime');
-          print('showing ${characters[index]}');
+          log('Character was shown at $characterShowTime');
+          log('showing ${characters[index]}');
           currentCharacterIndex = index++;
         } else {
           timer.cancel();
@@ -623,8 +622,8 @@ class _DSTdemoPageState extends State<DSTdemoPage> {
     }
     int elapsedTime = DateTime.now().difference(inputStartTime).inMilliseconds -
         accumulatedDialogTime;
-    print('Accumulated pause time: $accumulatedDialogTime');
-    print('time taken for input: $elapsedTime');
+    log('Accumulated pause time: $accumulatedDialogTime');
+    log('time taken for input: $elapsedTime');
     setState(() {
       trialId++;
       _showPopup = true;
@@ -657,7 +656,7 @@ class _DSTdemoPageState extends State<DSTdemoPage> {
     if (results.length == 2 || results.length == 3) {
       String mostCommonResult =
           mostCommonString(results); // Find most common result
-      print("Most common result: $mostCommonResult");
+      log("Most common result: $mostCommonResult");
 
       // move to next level
       if (mostCommonResult == "Correct!") {
@@ -777,7 +776,7 @@ class _DSTdemoPageState extends State<DSTdemoPage> {
                         '${'Score: '.tr}${sequenceLength == 2 ? convertToNepaliNumbers('0') : convertToNepaliNumbers('${sequenceLength - 1}')}',
                         style: TextStyle(
                             fontSize: screenWidth * 0.045,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             fontWeight: FontWeight.bold),
                       ),
                       TextButton(
@@ -787,12 +786,12 @@ class _DSTdemoPageState extends State<DSTdemoPage> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    EasyPage()), // Navigate to LevelScreen
+                                    const EasyPage()), // Navigate to LevelScreen
                           );
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Color(0xff309092),
+                            color: const Color(0xff309092),
                             borderRadius: BorderRadius.circular(25),
                           ),
                           child: Padding(
@@ -820,9 +819,10 @@ String mostCommonString(List<String> strings) {
   Map<String, int> count = {};
 
   // Count occurrences of each string
-  strings.forEach((string) {
+
+  for (final string in strings) {
     count[string] = (count[string] ?? 0) + 1;
-  });
+  }
 
   int correctCount = count['Correct!'] ?? 0;
   int incorrectCount = count['Incorrect!'] ?? 0;

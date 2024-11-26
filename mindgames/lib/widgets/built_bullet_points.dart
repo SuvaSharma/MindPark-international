@@ -5,6 +5,7 @@ class BuildBulletPoints extends StatelessWidget {
   final double screenWidth;
 
   const BuildBulletPoints({
+    super.key,
     required this.texts,
     required this.screenWidth,
   });

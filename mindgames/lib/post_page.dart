@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
@@ -178,7 +180,7 @@ class _PostPageState extends State<PostPage> {
                             };
                           }
                           if (element.localName == 'img') {
-                            print(element.attributes);
+                            log('${element.attributes}');
                             return {
                               'border': '1px solid rgba(0, 0, 0, 0.55)',
                               'border-radius': '${screenWidth * 0.05}px',

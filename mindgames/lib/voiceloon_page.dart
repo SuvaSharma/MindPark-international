@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'dart:math';
+import 'dart:developer';
+import 'dart:math' as math;
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -26,7 +27,7 @@ class VoiceloonPage extends ConsumerStatefulWidget {
   const VoiceloonPage({super.key});
 
   @override
-  _VoiceloonPageState createState() => _VoiceloonPageState();
+  ConsumerState<VoiceloonPage> createState() => _VoiceloonPageState();
 }
 
 class _VoiceloonPageState extends ConsumerState<VoiceloonPage> {
@@ -40,7 +41,7 @@ class _VoiceloonPageState extends ConsumerState<VoiceloonPage> {
   int numberOfTrials = 0;
   bool showWellDoneText = false;
   late ConfettiController _confettiController;
-  Random random = Random();
+  math.Random random = math.Random();
   final AudioPlayer player = AudioPlayer();
   bool _isPaused = false;
   bool _vibrationEnabled = false;
@@ -246,7 +247,7 @@ class _VoiceloonPageState extends ConsumerState<VoiceloonPage> {
   }
 
   void onError(Object error) {
-    print(error);
+    log('$error');
     stop();
   }
 
@@ -324,7 +325,7 @@ class _VoiceloonPageState extends ConsumerState<VoiceloonPage> {
           onWillPop: () async => false,
           child: PauseMenu(
             onResume: () {
-              print("Resumed");
+              log("Resumed");
               Navigator.pop(context, false);
               start();
               _resumeGame();
@@ -454,7 +455,7 @@ class _VoiceloonPageState extends ConsumerState<VoiceloonPage> {
                                     BorderRadius.circular(baseSize * 0.03),
                               ),
                               child: IconButton(
-                                icon: Icon(Icons.pause),
+                                icon: const Icon(Icons.pause),
                                 iconSize: baseSize * 0.07,
                                 onPressed: _onBackPressed,
                               ),

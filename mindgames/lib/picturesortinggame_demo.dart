@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -93,7 +94,7 @@ class _PictureSortingDemoPageState extends State<PictureSortingDemoPage> {
   }
 
   void _startStopwatch() {
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         if (!_isPaused) {
           _seconds++;
@@ -131,7 +132,7 @@ class _PictureSortingDemoPageState extends State<PictureSortingDemoPage> {
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      PictureSortingGame()), // Navigate back to LegoGame
+                      const PictureSortingGame()), // Navigate back to LegoGame
             );
           },
         );
@@ -140,7 +141,7 @@ class _PictureSortingDemoPageState extends State<PictureSortingDemoPage> {
   }
 
   void _onImagePlaced(String image) {
-    print('I was triggered');
+    log('I was triggered');
 
     setState(() {
       _correctlyPlacedImages++;
@@ -172,7 +173,7 @@ class _PictureSortingDemoPageState extends State<PictureSortingDemoPage> {
               _resumeGame();
             },
             onQuit: () {},
-            quitDestinationPage: MotorskillsPage(),
+            quitDestinationPage: const MotorskillsPage(),
           ),
         ),
       );
@@ -207,7 +208,7 @@ class _PictureSortingDemoPageState extends State<PictureSortingDemoPage> {
       },
       child: Scaffold(
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/balloon_background.jpeg"),
               fit: BoxFit.cover,
@@ -327,13 +328,13 @@ class _PictureSortingDemoPageState extends State<PictureSortingDemoPage> {
     final double leftPadding = screenWidth * 0.33;
     final double rightPadding = screenWidth * 0.05;
 
-    print('total attempts: $_totalAttempts');
+    log('total attempts: $_totalAttempts');
     setState(() {
       accuracy =
           _totalAttempts > 0 ? (_correctAttempts / _totalAttempts) * 100 : 0;
     });
 
-    print('Accuracy aaya: ${accuracy.toStringAsFixed(2)}%');
+    log('Accuracy aaya: ${accuracy.toStringAsFixed(2)}%');
 
     return Column(
       children: [
@@ -458,7 +459,7 @@ class _PictureSortingDemoPageState extends State<PictureSortingDemoPage> {
             child: DraggableStack(
               key: _draggableStackKey1,
               onDragCompleted: (image) {
-                print('Drag completed with image: $image');
+                log('Drag completed with image: $image');
               },
               onImagePlaced: _onImagePlaced,
               gridImages: _gridImages, // Pass the grid images to the stack

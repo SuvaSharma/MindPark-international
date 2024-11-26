@@ -1,8 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:mindgames/executiveskills.dart';
 
 class SymbolSafariWelcomeDialog extends StatefulWidget {
   final String title;
@@ -11,15 +12,15 @@ class SymbolSafariWelcomeDialog extends StatefulWidget {
   final Function onGameQuit;
 
   const SymbolSafariWelcomeDialog({
-    Key? key,
+    super.key,
     required this.title,
     required this.message,
     required this.imagePath,
     required this.onGameQuit,
-  }) : super(key: key);
+  });
 
   @override
-  _SymbolSafariWelcomeDialogState createState() =>
+  State<SymbolSafariWelcomeDialog> createState() =>
       _SymbolSafariWelcomeDialogState();
 }
 
@@ -53,7 +54,7 @@ class _SymbolSafariWelcomeDialogState extends State<SymbolSafariWelcomeDialog>
     final size = MediaQuery.of(context).size;
     final double width = size.width;
     final double height = size.height;
-    print('Switching welcome dialog');
+    log('Switching welcome dialog');
 
     return Dialog(
       shape: RoundedRectangleBorder(
@@ -152,8 +153,8 @@ class _SymbolSafariWelcomeDialogState extends State<SymbolSafariWelcomeDialog>
                     onPressed: () => Navigator.of(context).pop(),
                     child: Text(
                       "Let's Play!".tr,
-                      style:
-                          TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontSize: 12, fontWeight: FontWeight.bold),
                     ),
                   ),
                 );

@@ -7,10 +7,10 @@ class CustomNavigationBar extends StatelessWidget {
   final Function(int) onTap;
 
   const CustomNavigationBar({
-    Key? key,
+    super.key,
     required this.selectedIndex,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class CustomNavigationBar extends StatelessWidget {
         _buildNavItem(Iconsax.home, 'Home', 1, screenWidth),
         _buildNavItem(Iconsax.document, 'News', 2, screenWidth),
       ],
-      selectedItemColor: Color(0xFF309092),
+      selectedItemColor: const Color(0xFF309092),
       unselectedItemColor: Colors.grey,
       selectedLabelStyle: TextStyle(
         fontSize: screenWidth * 0.035,

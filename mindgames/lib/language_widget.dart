@@ -8,7 +8,8 @@ class LanguageWidget extends StatelessWidget {
   final LocalizationController localizationController;
   final int index;
 
-  LanguageWidget({
+  const LanguageWidget({
+    super.key,
     required this.languageModel,
     required this.localizationController,
     required this.index,
@@ -23,7 +24,7 @@ class LanguageWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(25),
         child: Container(
           decoration: BoxDecoration(
-            color: Color.fromARGB(255, 255, 255, 255),
+            color: const Color.fromARGB(255, 255, 255, 255),
             borderRadius: BorderRadius.circular(25),
           ),
           child: InkWell(

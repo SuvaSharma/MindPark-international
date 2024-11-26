@@ -1,7 +1,7 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mindgames/AnimatedButton.dart';
@@ -12,7 +12,6 @@ import 'package:mindgames/motorskills.dart';
 import 'package:mindgames/utils/sound_manager.dart';
 import 'package:mindgames/widgets/circle_widget.dart';
 import 'package:mindgames/widgets/congrats_dialog.dart';
-import 'package:mindgames/widgets/gameover_dialog.dart';
 import 'package:mindgames/widgets/miniature_grid.dart';
 import 'package:mindgames/widgets/pause_menu.dart';
 import 'package:mindgames/widgets/skipbutton.dart';
@@ -37,7 +36,7 @@ class _LogiGameDemoPageState extends State<LogiGameDemoPage> {
   final int totalColoredCircles = DemofilledCircles.length;
   Timer? _timer; // Make _timer nullable
   int _seconds = 0; // Stopwatch in milliseconds
-  DateTime? _startTime;
+
   double accuracy = 0;
   final AudioCache _audioCache = AudioCache();
   final AudioPlayer player = AudioPlayer();
@@ -119,11 +118,11 @@ class _LogiGameDemoPageState extends State<LogiGameDemoPage> {
         }
       }
     }
-    print(miniatureGrid);
+    log('$miniatureGrid');
   }
 
   void _startStopwatch() {
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         if (!_isPaused) {
           _seconds++;
@@ -221,7 +220,7 @@ class _LogiGameDemoPageState extends State<LogiGameDemoPage> {
 
     setState(() {
       accuracy = (correctTiles / 49 * 100).toPrecision(2);
-      print(accuracy);
+      log('$accuracy');
     });
   }
 
@@ -261,7 +260,7 @@ class _LogiGameDemoPageState extends State<LogiGameDemoPage> {
               _resumeGame();
             },
             onQuit: () {},
-            quitDestinationPage: MotorskillsPage(),
+            quitDestinationPage: const MotorskillsPage(),
           ),
         ),
       );
@@ -412,7 +411,7 @@ class _LogiGameDemoPageState extends State<LogiGameDemoPage> {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => LegoGame()),
+                                    builder: (context) => const LegoGame()),
                               );
                             },
                             height: screenHeight * 0.05,
@@ -434,7 +433,7 @@ class _LogiGameDemoPageState extends State<LogiGameDemoPage> {
                               _playSound('playbutton.mp3', player);
                               _startGame();
                             },
-                            child: Container(
+                            child: SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.3,
                                 height:
                                     MediaQuery.of(context).size.width * 0.15,
@@ -506,7 +505,7 @@ class _LogiGameDemoPageState extends State<LogiGameDemoPage> {
                         Expanded(
                           child: Center(
                             child: Text(
-                              'Time: ${_seconds} s',
+                              'Time: $_seconds s',
                               style: TextStyle(
                                 fontSize: baseSize * 0.045,
                                 fontWeight: FontWeight.bold,
@@ -536,7 +535,7 @@ class _LogiGameDemoPageState extends State<LogiGameDemoPage> {
                                         BorderRadius.circular(baseSize * 0.03),
                                   ),
                                   child: IconButton(
-                                    icon: Icon(Icons.pause),
+                                    icon: const Icon(Icons.pause),
                                     iconSize: baseSize * 0.07,
                                     onPressed: _onBackPressed,
                                   ),
@@ -568,7 +567,7 @@ class _LogiGameDemoPageState extends State<LogiGameDemoPage> {
                       ),
                     ),
                     SizedBox(height: baseSize * 0.07),
-                    Container(
+                    SizedBox(
                       width: screenWidth * 0.9,
                       height: screenHeight * 0.44,
                       child: GridView.builder(
@@ -659,7 +658,8 @@ class _LogiGameDemoPageState extends State<LogiGameDemoPage> {
                           child: CircularProgressIndicator(
                             value: progress,
                             strokeWidth: baseSize * 0.02,
-                            valueColor: AlwaysStoppedAnimation(Colors.black),
+                            valueColor:
+                                const AlwaysStoppedAnimation(Colors.black),
                             backgroundColor: Colors.white,
                           ),
                         ),

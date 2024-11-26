@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../change_notifiers/registration_controller.dart';
@@ -79,13 +81,13 @@ class AuthService {
       idToken: googleAuth?.idToken,
     );
 
-    print('User logged in credential: ${credential}');
+    log('User logged in credential: $credential');
 
     // Once signed in, return the UserCredential
     final UserCredential userCredential =
         await FirebaseAuth.instance.signInWithCredential(credential);
 
-    print('User credential returned ${userCredential.user}');
+    log('User credential returned ${userCredential.user}');
 
     final newUser = userCredential.additionalUserInfo?.isNewUser;
     if (newUser!) {

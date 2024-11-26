@@ -22,7 +22,7 @@ class WrongAns extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 IconButton(
-                  icon: Icon(Icons.close),
+                  icon: const Icon(Icons.close),
                   onPressed: () {
                     Navigator.pop(context);
                   },
@@ -32,33 +32,33 @@ class WrongAns extends StatelessWidget {
           ),
           Text(
             'Wrong Answer'.tr,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 30,
               color: Colors.orange,
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Text(
               'Guess Again'.tr,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
                 color: Colors.black,
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Image.asset(
             'assets/images/cryingbrain.png',
             height: 80,
           ),
-          SizedBox(
+          const SizedBox(
             height: 25,
           ),
           MaterialButton(
@@ -67,7 +67,7 @@ class WrongAns extends StatelessWidget {
             minWidth: 150,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(25),
-              side: BorderSide(color: Colors.black, width: 3),
+              side: const BorderSide(color: Colors.black, width: 3),
             ),
             color: Colors.orange,
             onPressed: () {
@@ -75,7 +75,7 @@ class WrongAns extends StatelessWidget {
             },
             child: Text(
               'Try Again'.tr,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 26,
                 color: Colors.black,
                 fontWeight: FontWeight.bold,

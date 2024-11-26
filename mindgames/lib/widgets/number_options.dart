@@ -6,17 +6,14 @@ class NumberOptions extends StatelessWidget {
   final void Function(int) onNumberSelected;
 
   const NumberOptions({
-    Key? key,
+    super.key,
     required this.correctNumber,
     required this.onNumberSelected,
     required this.size,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final circleSize =
-        screenWidth * 0.13; // Adjust the size relative to screen width
     final List<int> options = [
       correctNumber,
       (correctNumber + 1) % 31,
@@ -40,11 +37,11 @@ class NumberOptions extends StatelessWidget {
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.shade600,
-                    offset: Offset(4, 4),
+                    offset: const Offset(4, 4),
                     blurRadius: 5,
                     spreadRadius: 1,
                   ),
-                  BoxShadow(
+                  const BoxShadow(
                     color: Colors.white,
                     offset: Offset(-1, -1),
                     blurRadius: 3,
@@ -55,7 +52,7 @@ class NumberOptions extends StatelessWidget {
               child: Center(
                 child: Text(
                   number.toString(),
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 35,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,

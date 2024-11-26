@@ -1,4 +1,7 @@
-import 'dart:math';
+// import 'dart:math';
+import 'dart:developer';
+import 'dart:math' as math;
+
 import 'package:animated_button/animated_button.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +18,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vibration/vibration.dart';
 
 class Level8demo extends StatefulWidget {
-  Level8demo({Key? key}) : super(key: key);
+  const Level8demo({super.key});
 
   @override
-  _Level8demoState createState() => _Level8demoState();
+  State<Level8demo> createState() => _Level8demoState();
 }
 
 class NumberImagePair {
@@ -91,16 +94,16 @@ class _Level8demoState extends State<Level8demo> with TickerProviderStateMixin {
     // Preload the audio file during app initialization
 
     _audioCache.load('right.mp3').then((_) {
-      print('right sound pre-loaded');
+      log('right sound pre-loaded');
     });
     _audioCache.load('incorrect-c.mp3').then((_) {
-      print('wrong sound pre-loaded');
+      log('wrong sound pre-loaded');
     });
     _audioCache.load('GameOverDialog.mp3').then((_) {
-      print('gameover sound pre-loaded');
+      log('gameover sound pre-loaded');
     });
     _audioCache.load('verbalgood.mp3').then((_) {
-      print('verbal good sound pre-loaded');
+      log('verbal good sound pre-loaded');
     });
   }
 
@@ -116,11 +119,11 @@ class _Level8demoState extends State<Level8demo> with TickerProviderStateMixin {
     _preloadAudio();
 
     // Initialize _currentSymbolIndex randomly
-    _currentSymbolIndex = Random().nextInt(allPairs.length);
+    _currentSymbolIndex = math.Random().nextInt(allPairs.length);
 
     _animationController1 = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
     );
 
     _animation1 =
@@ -161,9 +164,7 @@ class _Level8demoState extends State<Level8demo> with TickerProviderStateMixin {
   }
 
   void _preloadAudio() {
-    _audioCache.load('Instruction_Swipe.mp3').then((_) {
-      print('Sound pre-initialized');
-    });
+    _audioCache.load('Instruction_Swipe.mp3').then((_) {});
   }
 
   void _playSound(String fileName, AudioPlayer player) {
@@ -173,7 +174,7 @@ class _Level8demoState extends State<Level8demo> with TickerProviderStateMixin {
   }
 
   void _startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         _seconds++;
         // Update symbol every 2 minutes
@@ -242,7 +243,7 @@ class _Level8demoState extends State<Level8demo> with TickerProviderStateMixin {
                         'Demo Completed!'.tr,
                         style: TextStyle(
                           fontSize: screenWidth * 0.03,
-                          color: Color(0xFF309092),
+                          color: const Color(0xFF309092),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -253,7 +254,7 @@ class _Level8demoState extends State<Level8demo> with TickerProviderStateMixin {
                         'You nailed it!'.tr,
                         style: TextStyle(
                           fontSize: screenWidth * 0.028,
-                          color: Color(0xFF309092),
+                          color: const Color(0xFF309092),
                           // fontWeight: FontWeight.bold
                         ),
                       ),
@@ -263,11 +264,11 @@ class _Level8demoState extends State<Level8demo> with TickerProviderStateMixin {
                       width: screenWidth * 0.08,
                     ),
                     Text(
-                      'Score: '.tr + convertToNepaliNumbers('${score}'),
+                      'Score: '.tr + convertToNepaliNumbers('$score'),
                       // Display the score
                       style: TextStyle(
                           fontSize: screenWidth * 0.025,
-                          color: Color(0xFF309092),
+                          color: const Color(0xFF309092),
                           fontWeight: FontWeight.bold),
                     ),
                     TextButton(
@@ -277,16 +278,17 @@ class _Level8demoState extends State<Level8demo> with TickerProviderStateMixin {
                         Navigator.pop(context, true);
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (context) => Level8page()),
+                          MaterialPageRoute(
+                              builder: (context) => const Level8page()),
                         );
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Color(0xff309092),
+                          color: const Color(0xff309092),
                           borderRadius: BorderRadius.circular(25),
                         ),
                         child: Padding(
-                          padding: EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Icon(Icons.arrow_forward,
                               color: Colors.white, size: screenWidth * 0.03),
                         ),
@@ -328,21 +330,21 @@ class _Level8demoState extends State<Level8demo> with TickerProviderStateMixin {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Container(
-        margin: EdgeInsets.symmetric(vertical: 4),
+        margin: const EdgeInsets.symmetric(vertical: 4),
         decoration: BoxDecoration(
-          color: Color(0xFF309092),
+          color: const Color(0xFF309092),
           borderRadius: BorderRadius.circular(25),
           // Example border color, you can change it
         ),
         child: AnimatedButton(
           height: screenHeight * 0.12,
           width: screenWidth * 0.3,
-          color: Color(0xFF309092),
+          color: const Color(0xFF309092),
           onPressed: () {
             if (text == 'Resume'.tr) {
               Navigator.pop(context, false);
             } else if (text == 'Sound'.tr) {
-              print('Change sound');
+              log('Change sound');
             } else if (text == 'Instructions'.tr) {
               Navigator.push(
                 context,
@@ -393,7 +395,7 @@ class _Level8demoState extends State<Level8demo> with TickerProviderStateMixin {
         child: AlertDialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50.0),
-            side: BorderSide(
+            side: const BorderSide(
               color: Colors.black,
               width: 4.0,
             ),
@@ -408,7 +410,7 @@ class _Level8demoState extends State<Level8demo> with TickerProviderStateMixin {
                   'Pause Menu'.tr,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Color(0xFF309092),
+                    color: const Color(0xFF309092),
                     fontSize: screenWidth * 0.025,
                     fontWeight: FontWeight.bold,
                   ),
@@ -441,7 +443,7 @@ class _Level8demoState extends State<Level8demo> with TickerProviderStateMixin {
         backgroundColor: Colors.white,
         body: OrientationBuilder(
           builder: (context, orientation) {
-            print('switching demo build landscape');
+            log('switching demo build landscape');
             SystemChrome.setPreferredOrientations([
               DeviceOrientation.landscapeLeft,
               DeviceOrientation.landscapeRight,
@@ -464,7 +466,7 @@ class _Level8demoState extends State<Level8demo> with TickerProviderStateMixin {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              SizedBox(), // Placeholder for alignment
+                              const SizedBox(), // Placeholder for alignment
                               _startButtonVisible
                                   ? Padding(
                                       padding: EdgeInsets.only(
@@ -472,15 +474,6 @@ class _Level8demoState extends State<Level8demo> with TickerProviderStateMixin {
                                       child: AnimatedButton(
                                         height: screenHeight * 0.1,
                                         width: screenWidth * 0.1,
-                                        child: Text(
-                                          'Skip'.tr,
-                                          style: TextStyle(
-                                            color: Color(0xFF309092),
-                                            fontSize: screenWidth * 0.030,
-                                            letterSpacing: 1,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
                                         color: Colors.white,
                                         onPressed: () {
                                           _playSound('playbutton.mp3', player);
@@ -490,11 +483,20 @@ class _Level8demoState extends State<Level8demo> with TickerProviderStateMixin {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    Level8page()),
+                                                    const Level8page()),
                                           );
                                         },
                                         enabled: true,
                                         shadowDegree: ShadowDegree.light,
+                                        child: Text(
+                                          'Skip'.tr,
+                                          style: TextStyle(
+                                            color: const Color(0xFF309092),
+                                            fontSize: screenWidth * 0.030,
+                                            letterSpacing: 1,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
                                       ),
                                     )
                                   : Padding(
@@ -503,18 +505,18 @@ class _Level8demoState extends State<Level8demo> with TickerProviderStateMixin {
                                       child: AnimatedButton(
                                         height: baseSize * 0.05,
                                         width: baseSize * 0.05,
-                                        child: Icon(
-                                          Icons.pause,
-                                          color: const Color.fromARGB(
-                                              255, 66, 62, 62),
-                                          size: baseSize * 0.05,
-                                        ),
                                         color: Colors.white,
                                         onPressed: () {
                                           _onBackPressed();
                                         },
                                         enabled: true,
                                         shadowDegree: ShadowDegree.light,
+                                        child: Icon(
+                                          Icons.pause,
+                                          color: const Color.fromARGB(
+                                              255, 66, 62, 62),
+                                          size: baseSize * 0.05,
+                                        ),
                                       ),
                                     ),
                             ],
@@ -522,7 +524,7 @@ class _Level8demoState extends State<Level8demo> with TickerProviderStateMixin {
                           Text(
                             'DEMO'.tr,
                             style: TextStyle(
-                                color: Color.fromARGB(255, 51, 106, 134),
+                                color: const Color.fromARGB(255, 51, 106, 134),
                                 fontSize: screenWidth * 0.023,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -564,10 +566,12 @@ class _Level8demoState extends State<Level8demo> with TickerProviderStateMixin {
                                             } else if (rowIndex == 1) {
                                               return TableCell(
                                                 child: Padding(
-                                                  padding: EdgeInsets.all(8.0),
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
                                                   child: Center(
                                                     child: Text(
-                                                      '${'${allPairs[colIndex].number}'.tr}',
+                                                      '${allPairs[colIndex].number}'
+                                                          .tr,
                                                       style: TextStyle(
                                                         fontSize:
                                                             baseSize * 0.06,
@@ -579,7 +583,7 @@ class _Level8demoState extends State<Level8demo> with TickerProviderStateMixin {
                                                 ),
                                               );
                                             } else {
-                                              return TableCell(
+                                              return const TableCell(
                                                 child: Padding(
                                                   padding: EdgeInsets.all(8.0),
                                                   child: Text('Fallback'),
@@ -607,7 +611,7 @@ class _Level8demoState extends State<Level8demo> with TickerProviderStateMixin {
                                   _startButtonVisible = false;
                                 });
                               },
-                              child: Container(
+                              child: SizedBox(
                                 width: baseSize * 0.3,
                                 height: baseSize * 0.15,
                                 child: Stack(
@@ -672,8 +676,8 @@ class _Level8demoState extends State<Level8demo> with TickerProviderStateMixin {
                                     child: Container(
                                       width: baseSize * 0.2,
                                       height: baseSize * 0.2,
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
+                                      decoration: const BoxDecoration(
+                                        color: Colors.transparent,
                                       ),
                                       child: Image.asset(
                                         _lastTapCorrect
@@ -714,16 +718,14 @@ class _Level8demoState extends State<Level8demo> with TickerProviderStateMixin {
                                           }
                                           // Adjust for 1-based indexing
                                           _lastTapCorrect = true;
-                                          print(
-                                              'Correct! Tapped number: $tappedNumber');
+                                          log('Correct! Tapped number: $tappedNumber');
                                           _playSound(
                                             'right.mp3',
                                             player1,
                                           );
                                         } else {
                                           _lastTapCorrect = false;
-                                          print(
-                                              'Wrong! Tapped number: $tappedNumber');
+                                          log('Wrong! Tapped number: $tappedNumber');
                                           _playSound('incorrect-c.mp3', player);
                                         }
 
@@ -742,31 +744,26 @@ class _Level8demoState extends State<Level8demo> with TickerProviderStateMixin {
                                     child: Stack(
                                       alignment: Alignment.center,
                                       children: [
-                                        Container(
-                                          child: Material(
-                                            elevation: 15,
-                                            borderRadius:
-                                                BorderRadius.circular(100),
-                                            child: CircleAvatar(
-                                              radius: baseSize * 0.07,
-                                              backgroundColor:
-                                                  Color(0xFF309092),
-                                              child: Stack(
-                                                alignment: Alignment.center,
-                                                children: [
-                                                  Text(
-                                                    numbers[index]
-                                                        .toString()
-                                                        .tr,
-                                                    style: TextStyle(
-                                                      fontSize: baseSize * 0.04,
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
+                                        Material(
+                                          elevation: 15,
+                                          borderRadius:
+                                              BorderRadius.circular(100),
+                                          child: CircleAvatar(
+                                            radius: baseSize * 0.07,
+                                            backgroundColor:
+                                                const Color(0xFF309092),
+                                            child: Stack(
+                                              alignment: Alignment.center,
+                                              children: [
+                                                Text(
+                                                  numbers[index].toString().tr,
+                                                  style: TextStyle(
+                                                    fontSize: baseSize * 0.04,
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ),
@@ -787,17 +784,17 @@ class _Level8demoState extends State<Level8demo> with TickerProviderStateMixin {
                         child: AnimatedButton(
                           height: baseSize * 0.1,
                           width: baseSize * 0.1,
-                          child: const Icon(
-                            Icons.pause,
-                            color: Colors.black,
-                            size: 25.0,
-                          ),
                           color: Colors.white,
                           onPressed: () {
                             _onBackPressed();
                           },
                           enabled: true,
                           shadowDegree: ShadowDegree.light,
+                          child: const Icon(
+                            Icons.pause,
+                            color: Colors.black,
+                            size: 25.0,
+                          ),
                         ),
                       ),
                     ),
@@ -826,7 +823,7 @@ class _Level8demoState extends State<Level8demo> with TickerProviderStateMixin {
       _circleAvatarEnabled = false;
 
       // Delay for 1 second before hiding the feedback image and updating the symbol
-      Future.delayed(Duration(milliseconds: 500), () {
+      Future.delayed(const Duration(milliseconds: 500), () {
         setState(() {
           _feedbackImageVisible = false;
           _currentSymbolIndex =
@@ -845,7 +842,7 @@ class _Level8demoState extends State<Level8demo> with TickerProviderStateMixin {
   void dispose() {
     // conditionally dispose based on whether user goes to main game, instruction or exits
     if (gameExited) {
-      print('setting to portrait while dispoing');
+      log('setting to portrait while dispoing');
       SystemChrome.setPreferredOrientations([
         DeviceOrientation.portraitUp,
         DeviceOrientation.portraitDown,
