@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DevicePreview(
-      enabled: false,
+      enabled: true,
       tools: const [
         ...DevicePreview.defaultTools,
       ],
