@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -37,9 +38,7 @@ class _LegoGameState extends ConsumerState<LegoGame> {
   int totalColoredCircles = 0;
   Timer? _timer;
   int _seconds = 0;
-  DateTime? _startTime;
   double accuracy = 0;
-  final AudioCache _audioCache = AudioCache();
   final AudioPlayer player = AudioPlayer();
   bool _showGame = false;
   int gridSize = 7;
@@ -55,7 +54,7 @@ class _LegoGameState extends ConsumerState<LegoGame> {
     Colors.black: 10,
     Colors.orange: 10,
   };
-  CloudStoreService _cloudStoreService = CloudStoreService();
+  final CloudStoreService _cloudStoreService = CloudStoreService();
 
   List<Color> miniatureGrid = [];
 
@@ -100,18 +99,6 @@ class _LegoGameState extends ConsumerState<LegoGame> {
     });
   }
 
-  void _preloadAudio() {
-    _audioCache.loadAll([
-      'correct.mp3',
-      'wrong.mp3',
-      'GameOverDialog.mp3',
-      'PauseTap.mp3',
-      'playbutton.mp3',
-      'bounce.mp3'
-      'Instruction_Swipe.mp3'
-    ]);
-  }
-
   void _startGame() {
     setState(() {
       _showGame = true;
@@ -132,7 +119,7 @@ class _LegoGameState extends ConsumerState<LegoGame> {
         }
       }
     }
-    print(miniatureGrid);
+    log('$miniatureGrid');
   }
 
   void _startStopwatch() {
@@ -234,7 +221,7 @@ class _LegoGameState extends ConsumerState<LegoGame> {
 
     setState(() {
       accuracy = (correctTiles / (gridSize * gridSize) * 100).toPrecision(2);
-      print(accuracy);
+      log('$accuracy');
     });
   }
 
@@ -333,7 +320,7 @@ class _LegoGameState extends ConsumerState<LegoGame> {
               _resumeGame();
             },
             onQuit: () {},
-            quitDestinationPage: MotorskillsPage(),
+            quitDestinationPage: const MotorskillsPage(),
           ),
         ),
       );
@@ -397,16 +384,6 @@ class _LegoGameState extends ConsumerState<LegoGame> {
                         ),
                       ),
                     ),
-                    SizedBox(height: baseSize * 0.05),
-                    GestureDetector(
-                      onTap: _showDifficultyDialog,
-                      child: Container(
-                          width: MediaQuery.of(context).size.width * 0.3,
-                          height: MediaQuery.of(context).size.width * 0.15,
-                          child: Stack(
-                            children: [],
-                          )),
-                    ),
                   ],
                 ),
               ),
@@ -467,7 +444,7 @@ class _LegoGameState extends ConsumerState<LegoGame> {
                         Expanded(
                           child: Center(
                             child: Text(
-                              'Time: ${_seconds} s',
+                              'Time: $_seconds s',
                               style: TextStyle(
                                 fontSize: MediaQuery.of(context).size.width *
                                     0.045, // Responsive font size
@@ -499,7 +476,7 @@ class _LegoGameState extends ConsumerState<LegoGame> {
                                         BorderRadius.circular(baseSize * 0.03),
                                   ),
                                   child: IconButton(
-                                    icon: Icon(Icons.pause),
+                                    icon: const Icon(Icons.pause),
                                     iconSize: baseSize * 0.07,
                                     onPressed: _onBackPressed,
                                   ),
@@ -530,7 +507,7 @@ class _LegoGameState extends ConsumerState<LegoGame> {
                       ),
                     ),
                     SizedBox(height: baseSize * 0.07),
-                    Container(
+                    SizedBox(
                       width: screenWidth * 0.9,
                       height: screenHeight * 0.58,
                       child: GridView.count(
@@ -539,7 +516,7 @@ class _LegoGameState extends ConsumerState<LegoGame> {
                         mainAxisSpacing: baseSize * 0.01,
                         shrinkWrap: true, // Prevents scrolling
                         physics:
-                            NeverScrollableScrollPhysics(), // Disables scrolling
+                            const NeverScrollableScrollPhysics(), // Disables scrolling
                         children: List.generate(gridSize * gridSize, (index) {
                           return GestureDetector(
                             onTap: () {

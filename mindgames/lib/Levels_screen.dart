@@ -1,8 +1,4 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:mindgames/DSTIntroPage.dart';
 import 'package:mindgames/CPTIntroPage.dart';
@@ -16,7 +12,7 @@ import 'package:mindgames/profile.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 class LevelPage extends StatefulWidget {
-  LevelPage({super.key, Key? superkey});
+  const LevelPage({super.key});
 
   @override
   State<LevelPage> createState() => _LevelPageState();
@@ -27,10 +23,9 @@ class _LevelPageState extends State<LevelPage> {
 
   final screens = [
     const Profile(),
-    LevelPage(),
+    const LevelPage(),
     const PerformanceTab(),
   ];
-  final AudioCache _audioCache = AudioCache();
   final player = AudioPlayer();
 
   List<Map<String, dynamic>> levelTiles = [
@@ -139,7 +134,7 @@ class _LevelPageState extends State<LevelPage> {
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: MediaQuery.of(context).size.width * 0.06,
-                            color: Color.fromARGB(255, 51, 106, 134)),
+                            color: const Color.fromARGB(255, 51, 106, 134)),
                       )
                     ],
                   ),
@@ -188,7 +183,7 @@ class _LevelPageState extends State<LevelPage> {
         width: 160,
         height: 130,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
+          gradient: const LinearGradient(
             colors: [
               Color.fromARGB(255, 190, 226, 226),
               Color.fromARGB(255, 255, 255, 255)
@@ -216,7 +211,7 @@ class _LevelPageState extends State<LevelPage> {
                 Text(levelName.tr,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 51, 106, 134),
+                      color: const Color.fromARGB(255, 51, 106, 134),
                       fontSize: MediaQuery.of(context).size.width * 0.048,
                     )),
               ]),

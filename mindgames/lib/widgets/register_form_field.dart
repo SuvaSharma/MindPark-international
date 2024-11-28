@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../core/constants.dart';
-
 class RegisterFormField extends StatelessWidget {
   const RegisterFormField({
     super.key,

@@ -145,7 +145,8 @@ class PauseMenu extends StatefulWidget {
   final Function onQuit;
   final Widget quitDestinationPage;
 
-  PauseMenu({
+  const PauseMenu({
+    super.key,
     required this.onResume,
     required this.onQuit,
     required this.quitDestinationPage,

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,7 +9,10 @@ import 'package:vibration/vibration.dart';
 class CongratsDialog extends StatefulWidget {
   final VoidCallback onOkPressed;
 
-  const CongratsDialog({Key? key, required this.onOkPressed}) : super(key: key);
+  const CongratsDialog({
+    super.key,
+    required this.onOkPressed,
+  });
 
   @override
   State<CongratsDialog> createState() => _CongratsDialogState();
@@ -25,7 +30,7 @@ class _CongratsDialogState extends State<CongratsDialog> {
   @override
   void initState() {
     loadVibrationSetting();
-    print('Vibration status: $vibrationEnabled');
+    log('Vibration status: $vibrationEnabled');
     super.initState();
   }
 
@@ -38,7 +43,7 @@ class _CongratsDialogState extends State<CongratsDialog> {
     // Start the confetti animation
     _confettiController.play();
 
-    print('Vibration status in build: $vibrationEnabled');
+    log('Vibration status in build: $vibrationEnabled');
 
     if (vibrationEnabled) {
       Vibration.vibrate(
@@ -81,7 +86,7 @@ class _CongratsDialogState extends State<CongratsDialog> {
                     'Congratulations!'.tr,
                     style: TextStyle(
                       fontSize: MediaQuery.of(context).size.width * 0.05,
-                      color: Color(0xFF309092),
+                      color: const Color(0xFF309092),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -107,7 +112,7 @@ class _CongratsDialogState extends State<CongratsDialog> {
                       onPressed: widget.onOkPressed,
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Color(0xff309092),
+                          color: const Color(0xff309092),
                           borderRadius: BorderRadius.circular(25),
                         ),
                         child: Padding(

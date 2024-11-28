@@ -1,35 +1,23 @@
 import 'dart:async';
-import 'dart:math';
+import 'dart:developer';
+import 'dart:math' as math;
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:mindgames/AnimatedButton.dart';
-import 'package:mindgames/DatabaseHelper.dart';
-import 'package:mindgames/Level8demopage.dart';
 import 'package:mindgames/LevelCompletionHandler.dart';
-import 'package:mindgames/Levels_screen.dart';
 import 'package:mindgames/SDMTResult.dart';
-import 'package:mindgames/Stroopinspage.dart';
-import 'package:mindgames/TMTinfoscreen.dart';
 import 'package:mindgames/cloud_store_service.dart';
 import 'package:mindgames/executiveskills.dart';
 import 'package:mindgames/game.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:mindgames/level8infoscreen.dart';
 import 'package:mindgames/providers.dart';
-import 'package:mindgames/services/auth_service.dart';
 import 'package:mindgames/utils/convert_to_nepali_numbers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vibration/vibration.dart';
-
-class Level8page extends ConsumerStatefulWidget {
-  Level8page({Key? key}) : super(key: key);
-
-  @override
-  _Level8pageState createState() => _Level8pageState();
-}
 
 class NumberImagePair {
   final int number;
@@ -38,12 +26,18 @@ class NumberImagePair {
   NumberImagePair(this.number, this.imagePath);
 }
 
+class Level8page extends ConsumerStatefulWidget {
+  const Level8page({super.key});
+
+  @override
+  ConsumerState<Level8page> createState() => _Level8pageState();
+}
+
 class _Level8pageState extends ConsumerState<Level8page>
     with TickerProviderStateMixin {
   late final String selectedChildUserId;
   CloudStoreService cloudStoreService = CloudStoreService();
   LevelCompletionHandler? levelCompletionHandler;
-  DatabaseHelper _databaseHelper = DatabaseHelper();
   List<GameData> gameDataList = [];
   DateTime sessionId = DateTime.now();
   int _trialId = 0; // Initialize trial ID
@@ -57,8 +51,7 @@ class _Level8pageState extends ConsumerState<Level8page>
 
   // Call this method each time a trial is completed
   void _insertGameData(bool isCorrect) {
-    print(
-        'inside insert game data ${DateTime.now().difference(_symbolDisplayTime!).inMilliseconds}');
+    log('inside insert game data ${DateTime.now().difference(_symbolDisplayTime!).inMilliseconds}');
     _trialId++;
 
     // Convert boolean result to integer (1 for true, 0 for false)
@@ -88,14 +81,14 @@ class _Level8pageState extends ConsumerState<Level8page>
       _incorrectChoice++;
     }
     // Print statements for debugging
-    print('Inserted Game Data:');
-    print('User ID: ${gameData.userId}');
-    print('Session ID: ${gameData.sessionId}');
-    print('Block ID: ${gameData.blockId}');
-    print('Trial ID: ${gameData.trialId}');
-    print('Result: ${gameData.result}');
-    print('Response Time: ${gameData.responseTime} milliseconds');
-    print('Symbol Display Time: ${gameData.symbolDisplayTime}');
+    log('Inserted Game Data:');
+    log('User ID: ${gameData.userId}');
+    log('Session ID: ${gameData.sessionId}');
+    log('Block ID: ${gameData.blockId}');
+    log('Trial ID: ${gameData.trialId}');
+    log('Result: ${gameData.result}');
+    log('Response Time: ${gameData.responseTime} milliseconds');
+    log('Symbol Display Time: ${gameData.symbolDisplayTime}');
     // Reset symbol display time for the next trial
   }
 
@@ -130,23 +123,22 @@ class _Level8pageState extends ConsumerState<Level8page>
   Level8page() {
     // Preload the audio file during app initialization
     _audioCache.load('right.mp3').then((_) {
-      print(
-          'right sound pre-initialized'); // Log a message when preloading is complete
+      log('right sound pre-initialized'); // Log a message when preloading is complete
     });
     _audioCache.load('verbalgood.mp3').then((_) {
-      print('verbal good sound pre-loaded');
+      log('verbal good sound pre-loaded');
     });
     _audioCache.load('wrong.mp3').then((_) {
-      print('wrong sound pre-loaded');
+      log('wrong sound pre-loaded');
     });
     _audioCache.load('GameOverDialog.mp3').then((_) {
-      print('gameover sound pre-loaded');
+      log('gameover sound pre-loaded');
     });
     _audioCache.load('PauseTap.mp3').then((_) {
-      print('Pause sound pre-loaded');
+      log('Pause sound pre-loaded');
     });
     _audioCache.load('PauseTap.mp3').then((_) {
-      print('Pause sound pre-loaded');
+      log('Pause sound pre-loaded');
     });
   }
 
@@ -159,11 +151,11 @@ class _Level8pageState extends ConsumerState<Level8page>
     _preloadAudio();
 
     // Initialize _currentSymbolIndex randomly
-    _currentSymbolIndex = Random().nextInt(allPairs.length);
+    _currentSymbolIndex = math.Random().nextInt(allPairs.length);
 
     _animationController1 = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
     );
 
     _animation1 =
@@ -192,7 +184,7 @@ class _Level8pageState extends ConsumerState<Level8page>
 
   void _preloadAudio() {
     _audioCache.load('Instruction_Swipe.mp3').then((_) {
-      print('Sound pre-initialized');
+      log('Sound pre-initialized');
     });
   }
 
@@ -203,7 +195,7 @@ class _Level8pageState extends ConsumerState<Level8page>
   }
 
   void _startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         _seconds++;
         // Update symbol every 2 minutes
@@ -213,7 +205,7 @@ class _Level8pageState extends ConsumerState<Level8page>
           _resetGame();
           // Show end session dialog
 
-          print("gameover");
+          log("gameover");
           _playSound('GameOverDialog.mp3', player);
         }
       });
@@ -236,21 +228,21 @@ class _Level8pageState extends ConsumerState<Level8page>
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Container(
-        margin: EdgeInsets.symmetric(vertical: 4),
+        margin: const EdgeInsets.symmetric(vertical: 4),
         decoration: BoxDecoration(
-          color: Color(0xFF309092),
+          color: const Color(0xFF309092),
           borderRadius: BorderRadius.circular(25),
           // Example border color, you can change it
         ),
         child: AnimatedButton(
           height: screenHeight * 0.12,
           width: screenWidth * 0.3,
-          color: Color(0xFF309092),
+          color: const Color(0xFF309092),
           onPressed: () {
             if (text == 'Resume'.tr) {
               Navigator.pop(context, false);
             } else if (text == 'Sound'.tr) {
-              print('Change sound');
+              log('Change sound');
             } else if (text == 'Instructions'.tr) {
               Navigator.push(
                 context,
@@ -295,7 +287,6 @@ class _Level8pageState extends ConsumerState<Level8page>
 
   Future<bool> _onBackPressed() async {
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     _playSound('PauseTap.mp3', player);
     _timer.cancel(); // Stop the timer when back button is pressed
     bool? result = await showDialog<bool>(
@@ -306,7 +297,7 @@ class _Level8pageState extends ConsumerState<Level8page>
         child: AlertDialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50.0),
-            side: BorderSide(
+            side: const BorderSide(
               color: Colors.black,
               width: 4.0,
             ),
@@ -321,7 +312,7 @@ class _Level8pageState extends ConsumerState<Level8page>
                   'Pause Menu'.tr,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Color(0xFF309092),
+                    color: const Color(0xFF309092),
                     fontSize: screenWidth * 0.025,
                     fontWeight: FontWeight.bold,
                   ),
@@ -353,9 +344,9 @@ class _Level8pageState extends ConsumerState<Level8page>
       }
     }
 
-    print('--------------------------');
-    print(sumOfReactionTime);
-    print(correctCount);
+    log('--------------------------');
+    log('$sumOfReactionTime');
+    log('$correctCount');
     if (correctCount == 0) {
       return 0;
     }
@@ -366,7 +357,7 @@ class _Level8pageState extends ConsumerState<Level8page>
   void _showEndSessionDialog(int score, int incorrectChoice) async {
     _confettiController.play();
     double scorePercentage = score / 45 * 100;
-    print('Storing to cloud store');
+    log('Storing to cloud store');
     cloudStoreService.addSDMTData(gameDataList);
     cloudStoreService.addSDMTResult(
       SDMTResult(
@@ -425,7 +416,7 @@ class _Level8pageState extends ConsumerState<Level8page>
                           'Congratulations!'.tr,
                           style: TextStyle(
                             fontSize: screenWidth * 0.030,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -446,11 +437,11 @@ class _Level8pageState extends ConsumerState<Level8page>
                         width: screenWidth * 0.08,
                       ),
                       Text(
-                        'Score: '.tr + convertToNepaliNumbers('${score}'),
+                        'Score: '.tr + convertToNepaliNumbers('$score'),
                         // Display the score
                         style: TextStyle(
                             fontSize: screenWidth * 0.025,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             fontWeight: FontWeight.bold),
                       ),
                       Row(
@@ -471,7 +462,7 @@ class _Level8pageState extends ConsumerState<Level8page>
                               },
                               child: Container(
                                   decoration: BoxDecoration(
-                                    color: Color(0xff309092),
+                                    color: const Color(0xff309092),
                                     borderRadius: BorderRadius.circular(25),
                                   ),
                                   child: Padding(
@@ -539,7 +530,7 @@ class _Level8pageState extends ConsumerState<Level8page>
   ];
   @override
   Widget build(BuildContext context) {
-    print('Building page');
+    log('Building page');
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     double baseSize = screenWidth > screenHeight ? screenHeight : screenWidth;
@@ -550,7 +541,7 @@ class _Level8pageState extends ConsumerState<Level8page>
         backgroundColor: Colors.white,
         body: OrientationBuilder(
           builder: (context, orientation) {
-            print('switching main build landscape');
+            log('switching main build landscape');
             SystemChrome.setPreferredOrientations([
               DeviceOrientation.landscapeLeft,
               DeviceOrientation.landscapeRight,
@@ -572,23 +563,23 @@ class _Level8pageState extends ConsumerState<Level8page>
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            SizedBox(), // Placeholder for alignment
+                            const SizedBox(), // Placeholder for alignment
                             Padding(
                               padding: EdgeInsets.only(right: baseSize * 0.05),
                               child: AnimatedButton(
                                 height: baseSize * 0.1,
                                 width: baseSize * 0.1,
-                                child: Icon(
-                                  Icons.pause,
-                                  color: const Color.fromARGB(255, 66, 62, 62),
-                                  size: baseSize * 0.05,
-                                ),
                                 color: Colors.white,
                                 onPressed: () {
                                   _onBackPressed();
                                 },
                                 enabled: true,
                                 shadowDegree: ShadowDegree.light,
+                                child: Icon(
+                                  Icons.pause,
+                                  color: const Color.fromARGB(255, 66, 62, 62),
+                                  size: baseSize * 0.05,
+                                ),
                               ),
                             ),
                           ],
@@ -629,10 +620,12 @@ class _Level8pageState extends ConsumerState<Level8page>
                                           } else if (rowIndex == 1) {
                                             return TableCell(
                                               child: Padding(
-                                                padding: EdgeInsets.all(8.0),
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
                                                 child: Center(
                                                   child: Text(
-                                                    '${'${allPairs[colIndex].number}'.tr}',
+                                                    '${allPairs[colIndex].number}'
+                                                        .tr,
                                                     style: TextStyle(
                                                       fontSize: baseSize * 0.06,
                                                       fontWeight:
@@ -643,7 +636,7 @@ class _Level8pageState extends ConsumerState<Level8page>
                                               ),
                                             );
                                           } else {
-                                            return TableCell(
+                                            return const TableCell(
                                               child: Padding(
                                                 padding: EdgeInsets.all(8.0),
                                                 child: Text('Fallback'),
@@ -674,7 +667,7 @@ class _Level8pageState extends ConsumerState<Level8page>
                                 _symbolDisplayTime = DateTime.now();
                               });
                             },
-                            child: Container(
+                            child: SizedBox(
                               width: baseSize * 0.3,
                               height: baseSize * 0.15,
                               child: Stack(
@@ -734,8 +727,8 @@ class _Level8pageState extends ConsumerState<Level8page>
                                   visible: _feedbackImageVisible,
                                   child: Container(
                                     height: baseSize * 0.2,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
+                                    decoration: const BoxDecoration(
+                                      color: Colors.transparent,
                                     ),
                                     child: Image.asset(
                                       _lastTapCorrect
@@ -762,8 +755,7 @@ class _Level8pageState extends ConsumerState<Level8page>
                               itemBuilder: (context, index) {
                                 return GestureDetector(
                                   onTap: () {
-                                    print(
-                                        'This input took ${DateTime.now().difference(_symbolDisplayTime!).inMilliseconds}');
+                                    log('This input took ${DateTime.now().difference(_symbolDisplayTime!).inMilliseconds}');
                                     if (_circleAvatarEnabled) {
                                       setState(() {
                                         int tappedNumber = numbers[index];
@@ -771,8 +763,7 @@ class _Level8pageState extends ConsumerState<Level8page>
                                         if (tappedNumber ==
                                             _currentSymbolIndex + 1) {
                                           _lastTapCorrect = true;
-                                          print(
-                                              'Correct! Tapped number: $tappedNumber');
+                                          log('Correct! Tapped number: $tappedNumber');
 
                                           _playSound('right.mp3', player1);
                                           if (_vibrationEnabled) {
@@ -783,8 +774,7 @@ class _Level8pageState extends ConsumerState<Level8page>
                                           }
                                         } else {
                                           _lastTapCorrect = false;
-                                          print(
-                                              'Wrong! Tapped number: $tappedNumber');
+                                          log('Wrong! Tapped number: $tappedNumber');
                                           _playSound('incorrect-c.mp3', player);
                                         }
 
@@ -801,36 +791,27 @@ class _Level8pageState extends ConsumerState<Level8page>
                                     child: Stack(
                                       alignment: Alignment.center,
                                       children: [
-                                        Container(
-                                          child: Material(
-                                            elevation: 15,
-                                            borderRadius:
-                                                BorderRadius.circular(100),
-                                            child: CircleAvatar(
-                                              radius: baseSize * 0.07,
-                                              backgroundColor:
-                                                  Color(0xFF309092),
-                                              child: Stack(
-                                                alignment: Alignment.center,
-                                                children: [
-                                                  Text(
-                                                    numbers[index]
-                                                        .toString()
-                                                        .tr,
-                                                    style: TextStyle(
-                                                      fontSize: baseSize * 0.04,
-                                                      color:
-                                                          const Color.fromARGB(
-                                                              255,
-                                                              255,
-                                                              255,
-                                                              255),
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
+                                        Material(
+                                          elevation: 15,
+                                          borderRadius:
+                                              BorderRadius.circular(100),
+                                          child: CircleAvatar(
+                                            radius: baseSize * 0.07,
+                                            backgroundColor:
+                                                const Color(0xFF309092),
+                                            child: Stack(
+                                              alignment: Alignment.center,
+                                              children: [
+                                                Text(
+                                                  numbers[index].toString().tr,
+                                                  style: TextStyle(
+                                                    fontSize: baseSize * 0.04,
+                                                    color: const Color.fromARGB(
+                                                        255, 255, 255, 255),
+                                                    fontWeight: FontWeight.bold,
                                                   ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ),
@@ -877,7 +858,7 @@ class _Level8pageState extends ConsumerState<Level8page>
       _insertGameData(_lastTapCorrect);
 
       // Delay for 1 second before hiding the feedback image and updating the symbol
-      Future.delayed(Duration(milliseconds: 500), () {
+      Future.delayed(const Duration(milliseconds: 500), () {
         setState(() {
           _feedbackImageVisible = false;
           _currentSymbolIndex = newSymbol - 1; // Adjust for 0-based indexing
@@ -892,7 +873,7 @@ class _Level8pageState extends ConsumerState<Level8page>
 
   @override
   void dispose() {
-    print('switching main dispose portrait');
+    log('switching main dispose portrait');
     _animationController1.dispose();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,

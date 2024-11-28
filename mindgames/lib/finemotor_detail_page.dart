@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart'; // Import Riverpod
 import 'package:get/get.dart';
@@ -15,7 +17,8 @@ class FinemotorDetailPage extends ConsumerStatefulWidget {
   const FinemotorDetailPage({super.key});
 
   @override
-  _FinemotorDetailPageState createState() => _FinemotorDetailPageState();
+  ConsumerState<FinemotorDetailPage> createState() =>
+      _FinemotorDetailPageState();
 }
 
 class _FinemotorDetailPageState extends ConsumerState<FinemotorDetailPage> {
@@ -46,7 +49,7 @@ class _FinemotorDetailPageState extends ConsumerState<FinemotorDetailPage> {
       final hardData = await CloudStoreService()
           .getFineMotorGraphData(selectedChild, Difficulty.hard);
 
-      print('this is the medium data: $mediumData');
+      log('this is the medium data: $mediumData');
 
       setState(() {
         easyGraphData = easyData;
@@ -55,7 +58,7 @@ class _FinemotorDetailPageState extends ConsumerState<FinemotorDetailPage> {
         isLoading = false;
       });
     } catch (e) {
-      print("Error fetching graph data: $e");
+      log("Error fetching graph data: $e");
       setState(() {
         isLoading = false;
       });
@@ -109,7 +112,7 @@ class _FinemotorDetailPageState extends ConsumerState<FinemotorDetailPage> {
       });
     } catch (e) {
       // Handle errors here
-      print('Error fetching data: $e');
+      log('Error fetching data: $e');
     }
   }
 
@@ -121,8 +124,8 @@ class _FinemotorDetailPageState extends ConsumerState<FinemotorDetailPage> {
     final showYear = _selectedTimePeriod[1];
     return WillPopScope(
       onWillPop: () async {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => MainWrapper()));
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const MainWrapper()));
         return false;
       },
       child: Scaffold(
@@ -172,8 +175,8 @@ class _FinemotorDetailPageState extends ConsumerState<FinemotorDetailPage> {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(8)),
                         selectedColor: Colors.white,
-                        fillColor: Color(0xFF309092),
-                        color: Color(0xFF309092),
+                        fillColor: const Color(0xFF309092),
+                        color: const Color(0xFF309092),
                         constraints: BoxConstraints(
                           minHeight: screenWidth * 0.10,
                           minWidth: screenWidth * 0.20,
@@ -191,7 +194,7 @@ class _FinemotorDetailPageState extends ConsumerState<FinemotorDetailPage> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     if (isLoading)
                       Center(
                           child: SizedBox(
@@ -229,12 +232,12 @@ class _FinemotorDetailPageState extends ConsumerState<FinemotorDetailPage> {
                       child: Text(
                         'Fine Motor Scores'.tr,
                         style: TextStyle(
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             fontWeight: FontWeight.bold,
                             fontSize: screenWidth * 0.05),
                       ),
                     ),
-                    Divider(
+                    const Divider(
                       thickness: 2,
                       indent: 50,
                       endIndent: 50,
@@ -250,7 +253,7 @@ class _FinemotorDetailPageState extends ConsumerState<FinemotorDetailPage> {
                         child: Text(
                           'Pixel Puzzle'.tr,
                           style: TextStyle(
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             fontSize: screenWidth * 0.06,
                           ),
                         ),
@@ -288,7 +291,7 @@ class _FinemotorDetailPageState extends ConsumerState<FinemotorDetailPage> {
                         child: Text(
                           'Track Titans'.tr,
                           style: TextStyle(
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             fontSize: screenWidth * 0.06,
                           ),
                         ),
@@ -327,7 +330,7 @@ class _FinemotorDetailPageState extends ConsumerState<FinemotorDetailPage> {
                         child: Text(
                           'Picture Playtime'.tr,
                           style: TextStyle(
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             fontSize: screenWidth * 0.06,
                           ),
                         ),
@@ -365,7 +368,7 @@ class _FinemotorDetailPageState extends ConsumerState<FinemotorDetailPage> {
                         child: Text(
                           'Puzzle Paradise'.tr,
                           style: TextStyle(
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             fontSize: screenWidth * 0.06,
                           ),
                         ),

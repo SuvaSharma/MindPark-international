@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 class DraggableStack extends StatefulWidget {
@@ -6,13 +8,13 @@ class DraggableStack extends StatefulWidget {
   final List<String> gridImages; // List of images displayed in the grid
   final int numImages;
 
-  DraggableStack({
-    Key? key,
+  const DraggableStack({
+    super.key,
     required this.onDragCompleted,
     required this.onImagePlaced,
     required this.gridImages, // Pass the grid images
     required this.numImages,
-  }) : super(key: key);
+  });
 
   @override
   DraggableStackState createState() => DraggableStackState();
@@ -28,7 +30,7 @@ class DraggableStackState extends State<DraggableStack> {
     _stackImages =
         _generateDraggableImages(widget.gridImages, widget.numImages);
     _stackImages.shuffle(); // Shuffle the stack to add randomness
-    print(_stackImages);
+    log('$_stackImages');
   }
 
   // Function to generate the draggable images from the grid images

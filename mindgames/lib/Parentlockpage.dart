@@ -11,10 +11,13 @@ import 'package:google_sign_in/google_sign_in.dart';
 class ParentalLockSetupPage extends StatefulWidget {
   final bool isRecoveryFlow;
 
-  ParentalLockSetupPage({this.isRecoveryFlow = false});
+  const ParentalLockSetupPage({
+    super.key,
+    this.isRecoveryFlow = false,
+  });
 
   @override
-  _ParentalLockSetupPageState createState() => _ParentalLockSetupPageState();
+  State<ParentalLockSetupPage> createState() => _ParentalLockSetupPageState();
 }
 
 class _ParentalLockSetupPageState extends State<ParentalLockSetupPage> {
@@ -36,9 +39,15 @@ class _ParentalLockSetupPageState extends State<ParentalLockSetupPage> {
         _pinController.text == _confirmPinController.text) {
       try {
         await cloudStoreService.addPIN(currentUser!, _pinController.text);
+        if (!context.mounted) {
+          return;
+        }
         showCustomSnackbar(context, 'Success'.tr, 'PIN set successfully'.tr);
         Get.offAll(() => const ChildProfileList(shownWhen: 'launch'));
       } catch (e) {
+        if (!context.mounted) {
+          return;
+        }
         showCustomSnackbar(context, 'Error'.tr, 'Error setting PIN'.tr);
       }
     } else {
@@ -64,6 +73,9 @@ class _ParentalLockSetupPageState extends State<ParentalLockSetupPage> {
         setState(() {
           isReauthenticated = true;
         });
+        if (!context.mounted) {
+          return;
+        }
         showCustomSnackbar(
             context, 'Success'.tr, 'Reauthentication successful'.tr);
       } else if (user.providerData
@@ -83,13 +95,22 @@ class _ParentalLockSetupPageState extends State<ParentalLockSetupPage> {
           setState(() {
             isReauthenticated = true;
           });
+          if (!context.mounted) {
+            return;
+          }
           showCustomSnackbar(
               context, 'Success'.tr, 'Reauthentication successful'.tr);
         } else {
+          if (!context.mounted) {
+            return;
+          }
           showCustomSnackbar(context, 'Error'.tr, 'Google sign-in failed'.tr);
         }
       }
     } catch (e) {
+      if (!context.mounted) {
+        return;
+      }
       showCustomSnackbar(context, 'Error'.tr, 'Reauthentication failed'.tr);
     }
   }
@@ -103,7 +124,7 @@ class _ParentalLockSetupPageState extends State<ParentalLockSetupPage> {
       child: Container(
         width: screenWidth,
         height: screenHeight,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/levelscreen.png"),
             fit: BoxFit.cover,
@@ -119,7 +140,7 @@ class _ParentalLockSetupPageState extends State<ParentalLockSetupPage> {
                   style: TextStyle(
                       fontSize: screenWidth * 0.08,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF309092)),
+                      color: const Color(0xFF309092)),
                 ),
               ),
               if (widget.isRecoveryFlow && !isReauthenticated) ...[
@@ -270,20 +291,18 @@ class _ParentalLockSetupPageState extends State<ParentalLockSetupPage> {
                 ),
                 Padding(
                   padding: EdgeInsets.all(screenWidth * 0.03),
-                  child: Container(
+                  child: SizedBox(
                     height: screenHeight * 0.07,
                     child: SwipeableButtonView(
                       buttonText: 'Swipe to Save PIN'.tr,
                       buttontextstyle: TextStyle(
                           fontSize: screenWidth * 0.05, color: Colors.white),
-                      buttonWidget: Container(
-                        child: Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          color: Colors.grey,
-                          size: screenHeight * 0.04,
-                        ),
+                      buttonWidget: Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        color: Colors.grey,
+                        size: screenHeight * 0.04,
                       ),
-                      activeColor: Color(0xFF309092),
+                      activeColor: const Color(0xFF309092),
                       isFinished: isFinished,
                       onWaitingProcess: () {
                         setState(() {
@@ -292,7 +311,7 @@ class _ParentalLockSetupPageState extends State<ParentalLockSetupPage> {
                       },
                       onFinish: () {
                         _validateAndSave();
-                        Future.delayed(Duration(seconds: 1), () {
+                        Future.delayed(const Duration(seconds: 1), () {
                           setState(() {
                             isFinished = false;
                           });

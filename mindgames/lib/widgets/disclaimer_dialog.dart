@@ -7,12 +7,12 @@ class DisclaimerDialog extends StatefulWidget {
   final Function() onConfirmation;
 
   const DisclaimerDialog({
-    Key? key,
+    super.key,
     required this.onConfirmation,
-  }) : super(key: key);
+  });
 
   @override
-  _DisclaimerDialogState createState() => _DisclaimerDialogState();
+  State<DisclaimerDialog> createState() => _DisclaimerDialogState();
 }
 
 class _DisclaimerDialogState extends State<DisclaimerDialog>

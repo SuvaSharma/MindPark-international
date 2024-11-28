@@ -25,7 +25,7 @@ class _MathSkillsPageState extends State<MathSkillsPage> {
     {
       "levelName": "Counting Castle",
       "levelImage": "numberscounting.jpeg",
-      "levelPage": NumberCountingDemoPage(),
+      "levelPage": const NumberCountingDemoPage(),
     },
   ];
 
@@ -75,7 +75,7 @@ class _MathSkillsPageState extends State<MathSkillsPage> {
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: MediaQuery.of(context).size.width * 0.06,
-                            color: Color.fromARGB(255, 51, 106, 134)),
+                            color: const Color.fromARGB(255, 51, 106, 134)),
                       )
                     ],
                   ),

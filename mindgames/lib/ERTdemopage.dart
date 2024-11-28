@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'dart:developer';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
@@ -104,15 +104,15 @@ class _ERTdemoState extends State<ERTdemo> with SingleTickerProviderStateMixin {
     );
 
     _leftButtonAnimation = Tween<Offset>(
-      begin: Offset(-1.0, 0.0),
-      end: Offset(0.0, 0.0),
+      begin: const Offset(-1.0, 0.0),
+      end: const Offset(0.0, 0.0),
     ).animate(CurvedAnimation(
       parent: _animationController,
       curve: Curves.easeInOut,
     ));
     _rightButtonAnimation = Tween<Offset>(
-      begin: Offset(1.0, 0.0),
-      end: Offset(0.0, 0.0),
+      begin: const Offset(1.0, 0.0),
+      end: const Offset(0.0, 0.0),
     ).animate(
       CurvedAnimation(
         parent: _animationController,
@@ -143,19 +143,19 @@ class _ERTdemoState extends State<ERTdemo> with SingleTickerProviderStateMixin {
 
   void _preloadAudio() {
     _audioCache.load('Instruction_Swipe.mp3').then((_) {
-      print('Sound pre-initialized');
+      log('Sound pre-initialized');
     });
     _audioCache.load('verbalgood.mp3').then((_) {
-      print('verbal good sound pre-loaded');
+      log('verbal good sound pre-loaded');
     });
     _audioCache.load('wrong.mp3').then((_) {
-      print('wrong sound pre-loaded');
+      log('wrong sound pre-loaded');
     });
     _audioCache.load('GameOverDialog.mp3').then((_) {
-      print('gameover sound pre-loaded');
+      log('gameover sound pre-loaded');
     });
     _audioCache.load('PauseTap.mp3').then((_) {
-      print('Pause sound pre-loaded');
+      log('Pause sound pre-loaded');
     });
   }
 
@@ -166,14 +166,14 @@ class _ERTdemoState extends State<ERTdemo> with SingleTickerProviderStateMixin {
   }
 
   void _displayContainer() {
-    print('container shown');
+    log('container shown');
     _currentTimerType = TimerType.Container;
     setState(() {
       showContainer = true;
       containerOpacity = 0;
     });
 
-    containerTimer = Timer(Duration(milliseconds: 10), () {
+    containerTimer = Timer(const Duration(milliseconds: 10), () {
       setState(() {
         containerOpacity = 1.0;
       });
@@ -182,13 +182,13 @@ class _ERTdemoState extends State<ERTdemo> with SingleTickerProviderStateMixin {
   }
 
   void _displayFixation() {
-    print('fixation shown');
+    log('fixation shown');
     _fixationStartTime = DateTime.now().millisecondsSinceEpoch;
     _currentTimerType = TimerType.Fixation;
     setState(() {
       showFixationPoint = true;
     });
-    fixationTimer = Timer(Duration(milliseconds: 500), () {
+    fixationTimer = Timer(const Duration(milliseconds: 500), () {
       setState(() {
         showFixationPoint = false;
       });
@@ -197,13 +197,13 @@ class _ERTdemoState extends State<ERTdemo> with SingleTickerProviderStateMixin {
   }
 
   void _displayImage() {
-    print('image shown');
+    log('image shown');
     _imageStartTime = DateTime.now().millisecondsSinceEpoch;
     _currentTimerType = TimerType.Image;
     setState(() {
       showImage = true;
     });
-    imageTimer = Timer(Duration(milliseconds: 500), () {
+    imageTimer = Timer(const Duration(milliseconds: 500), () {
       setState(() {
         showImage = false;
       });
@@ -212,12 +212,12 @@ class _ERTdemoState extends State<ERTdemo> with SingleTickerProviderStateMixin {
   }
 
   void _displayNoise() {
-    print('noise shown');
+    log('noise shown');
     _currentTimerType = TimerType.Noise;
     setState(() {
       showNoise = true;
     });
-    noiseTimer = Timer(Duration(milliseconds: 500), () {
+    noiseTimer = Timer(const Duration(milliseconds: 500), () {
       setState(() {
         showNoise = false;
       });
@@ -226,7 +226,7 @@ class _ERTdemoState extends State<ERTdemo> with SingleTickerProviderStateMixin {
   }
 
   void _displayOption() {
-    print('option shown');
+    log('option shown');
     _optionStartTime = DateTime.now().millisecondsSinceEpoch;
     _currentTimerType = TimerType.Option;
     setState(() {
@@ -235,7 +235,7 @@ class _ERTdemoState extends State<ERTdemo> with SingleTickerProviderStateMixin {
       _animationController.forward();
     });
 
-    optionTimer = Timer(Duration(milliseconds: 5000), () {
+    optionTimer = Timer(const Duration(milliseconds: 5000), () {
       setState(() {
         showEmotionButtons = false;
       });
@@ -267,7 +267,7 @@ class _ERTdemoState extends State<ERTdemo> with SingleTickerProviderStateMixin {
     String correctEmotion = imageToEmotion[currentImage]!;
 
     if (emotion == correctEmotion) {
-      print("Correct! The emotion is $emotion.");
+      log("Correct! The emotion is $emotion.");
       if (_vibrationEnabled) {
         Vibration.vibrate(
           duration: 100,
@@ -281,7 +281,7 @@ class _ERTdemoState extends State<ERTdemo> with SingleTickerProviderStateMixin {
         score++;
       });
 
-      feedbackTimer = Timer(Duration(milliseconds: 500), () {
+      feedbackTimer = Timer(const Duration(milliseconds: 500), () {
         setState(() {
           showcorrectFeedbackImage = false;
         });
@@ -295,7 +295,7 @@ class _ERTdemoState extends State<ERTdemo> with SingleTickerProviderStateMixin {
           _showGameOverDialog();
           isGameOver = true;
         } else {
-          Future.delayed(Duration(milliseconds: 10), () {
+          Future.delayed(const Duration(milliseconds: 10), () {
             setState(() {
               currentImageIndex = (currentImageIndex + 1);
               //  % images.length;
@@ -306,13 +306,13 @@ class _ERTdemoState extends State<ERTdemo> with SingleTickerProviderStateMixin {
         }
       });
     } else {
-      print("Incorrect! Try again.");
+      log("Incorrect! Try again.");
       setState(() {
         showincorrectFeedbackImage = true;
         _playSound('wrong.mp3', player);
       });
 
-      feedbackTimer = Timer(Duration(milliseconds: 500), () {
+      feedbackTimer = Timer(const Duration(milliseconds: 500), () {
         setState(() {
           showincorrectFeedbackImage = false;
         });
@@ -326,11 +326,11 @@ class _ERTdemoState extends State<ERTdemo> with SingleTickerProviderStateMixin {
           _showGameOverDialog();
           isGameOver = true;
         } else {
-          Future.delayed(Duration(milliseconds: 10), () {
+          Future.delayed(const Duration(milliseconds: 10), () {
             setState(() {
               currentImageIndex = (currentImageIndex + 1);
               //% images.length;
-              print('animation was reset');
+              log('animation was reset');
               _animationController.reset();
             });
             _displayContainer();
@@ -341,7 +341,7 @@ class _ERTdemoState extends State<ERTdemo> with SingleTickerProviderStateMixin {
   }
 
   Future<bool> _onBackPressed() async {
-    print('I was triggered');
+    log('I was triggered');
     _playSound('PauseTap.mp3', player);
 
     bool? result;
@@ -366,7 +366,7 @@ class _ERTdemoState extends State<ERTdemo> with SingleTickerProviderStateMixin {
     }
 
     if (_currentTimerType == TimerType.Fixation) {
-      print('paused when fixation was shown');
+      log('paused when fixation was shown');
       fixationTimer.cancel();
       _fixationEndTime = DateTime.now().millisecondsSinceEpoch;
       int elapsedFixationTime = _fixationEndTime - _fixationStartTime;
@@ -383,7 +383,7 @@ class _ERTdemoState extends State<ERTdemo> with SingleTickerProviderStateMixin {
         });
       }
     } else if (_currentTimerType == TimerType.Image) {
-      print('paused when image was shown');
+      log('paused when image was shown');
       imageTimer.cancel();
       _imageEndTime = DateTime.now().millisecondsSinceEpoch;
       int elapsedImageTime = _imageEndTime - _imageStartTime;
@@ -399,7 +399,7 @@ class _ERTdemoState extends State<ERTdemo> with SingleTickerProviderStateMixin {
         });
       }
     } else if (_currentTimerType == TimerType.Option) {
-      print('paused when option was shown');
+      log('paused when option was shown');
       optionTimer.cancel();
       _optionEndTime = DateTime.now().millisecondsSinceEpoch;
       int elapsedOptionTime = _optionEndTime - _optionStartTime;
@@ -472,7 +472,7 @@ class _ERTdemoState extends State<ERTdemo> with SingleTickerProviderStateMixin {
                           'Congratulations!'.tr,
                           style: TextStyle(
                             fontSize: screenWidth * 0.05,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -493,11 +493,11 @@ class _ERTdemoState extends State<ERTdemo> with SingleTickerProviderStateMixin {
                         width: screenWidth * 0.2,
                       ),
                       Text(
-                        'Score: '.tr + '${score}'.tr,
+                        'Score: '.tr + '$score'.tr,
                         // Display the score
                         style: TextStyle(
                             fontSize: screenWidth * 0.045,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             fontWeight: FontWeight.bold),
                       ),
                       TextButton(
@@ -508,16 +508,16 @@ class _ERTdemoState extends State<ERTdemo> with SingleTickerProviderStateMixin {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    ERTpage()), // Navigate to LevelScreen
+                                    const ERTpage()), // Navigate to LevelScreen
                           );
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Color(0xff309092),
+                            color: const Color(0xff309092),
                             borderRadius: BorderRadius.circular(25),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: Icon(
                               Icons.arrow_forward,
                               color: Colors.white,
@@ -589,11 +589,11 @@ class _ERTdemoState extends State<ERTdemo> with SingleTickerProviderStateMixin {
     return WillPopScope(
       onWillPop: () async {
         if (!showStartButton) {
-          print("Went to pause menu.");
+          log("Went to pause menu.");
           bool result = await _onBackPressed();
           return result;
         } else {
-          print("Went to social skills menu");
+          log("Went to social skills menu");
           // Navigate back to the homepage when the back button is pressed
           Navigator.pushReplacement(
             context,
@@ -604,7 +604,7 @@ class _ERTdemoState extends State<ERTdemo> with SingleTickerProviderStateMixin {
       },
       child: Scaffold(
         body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/balloon_background.jpeg"),
               fit: BoxFit.cover,
@@ -734,7 +734,7 @@ class _ERTdemoState extends State<ERTdemo> with SingleTickerProviderStateMixin {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    ERTpage()),
+                                                    const ERTpage()),
                                           );
                                         },
                                         child: Center(
@@ -772,7 +772,7 @@ class _ERTdemoState extends State<ERTdemo> with SingleTickerProviderStateMixin {
                                                           baseSize * 0.03),
                                                 ),
                                                 child: IconButton(
-                                                  icon: Icon(Icons.pause),
+                                                  icon: const Icon(Icons.pause),
                                                   iconSize: baseSize * 0.07,
                                                   onPressed: _onBackPressed,
                                                 ),
@@ -794,12 +794,12 @@ class _ERTdemoState extends State<ERTdemo> with SingleTickerProviderStateMixin {
                                   fontSize:
                                       MediaQuery.of(context).size.width * 0.07,
                                   fontWeight: FontWeight.bold,
-                                  color: Color(0xFF309092),
+                                  color: const Color(0xFF309092),
                                 ),
                               ),
                             ),
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           GestureDetector(
                               onTap: () {
                                 _playSound('playbutton.mp3', player);
@@ -810,7 +810,7 @@ class _ERTdemoState extends State<ERTdemo> with SingleTickerProviderStateMixin {
                               },
                               child: Visibility(
                                 visible: showStartButton,
-                                child: Container(
+                                child: SizedBox(
                                     width:
                                         MediaQuery.of(context).size.width * 0.3,
                                     height: MediaQuery.of(context).size.width *
@@ -863,7 +863,7 @@ class _ERTdemoState extends State<ERTdemo> with SingleTickerProviderStateMixin {
                         Center(
                           child: AnimatedOpacity(
                             opacity: containerOpacity,
-                            duration: Duration(milliseconds: 500),
+                            duration: const Duration(milliseconds: 500),
                             child: Material(
                               elevation: 15,
                               borderRadius: BorderRadius.circular(25),
@@ -1043,7 +1043,7 @@ class _ERTdemoState extends State<ERTdemo> with SingleTickerProviderStateMixin {
                         ),
                       if (showcorrectFeedbackImage)
                         Center(
-                          child: Container(
+                          child: SizedBox(
                             width: screenSize.width * 0.5,
                             height: screenSize.height * 0.25,
                             child: Image.asset(
@@ -1054,7 +1054,7 @@ class _ERTdemoState extends State<ERTdemo> with SingleTickerProviderStateMixin {
                         ),
                       if (showincorrectFeedbackImage)
                         Center(
-                          child: Container(
+                          child: SizedBox(
                             width: screenSize.width * 0.5,
                             height: screenSize.height * 0.25,
                             child: Image.asset(

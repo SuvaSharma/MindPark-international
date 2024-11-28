@@ -84,7 +84,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           style: TextStyle(
                             fontSize: screenWidth * 0.1,
                             fontWeight: FontWeight.w600,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                           ),
                         ),
                         SizedBox(height: screenHeight * 0.01),
@@ -259,7 +259,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   'Forgot password?',
                                   style: TextStyle(
                                     fontSize: screenWidth * 0.04,
-                                    color: Color(0xAF309092),
+                                    color: const Color(0xAF309092),
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -288,7 +288,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   ? SizedBox(
                                       width: screenWidth * 0.05,
                                       height: screenWidth * 0.05,
-                                      child: CircularProgressIndicator(
+                                      child: const CircularProgressIndicator(
                                           color: white),
                                     )
                                   : Text(
@@ -346,7 +346,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               TextSpan(
                                 text: isRegisterMode ? 'Sign in' : 'Register',
                                 style: TextStyle(
-                                    color: Color(0xFF309092),
+                                    color: const Color(0xFF309092),
                                     fontWeight: FontWeight.bold,
                                     fontSize: screenWidth * 0.04),
                                 recognizer: TapGestureRecognizer()

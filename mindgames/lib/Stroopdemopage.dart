@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'dart:math';
+import 'dart:developer';
+import 'dart:math' as math;
 import 'package:animated_button/animated_button.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:confetti/confetti.dart';
@@ -68,23 +69,22 @@ class _StroopdemopageState extends State<Stroopdemopage> {
   Stroopdemopage() {
     // Preload the audio file during app initialization
     _audioCache.load('correct.mp3').then((_) {
-      print(
-          'right sound pre-initialized'); // Log a message when preloading is complete
+      log('right sound pre-initialized'); // Log a message when preloading is complete
     });
     _audioCache.load('verbalgood.mp3').then((_) {
-      print('verbal good sound pre-loaded');
+      log('verbal good sound pre-loaded');
     });
     _audioCache.load('wrong.mp3').then((_) {
-      print('wrong sound pre-loaded');
+      log('wrong sound pre-loaded');
     });
     _audioCache.load('GaneOverDialog.mp3').then((_) {
-      print('wrong sound pre-loaded');
+      log('wrong sound pre-loaded');
     });
     _audioCache.load('PauseTap.mp3').then((_) {
-      print('wrong sound pre-loaded');
+      log('wrong sound pre-loaded');
     });
     _audioCache.load('playbutton.mp3').then((_) {
-      print('wrong sound pre-loaded');
+      log('wrong sound pre-loaded');
     });
   }
 
@@ -140,7 +140,7 @@ class _StroopdemopageState extends State<Stroopdemopage> {
 
   void _preloadAudio() {
     _audioCache.load('Instruction_Swipe.mp3').then((_) {
-      print('Sound pre-initialized');
+      log('Sound pre-initialized');
     });
   }
 
@@ -224,7 +224,7 @@ class _StroopdemopageState extends State<Stroopdemopage> {
   List<Map<String, dynamic>> generateSamples(
       List<Map<String, dynamic>> words, int count) {
     List<Map<String, dynamic>> samples = [];
-    Random random = Random();
+    math.Random random = math.Random();
 
     for (int i = 0; i < count; i++) {
       int randomIndex = random.nextInt(words.length);
@@ -273,7 +273,7 @@ class _StroopdemopageState extends State<Stroopdemopage> {
     _elapsedFixationTime = 0;
     _currentTimerType = TimerType.Fixation;
 
-    print("display Fixation");
+    log("display Fixation");
     if (_isDialogVisible) {
       return; // Do nothing if dialog is visible
     }
@@ -301,7 +301,7 @@ class _StroopdemopageState extends State<Stroopdemopage> {
     _elapsedWordsTime = 0;
     _currentTimerType = TimerType.Words;
     _wordsStartTime = DateTime.now().millisecondsSinceEpoch;
-    print("display Words");
+    log("display Words");
     if (_isDialogVisible) {
       return; // Do nothing if dialog is visible
     }
@@ -314,7 +314,7 @@ class _StroopdemopageState extends State<Stroopdemopage> {
 
     const twoSecond = Duration(seconds: 2);
     _wordsTimer = Timer(twoSecond, () {
-      print('Word count: ${_currentWordIndex},  ${_totalWords - 1}');
+      log('Word count: $_currentWordIndex,  ${_totalWords - 1}');
       setState(() {
         _showPopup = true;
         _colorOptionsEnabled =
@@ -365,8 +365,7 @@ class _StroopdemopageState extends State<Stroopdemopage> {
       } else {
         pauseTime = 0;
       }
-      print('this is being deducted from the pause time: ' +
-          pauseTime.toString());
+      log('this is being deducted from the pause time: $pauseTime');
       final duration =
           correctColorTappedTime - wordDisplayStartTime! - pauseTime;
       // user chooses correct color
@@ -380,7 +379,7 @@ class _StroopdemopageState extends State<Stroopdemopage> {
         }
         _playSound('right.mp3', player1);
 
-        print('User tapped the correct color option.');
+        log('User tapped the correct color option.');
 
         // Calculate duration and add it to the appropriate list based on word type
         if (wordDisplayStartTime != null) {
@@ -389,17 +388,16 @@ class _StroopdemopageState extends State<Stroopdemopage> {
           } else {
             incompatibleDurations.add(duration);
           }
-          print(
-              'Time taken to tap correct color option: $duration milliseconds');
+          log('Time taken to tap correct color option: $duration milliseconds');
         } else {
-          print('Error: wordDisplayStartTime is null.');
+          log('Error: wordDisplayStartTime is null.');
         }
         //if user chooses the wrong color
       } else {
         _popupText = 'WRONG'.tr;
         _playSound('wrong.mp3', player);
 
-        print('User tapped the wrong color option.');
+        log('User tapped the wrong color option.');
       }
 
       _showPopup = true;
@@ -457,7 +455,7 @@ class _StroopdemopageState extends State<Stroopdemopage> {
       _fixationTimer.cancel();
       _fixationEndTime = DateTime.now().millisecondsSinceEpoch;
       _elapsedFixationTime = _fixationEndTime - _fixationStartTime;
-      print('Elapsed time fixation: ' + _elapsedFixationTime.toString());
+      log('Elapsed time fixation: $_elapsedFixationTime');
 
       _isDialogVisible = true;
       result = await displayQuitDialog();
@@ -486,15 +484,15 @@ class _StroopdemopageState extends State<Stroopdemopage> {
       _isDialogVisible = false;
 
       if (result == false) {
-        print('Word resumed');
+        log('Word resumed');
         int timeRemaining = 2000 - _elapsedWordsTime;
-        print('11111Elapsed word time: $_elapsedWordsTime');
-        print('11111Remaining word time: $timeRemaining');
+        log('11111Elapsed word time: $_elapsedWordsTime');
+        log('11111Remaining word time: $timeRemaining');
         dialogBoxDisappearTime = DateTime.now().millisecondsSinceEpoch;
         _wordsTimer = Timer(
           Duration(milliseconds: 2000 - _elapsedWordsTime),
           () {
-            print('Word count: ${_currentWordIndex},  ${_totalWords - 1}');
+            log('Word count: $_currentWordIndex,  ${_totalWords - 1}');
             setState(() {
               _showPopup = false;
               _colorOptionsEnabled = false;
@@ -533,11 +531,9 @@ class _StroopdemopageState extends State<Stroopdemopage> {
     double stroopEffect =
         incompatibleAverageDuration - compatibleAverageDuration;
 
-    print(
-        'Average duration for tapping correct color option (Compatible): ${compatibleAverageDuration.toStringAsFixed(2)} milliseconds');
-    print(
-        'Average duration for tapping correct color option (Incompatible): ${incompatibleAverageDuration.toStringAsFixed(2)} milliseconds');
-    print('The Stroop Effect: ${stroopEffect.toStringAsFixed(2)} milliseconds');
+    log('Average duration for tapping correct color option (Compatible): ${compatibleAverageDuration.toStringAsFixed(2)} milliseconds');
+    log('Average duration for tapping correct color option (Incompatible): ${incompatibleAverageDuration.toStringAsFixed(2)} milliseconds');
+    log('The Stroop Effect: ${stroopEffect.toStringAsFixed(2)} milliseconds');
 
     final screenSize = MediaQuery.of(context).size;
     // Show the game over dialog
@@ -583,7 +579,7 @@ class _StroopdemopageState extends State<Stroopdemopage> {
                           'Congratulations!'.tr,
                           style: TextStyle(
                             fontSize: screenWidth * 0.05,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -594,7 +590,7 @@ class _StroopdemopageState extends State<Stroopdemopage> {
                           'You nailed it!'.tr,
                           style: TextStyle(
                             fontSize: screenWidth * 0.05,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             // fontWeight: FontWeight.bold
                           ),
                         ),
@@ -607,37 +603,28 @@ class _StroopdemopageState extends State<Stroopdemopage> {
                         'Your speed in trials:'.tr, // Display the score
                         style: TextStyle(
                             fontSize: screenWidth * 0.045,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        'Compatible: '.tr +
-                            convertToNepaliNumbers(
-                                compatibleAverageDuration.toStringAsFixed(2)) +
-                            ' ms', // Display the score
+                        '${'Compatible: '.tr}${convertToNepaliNumbers(compatibleAverageDuration.toStringAsFixed(2))} ms', // Display the score
                         style: TextStyle(
                             fontSize: screenWidth * 0.045,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        'Incompatible: '.tr +
-                            convertToNepaliNumbers(incompatibleAverageDuration
-                                .toStringAsFixed(2)) +
-                            ' ms', // Display the score
+                        '${'Incompatible: '.tr}${convertToNepaliNumbers(incompatibleAverageDuration.toStringAsFixed(2))} ms', // Display the score
                         style: TextStyle(
                             fontSize: screenWidth * 0.045,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        'Stroop Score: '.tr +
-                            convertToNepaliNumbers(
-                                stroopEffect.toStringAsFixed(2)) +
-                            ' ms', // Display the score
+                        '${'Stroop Score: '.tr}${convertToNepaliNumbers(stroopEffect.toStringAsFixed(2))} ms', // Display the score
                         style: TextStyle(
                             fontSize: screenWidth * 0.045,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             fontWeight: FontWeight.bold),
                       ),
                       TextButton(
@@ -650,16 +637,16 @@ class _StroopdemopageState extends State<Stroopdemopage> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    StroopTest()), // Navigate to LevelScreen
+                                    const StroopTest()), // Navigate to LevelScreen
                           );
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Color(0xff309092),
+                            color: const Color(0xff309092),
                             borderRadius: BorderRadius.circular(25),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(8.0),
                             child: Icon(Icons.arrow_forward,
                                 color: Colors.white, size: screenWidth * 0.07),
                           ),
@@ -685,7 +672,7 @@ class _StroopdemopageState extends State<Stroopdemopage> {
       onWillPop: _onBackPressed,
       child: Scaffold(
           body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/balloon_background.jpeg"),
             fit: BoxFit.cover,
@@ -718,7 +705,7 @@ class _StroopdemopageState extends State<Stroopdemopage> {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => StroopTest()),
+                                  builder: (context) => const StroopTest()),
                             );
                           },
                           child: Center(
@@ -751,7 +738,7 @@ class _StroopdemopageState extends State<Stroopdemopage> {
                                       BorderRadius.circular(baseSize * 0.03),
                                 ),
                                 child: IconButton(
-                                  icon: Icon(Icons.pause),
+                                  icon: const Icon(Icons.pause),
                                   iconSize: baseSize * 0.07,
                                   onPressed: _onBackPressed,
                                 ),
@@ -767,7 +754,7 @@ class _StroopdemopageState extends State<Stroopdemopage> {
               style: TextStyle(
                 fontSize: MediaQuery.of(context).size.width * 0.08,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF309092),
+                color: const Color(0xFF309092),
               ),
             ),
             Column(
@@ -783,7 +770,7 @@ class _StroopdemopageState extends State<Stroopdemopage> {
                             _showSkipButton = false;
                           });
                         },
-                        child: Container(
+                        child: SizedBox(
                             width: MediaQuery.of(context).size.width * 0.3,
                             height: MediaQuery.of(context).size.width * 0.15,
                             child: Stack(children: [
@@ -812,9 +799,9 @@ class _StroopdemopageState extends State<Stroopdemopage> {
                               )
                             ])),
                       )
-                    : SizedBox(),
+                    : const SizedBox(),
                 Center(
-                  child: Container(
+                  child: SizedBox(
                     width: screenSize.width * 0.55,
                     height: screenSize.height * 0.25,
                     child: Material(
@@ -895,7 +882,7 @@ class _StroopdemopageState extends State<Stroopdemopage> {
                   child: _showPopup
                       ? AnimatedOpacity(
                           opacity: _showPopup ? 1.0 : 0.0,
-                          duration: Duration(milliseconds: 0),
+                          duration: const Duration(milliseconds: 0),
                           child: Center(
                             child: Image.asset(
                               _popupText == 'CORRECT'.tr
@@ -905,7 +892,7 @@ class _StroopdemopageState extends State<Stroopdemopage> {
                             ),
                           ),
                         )
-                      : SizedBox(),
+                      : const SizedBox(),
                 ),
               ],
             )

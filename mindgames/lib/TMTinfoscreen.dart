@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,7 +14,7 @@ class TMTinfoscreen extends StatefulWidget {
   const TMTinfoscreen({super.key, required this.shownWhen});
 
   @override
-  _TMTinfoscreenState createState() => _TMTinfoscreenState();
+  State<TMTinfoscreen> createState() => _TMTinfoscreenState();
 }
 
 class _TMTinfoscreenState extends State<TMTinfoscreen> {
@@ -26,8 +28,7 @@ class _TMTinfoscreenState extends State<TMTinfoscreen> {
   Introduction() {
     // Preload the audio file during app initialization
     _audioCache.load('Instruction_Swipe.mp3').then((_) {
-      print(
-          'right sound pre-initialized'); // Log a message when preloading is complete
+      log('right sound pre-initialized'); // Log a message when preloading is complete
     });
   }
 
@@ -48,7 +49,7 @@ class _TMTinfoscreenState extends State<TMTinfoscreen> {
 
   void _preloadAudio() {
     _audioCache.load('Instruction_Swipe.mp3').then((_) {
-      print('Sound pre-initialized');
+      log('Sound pre-initialized');
     });
   }
 

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:csv/csv.dart';
@@ -28,7 +29,7 @@ class LevelCompletionHandler {
 
     // Define the directory path
     String directoryPath = '$externalDirPath/MindPark';
-    print('Directory where csv is stored: $directoryPath');
+    log('Directory where csv is stored: $directoryPath');
 
     // Create the directory
     Directory directory = Directory(directoryPath);
@@ -42,7 +43,7 @@ class LevelCompletionHandler {
     // Convert the data to CSV format
     List<List<dynamic>> csvData =
         data.map((item) => item.values.toList()).toList();
-    String csvString = ListToCsvConverter()
+    String csvString = const ListToCsvConverter()
         .convert(csvData); // Convert list of lists to CSV string
 
     // Write the CSV data to the file

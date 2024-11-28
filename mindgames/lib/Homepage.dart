@@ -14,7 +14,7 @@ import 'package:mindgames/settings.dart';
 import 'package:mindgames/widgets/star_display.dart';
 
 class Homepage extends ConsumerStatefulWidget {
-  const Homepage({Key? key}) : super(key: key);
+  const Homepage({super.key});
 
   @override
   ConsumerState<Homepage> createState() => _HomepageState();
@@ -93,14 +93,14 @@ class _HomepageState extends ConsumerState<Homepage> {
   ];
   double calculateAverage(List<Map<String, dynamic>> data, String parameter) {
     double sum = 0;
-    data.forEach((element) {
+
+    for (final element in data) {
       sum += element[parameter];
-    });
+    }
 
     return sum / data.length;
   }
 
-  int _currentIndex = 0;
   late double performanceStrength = 0;
   bool allGamesPlayed = false;
 
@@ -202,7 +202,6 @@ class _HomepageState extends ConsumerState<Homepage> {
           speedSDMT.isNotEmpty;
     } catch (e) {
       // Handle any errors that might occur during data fetch
-      print('Error fetching data: $e');
     }
   }
 
@@ -210,12 +209,12 @@ class _HomepageState extends ConsumerState<Homepage> {
     {
       'imagePath': 'assets/images/ob1.png',
       'name': 'Behavioral Assessment'.tr,
-      'navigateTo': FormPage(),
+      'navigateTo': const FormPage(),
     },
     {
       'imagePath': 'assets/images/ob3.png',
       'name': 'Cognitive Training'.tr,
-      'navigateTo': DomainPage(),
+      'navigateTo': const DomainPage(),
     },
   ];
   @override
@@ -237,7 +236,7 @@ class _HomepageState extends ConsumerState<Homepage> {
                 elevation: 15,
                 child: Container(
                   height: screenHeight * 0.16, // 20% of screen height
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
                         Color(0xFFF6D28D),
@@ -280,17 +279,18 @@ class _HomepageState extends ConsumerState<Homepage> {
                         // thupukka game khel kina profile jana paryo talai
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Profile()),
+                          MaterialPageRoute(
+                              builder: (context) => const Profile()),
                         );
                       },
                       child: CircleAvatar(
+                        radius: screenWidth * 0.05, // 5% of screen width
+                        backgroundColor: Colors.white,
                         child: Text(selectedChild!.name.substring(0, 1),
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: screenWidth * 0.05,
                             )),
-                        radius: screenWidth * 0.05, // 5% of screen width
-                        backgroundColor: Colors.white,
                       ),
                     ),
                   ],
@@ -302,7 +302,7 @@ class _HomepageState extends ConsumerState<Homepage> {
                 right: 0,
                 child: Center(
                   child: Text(
-                    "Welcome, ".tr + selectedChild!.name + "!",
+                    "${"Welcome, ".tr}${selectedChild!.name}!",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: screenWidth * 0.06, // 6% of screen width
@@ -347,10 +347,10 @@ class _HomepageState extends ConsumerState<Homepage> {
                       Container(
                         width: double.infinity,
                         height: screenHeight * 0.07, // 5% of screen height
-                        padding: EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
                           color: Colors.black.withOpacity(0.7),
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                             bottomLeft: Radius.circular(25),
                             bottomRight: Radius.circular(25),
                           ),
@@ -377,12 +377,10 @@ class _HomepageState extends ConsumerState<Homepage> {
               aspectRatio: 16 / 9,
               autoPlayCurve: Curves.fastOutSlowIn,
               enableInfiniteScroll: true,
-              autoPlayAnimationDuration: Duration(milliseconds: 800),
+              autoPlayAnimationDuration: const Duration(milliseconds: 800),
               viewportFraction: 0.8,
               onPageChanged: (index, reason) {
-                setState(() {
-                  _currentIndex = index;
-                });
+                setState(() {});
               },
             ),
           ),
@@ -419,7 +417,7 @@ class _HomepageState extends ConsumerState<Homepage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => PerformanceTab(),
+                              builder: (context) => const PerformanceTab(),
                             ),
                           );
                         },
@@ -428,7 +426,7 @@ class _HomepageState extends ConsumerState<Homepage> {
                           width: screenWidth * 0.45,
                           decoration: BoxDecoration(
                             gradient: !allGamesPlayed
-                                ? LinearGradient(
+                                ? const LinearGradient(
                                     colors: [
                                       Color(0xFFF6D28D),
                                       Color(0xFFF59C84),
@@ -437,7 +435,7 @@ class _HomepageState extends ConsumerState<Homepage> {
                                     end: Alignment.bottomCenter,
                                   )
                                 : performanceStrength >= 75
-                                    ? LinearGradient(
+                                    ? const LinearGradient(
                                         colors: [
                                           Color(0xFFB7FFF0),
                                           Color(0xFF37B197),
@@ -446,7 +444,7 @@ class _HomepageState extends ConsumerState<Homepage> {
                                         end: Alignment.bottomRight,
                                       )
                                     : performanceStrength >= 50
-                                        ? LinearGradient(
+                                        ? const LinearGradient(
                                             colors: [
                                               Color(0xFFFFF3C8),
                                               Color(0xFFEFBB00),
@@ -454,7 +452,7 @@ class _HomepageState extends ConsumerState<Homepage> {
                                             begin: Alignment.topLeft,
                                             end: Alignment.bottomRight,
                                           )
-                                        : LinearGradient(
+                                        : const LinearGradient(
                                             colors: [
                                               Color(0xFFFFDFD5),
                                               Color(0xFFCA1700),
@@ -468,7 +466,7 @@ class _HomepageState extends ConsumerState<Homepage> {
                             children: [
                               Visibility(
                                 visible: !allGamesPlayed && isLoading,
-                                child: Center(
+                                child: const Center(
                                   child:
                                       CircularProgressIndicator(), // Loading indicator
                                 ),
@@ -543,7 +541,7 @@ class _HomepageState extends ConsumerState<Homepage> {
                           height: screenHeight * 0.22,
                           width: screenWidth * 0.45,
                           decoration: BoxDecoration(
-                            gradient: LinearGradient(
+                            gradient: const LinearGradient(
                               colors: [
                                 Color(0xFFF6D28D),
                                 Color(0xFFF59C84),

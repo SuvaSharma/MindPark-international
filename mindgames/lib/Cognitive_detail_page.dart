@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -15,7 +17,8 @@ class CognitiveDetailPage extends ConsumerStatefulWidget {
   const CognitiveDetailPage({super.key});
 
   @override
-  _CognitiveDetailPageState createState() => _CognitiveDetailPageState();
+  ConsumerState<CognitiveDetailPage> createState() =>
+      _CognitiveDetailPageState();
 }
 
 class _CognitiveDetailPageState extends ConsumerState<CognitiveDetailPage> {
@@ -53,7 +56,7 @@ class _CognitiveDetailPageState extends ConsumerState<CognitiveDetailPage> {
         isLoading = false;
       });
     } catch (e) {
-      print("Error fetching graph data: $e");
+      log("Error fetching graph data: $e");
       setState(() {
         isLoading = false;
       });
@@ -82,7 +85,7 @@ class _CognitiveDetailPageState extends ConsumerState<CognitiveDetailPage> {
       });
     } catch (e) {
       // Handle errors here
-      print('Error fetching data: $e');
+      log('Error fetching data: $e');
     }
   }
 
@@ -94,8 +97,8 @@ class _CognitiveDetailPageState extends ConsumerState<CognitiveDetailPage> {
     final showYear = _selectedTimePeriod[1];
     return WillPopScope(
         onWillPop: () async {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => MainWrapper()));
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const MainWrapper()));
           return false;
         },
         child: Scaffold(
@@ -145,8 +148,8 @@ class _CognitiveDetailPageState extends ConsumerState<CognitiveDetailPage> {
                           borderRadius:
                               const BorderRadius.all(Radius.circular(8)),
                           selectedColor: Colors.white,
-                          fillColor: Color(0xFF309092),
-                          color: Color(0xFF309092),
+                          fillColor: const Color(0xFF309092),
+                          color: const Color(0xFF309092),
                           constraints: BoxConstraints(
                             minHeight: screenWidth * 0.10,
                             minWidth: screenWidth * 0.20,
@@ -164,7 +167,7 @@ class _CognitiveDetailPageState extends ConsumerState<CognitiveDetailPage> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       if (isLoading)
                         Center(
                             child: SizedBox(
@@ -202,12 +205,12 @@ class _CognitiveDetailPageState extends ConsumerState<CognitiveDetailPage> {
                         child: Text(
                           'Cognitive Skills Scores'.tr,
                           style: TextStyle(
-                              color: Color(0xFF309092),
+                              color: const Color(0xFF309092),
                               fontWeight: FontWeight.bold,
                               fontSize: screenWidth * 0.05),
                         ),
                       ),
-                      Divider(
+                      const Divider(
                         thickness: 2,
                         indent: 50,
                         endIndent: 50,
@@ -223,7 +226,7 @@ class _CognitiveDetailPageState extends ConsumerState<CognitiveDetailPage> {
                           child: Text(
                             'Maze Magic'.tr,
                             style: TextStyle(
-                              color: Color(0xFF309092),
+                              color: const Color(0xFF309092),
                               fontSize: screenWidth * 0.06,
                             ),
                           ),

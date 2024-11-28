@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mindgames/utils/convert_to_nepali_numbers.dart';
 
@@ -44,7 +43,7 @@ Widget buildProgressIndicator(BuildContext context, String label, double value,
           ),
         ],
       ),
-      SizedBox(height: 8),
+      const SizedBox(height: 8),
       Text(
         label,
         style: TextStyle(

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class MatchAnimalGame extends StatefulWidget {
+  const MatchAnimalGame({super.key});
   @override
-  _MatchAnimalGameState createState() => _MatchAnimalGameState();
+  State<MatchAnimalGame> createState() => _MatchAnimalGameState();
 }
 
 class _MatchAnimalGameState extends State<MatchAnimalGame> {
@@ -31,9 +32,9 @@ class _MatchAnimalGameState extends State<MatchAnimalGame> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Match Animal Game'),
+        title: const Text('Match Animal Game'),
       ),
-      body: Center(
+      body: const Center(
         child: Text('Match Animal Game in Landscape Mode'),
       ),
     );

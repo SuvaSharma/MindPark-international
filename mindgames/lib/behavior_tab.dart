@@ -5,7 +5,7 @@ import 'package:mindgames/adhd_tracking_page.dart';
 import 'package:mindgames/asd_tracking_page.dart';
 
 class BehaviorTab extends StatelessWidget {
-  const BehaviorTab({Key? key}) : super(key: key);
+  const BehaviorTab({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +27,8 @@ class BehaviorTab extends StatelessWidget {
             body: Column(
               children: [
                 TabBar(
-                  indicatorColor: Color(0xFF309092),
-                  labelColor: Color(0xFF309092),
+                  indicatorColor: const Color(0xFF309092),
+                  labelColor: const Color(0xFF309092),
                   labelStyle: TextStyle(
                       fontSize: screenWidth * 0.04, fontFamily: 'ShantellSans'),
                   tabs: [

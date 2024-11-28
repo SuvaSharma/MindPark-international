@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
 import 'package:mindgames/AnimatedButton.dart';
 import 'package:mindgames/utils/difficulty_enum.dart';
@@ -10,7 +9,8 @@ class EmotionButtons extends StatelessWidget {
   final void Function(String) _onEmotionButtonPressed;
   final Difficulty difficulty;
 
-  EmotionButtons({
+  const EmotionButtons({
+    super.key,
     required Animation<Offset> leftButtonAnimation,
     required Animation<Offset> rightButtonAnimation,
     required void Function(String) onEmotionButtonPressed,

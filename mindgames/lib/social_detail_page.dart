@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -15,7 +17,7 @@ class SocialDetailPage extends ConsumerStatefulWidget {
   const SocialDetailPage({super.key});
 
   @override
-  _SocialDetailPageState createState() => _SocialDetailPageState();
+  ConsumerState<SocialDetailPage> createState() => _SocialDetailPageState();
 }
 
 class _SocialDetailPageState extends ConsumerState<SocialDetailPage> {
@@ -53,7 +55,7 @@ class _SocialDetailPageState extends ConsumerState<SocialDetailPage> {
         isLoading = false;
       });
     } catch (e) {
-      print("Error fetching graph data: $e");
+      log("Error fetching graph data: $e");
       setState(() {
         isLoading = false;
       });
@@ -106,7 +108,7 @@ class _SocialDetailPageState extends ConsumerState<SocialDetailPage> {
       });
     } catch (e) {
       // Handle errors here
-      print('Error fetching data: $e');
+      log('Error fetching data: $e');
     }
   }
 
@@ -226,12 +228,12 @@ class _SocialDetailPageState extends ConsumerState<SocialDetailPage> {
                         child: Text(
                           'Social Skills Scores'.tr,
                           style: TextStyle(
-                              color: Color(0xFF309092),
+                              color: const Color(0xFF309092),
                               fontWeight: FontWeight.bold,
                               fontSize: screenWidth * 0.05),
                         ),
                       ),
-                      Divider(
+                      const Divider(
                         thickness: 2,
                         indent: 50,
                         endIndent: 50,
@@ -247,7 +249,7 @@ class _SocialDetailPageState extends ConsumerState<SocialDetailPage> {
                           child: Text(
                             'Mood Magic'.tr,
                             style: TextStyle(
-                              color: Color(0xFF309092),
+                              color: const Color(0xFF309092),
                               fontSize: screenWidth * 0.06,
                             ),
                           ),
@@ -286,7 +288,7 @@ class _SocialDetailPageState extends ConsumerState<SocialDetailPage> {
                           child: Text(
                             'Simon Says'.tr,
                             style: TextStyle(
-                              color: Color(0xFF309092),
+                              color: const Color(0xFF309092),
                               fontSize: screenWidth * 0.06,
                             ),
                           ),
@@ -326,7 +328,7 @@ class _SocialDetailPageState extends ConsumerState<SocialDetailPage> {
                           child: Text(
                             'Gaze Maze'.tr,
                             style: TextStyle(
-                              color: Color(0xFF309092),
+                              color: const Color(0xFF309092),
                               fontSize: screenWidth * 0.06,
                             ),
                           ),
@@ -365,7 +367,7 @@ class _SocialDetailPageState extends ConsumerState<SocialDetailPage> {
                           child: Text(
                             'Jungle Jingles'.tr,
                             style: TextStyle(
-                              color: Color(0xFF309092),
+                              color: const Color(0xFF309092),
                               fontSize: screenWidth * 0.06,
                             ),
                           ),

@@ -12,7 +12,7 @@ void showConfirmationDialog(BuildContext context, VoidCallback onConfirmed) {
           return AlertDialog(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(25),
-              side: BorderSide(color: Colors.black, width: 3),
+              side: const BorderSide(color: Colors.black, width: 3),
             ),
             content: SingleChildScrollView(
               child: ConstrainedBox(

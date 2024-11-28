@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'dart:math';
+import 'dart:developer';
+import 'dart:math' as math;
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -30,9 +31,9 @@ class _NumberCountingGameState extends ConsumerState<NumberCountingGame> {
   DateTime sessionId = DateTime.now();
   int _imageCount = 0;
   int itemCount = 0;
-  int _selectedNumber = -1;
+
   int score = 0;
-  final Random _random = Random();
+  final math.Random _random = math.Random();
   int _roundsPlayed = 0;
   String? _feedbackImagePath;
   bool _showFeedback = false;
@@ -162,8 +163,8 @@ class _NumberCountingGameState extends ConsumerState<NumberCountingGame> {
 
   void _generateNewImageCount() {
     setState(() {
-      _imageCount = itemCount + Random().nextInt(11);
-      _selectedNumber = -1;
+      _imageCount = itemCount + math.Random().nextInt(11);
+
       _showFeedback = false;
       selectedImagePath = _imagePaths[_random.nextInt(_imagePaths.length)];
     });
@@ -205,7 +206,7 @@ class _NumberCountingGameState extends ConsumerState<NumberCountingGame> {
 
     Future.delayed(const Duration(milliseconds: 500), () {
       if (_roundsPlayed < numberOfRounds) {
-        print('number of rounds played: ${_roundsPlayed}');
+        log('number of rounds played: $_roundsPlayed');
         setState(() {
           _showFeedback = false;
           _generateNewImageCount();
@@ -264,7 +265,7 @@ class _NumberCountingGameState extends ConsumerState<NumberCountingGame> {
             });
           },
           onQuit: () {},
-          quitDestinationPage: MathSkillsPage(),
+          quitDestinationPage: const MathSkillsPage(),
         );
       },
     );
@@ -328,7 +329,7 @@ class _NumberCountingGameState extends ConsumerState<NumberCountingGame> {
                                         BorderRadius.circular(baseSize * 0.03),
                                   ),
                                   child: IconButton(
-                                    icon: Icon(Icons.pause),
+                                    icon: const Icon(Icons.pause),
                                     iconSize: baseSize * 0.07,
                                     onPressed: _showPauseMenu,
                                   ),

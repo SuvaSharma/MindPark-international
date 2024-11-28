@@ -46,8 +46,8 @@ class _ParentsPortalPageState extends State<ParentsPortalPage> {
 
     return WillPopScope(
       onWillPop: () async {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => MainWrapper()));
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const MainWrapper()));
         return false;
       },
       child: Scaffold(
@@ -69,9 +69,9 @@ class _ParentsPortalPageState extends State<ParentsPortalPage> {
                         color: const Color(0xFF309092)),
                   ));
                 } else if (snapshot.hasError) {
-                  return Center(child: Text('Failed to load content'));
+                  return const Center(child: Text('Failed to load content'));
                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return Center(child: Text('No content available'));
+                  return const Center(child: Text('No content available'));
                 } else {
                   List<StoryGroup> stories = snapshot.data!;
 

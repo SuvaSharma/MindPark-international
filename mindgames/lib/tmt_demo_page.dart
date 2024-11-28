@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:confetti/confetti.dart';
@@ -91,7 +92,7 @@ class _TMTDemoPageState extends State<TMTDemoPage> {
 
   void _preloadAudio() {
     _audioCache.load('Instruction_Swipe.mp3').then((_) {
-      print('Sound pre-initialized');
+      log('Sound pre-initialized');
     });
   }
 
@@ -179,7 +180,8 @@ class _TMTDemoPageState extends State<TMTDemoPage> {
                           Navigator.pop(context, true);
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(builder: (context) => TMTpage()),
+                            MaterialPageRoute(
+                                builder: (context) => const TMTpage()),
                           );
                         },
                         child: Container(
@@ -271,7 +273,7 @@ class _TMTDemoPageState extends State<TMTDemoPage> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    TMTpage()), // Navigate to TMT page
+                                    const TMTpage()), // Navigate to TMT page
                           );
                         },
                         child: Container(
@@ -350,7 +352,7 @@ class _TMTDemoPageState extends State<TMTDemoPage> {
             if (text == 'Resume'.tr) {
               Navigator.pop(context, false);
             } else if (text == 'Sound'.tr) {
-              print('Change sound');
+              log('Change sound');
             } else if (text == 'Instructions'.tr) {
               Navigator.push(
                 context,
@@ -461,11 +463,11 @@ class _TMTDemoPageState extends State<TMTDemoPage> {
     return WillPopScope(
       onWillPop: () async {
         if (showNodes) {
-          print("Went to pause menu.");
+          log("Went to pause menu.");
           bool result = await _onBackPressed();
           return result;
         } else {
-          print("Went to social skills menu");
+          log("Went to social skills menu");
           setState(() {
             gameExited = true;
           });
@@ -488,14 +490,8 @@ class _TMTDemoPageState extends State<TMTDemoPage> {
           double baseSize =
               screenWidth > screenHeight ? screenHeight : screenWidth;
 
-          // Adjust UI elements based on screen size
-          double nodeSize =
-              screenWidth * 0.05; // Node size relative to screen width
-          double nodeSpacing = screenWidth *
-              0.02; // Spacing between nodes relative to screen width
-
           return OrientationBuilder(builder: (context, orientation) {
-            print('switching to landscape');
+            log('switching to landscape');
             SystemChrome.setPreferredOrientations([
               DeviceOrientation.landscapeLeft,
               DeviceOrientation.landscapeRight,
@@ -600,7 +596,7 @@ class _TMTDemoPageState extends State<TMTDemoPage> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    TMTpage()));
+                                                    const TMTpage()));
                                       },
                                       child: Text('Skip Trial'.tr,
                                           style: TextStyle(
@@ -775,7 +771,8 @@ class _TMTDemoPageState extends State<TMTDemoPage> {
                                         Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => TMTpage()),
+                                              builder: (context) =>
+                                                  const TMTpage()),
                                         );
                                       },
                                       enabled: true,
@@ -837,7 +834,7 @@ class _TMTDemoPageState extends State<TMTDemoPage> {
 
   //     setState(() {
   //       tappedNodes.add(nodeNumber);
-  //       print('Tapped Nodes: $tappedNodes');
+  //       log('Tapped Nodes: $tappedNodes');
 
   //       // Add line points only if more than one node is tapped
   //       if (tappedNodes.length > 1) {
@@ -846,7 +843,7 @@ class _TMTDemoPageState extends State<TMTDemoPage> {
   //             getYPosition(nodeList[lastNode - 1]))); // Add start point
   //         linePoints.add(Offset(getXPosition(nodeList[nodeNumber - 1]),
   //             getYPosition(nodeList[nodeNumber - 1]))); // Add end point
-  //         print('Line Points: $linePoints');
+  //         log('Line Points: $linePoints');
   //       }
 
   //       // Check if all nodes are tapped
@@ -860,7 +857,7 @@ class _TMTDemoPageState extends State<TMTDemoPage> {
   //     });
   //   } else {
   //     // Wrong node tapped, show error message
-  //     print('Wrong node tapped');
+  //     log('Wrong node tapped');
   //     // Increment the count of wrong node image shown
   //     setState(() {
   //       wrongNodeImageCount++;
@@ -883,7 +880,7 @@ class _TMTDemoPageState extends State<TMTDemoPage> {
   //     });
   //   }
 
-  //   // Check if the tapped node is correct and print a message
+  //   // Check if the tapped node is correct and log a message
   //   if (!showOverlay) {
   //     if (_vibrationEnabled) {
   //       Vibration.vibrate(
@@ -891,7 +888,7 @@ class _TMTDemoPageState extends State<TMTDemoPage> {
   //         amplitude: 10,
   //       );
   //     }
-  //     print('Correct node tapped');
+  //     log('Correct node tapped');
   //     nodeColors[nodeNumber - 1] = Colors.white;
   //     textColors[nodeNumber - 1] = const Color(0xFF309092);
   //     setState(() {
@@ -920,7 +917,7 @@ class _TMTDemoPageState extends State<TMTDemoPage> {
 
       setState(() {
         tappedNodes.add(nodeNumber);
-        print('Tapped Nodes: $tappedNodes');
+        log('Tapped Nodes: $tappedNodes');
 
         // Add line points only if more than one node is tapped
         if (tappedNodes.length > 1) {
@@ -962,7 +959,7 @@ class _TMTDemoPageState extends State<TMTDemoPage> {
       // If the node is not connected to a line, show the error overlay
       if (!isNodeConnected) {
         // Wrong node tapped, show error message
-        print('Wrong node tapped');
+        log('Wrong node tapped');
         // Increment the count of wrong node image shown
         setState(() {
           wrongNodeImageCount++;
@@ -979,7 +976,7 @@ class _TMTDemoPageState extends State<TMTDemoPage> {
         });
 
         // Hide image overlay after 500 milliseconds
-        Future.delayed(Duration(milliseconds: 200), () {
+        Future.delayed(const Duration(milliseconds: 200), () {
           setState(() {
             showOverlay = false;
           });
@@ -987,9 +984,9 @@ class _TMTDemoPageState extends State<TMTDemoPage> {
       }
     }
 
-    // Check if the tapped node is correct and print a message
+    // Check if the tapped node is correct and log a message
     if (!showOverlay) {
-      print('Correct node tapped');
+      log('Correct node tapped');
       if (_vibrationEnabled) {
         Vibration.vibrate(
           duration: 100,
@@ -997,7 +994,7 @@ class _TMTDemoPageState extends State<TMTDemoPage> {
         );
       }
       nodeColors[nodeNumber - 1] = Colors.white;
-      textColors[nodeNumber - 1] = Color(0xFF309092);
+      textColors[nodeNumber - 1] = const Color(0xFF309092);
       setState(() {
         correctNodeCount++;
       });

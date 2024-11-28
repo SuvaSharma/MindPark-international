@@ -28,7 +28,7 @@ class RouteHelper {
     GetPage(
         name: language,
         page: () {
-          return LanguageScreen();
+          return const LanguageScreen();
         }),
   ];
 }

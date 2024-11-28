@@ -5,10 +5,10 @@ class MotorbikeCard extends StatelessWidget {
   final String imagePath;
 
   const MotorbikeCard({
-    Key? key,
+    super.key,
     required this.imageCount,
     required this.imagePath,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -55,14 +55,14 @@ class MotorbikeCard extends StatelessWidget {
             color: Colors.black.withOpacity(0.2),
             spreadRadius: 2,
             blurRadius: 5,
-            offset: Offset(3, 3),
+            offset: const Offset(3, 3),
           ),
         ],
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: verticalPadding),
         child: imageCount == 0
-            ? SizedBox()
+            ? const SizedBox()
             : GridView.builder(
                 padding: EdgeInsets.all(margin),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

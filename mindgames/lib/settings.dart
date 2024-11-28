@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mindgames/cloud_store_service.dart';
@@ -7,7 +9,7 @@ import 'package:mindgames/widgets/snackbar_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Settingspage extends StatefulWidget {
-  const Settingspage({Key? key}) : super(key: key);
+  const Settingspage({super.key});
 
   @override
   State<Settingspage> createState() => _SettingspageState();
@@ -45,7 +47,6 @@ class _SettingspageState extends State<Settingspage> {
       _soundEnabled = _prefs.getBool('sound_enabled') ?? true;
       _parentalLockEnabled = _prefs.getBool('parental_lock_enabled') ?? true;
       _vibrationEnabled = _prefs.getBool('vibration_enabled') ?? true;
-      int selectedIndex = _prefs.getInt('language_index') ?? 0;
     });
   }
 
@@ -59,7 +60,7 @@ class _SettingspageState extends State<Settingspage> {
             currentUser!.uid, _pinController.text);
         return isValid;
       } catch (e) {
-        print(e);
+        log('$e');
         return false;
       }
     }
@@ -110,6 +111,9 @@ class _SettingspageState extends State<Settingspage> {
                       style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF309092)),
                       onPressed: () async {
+                        if (!context.mounted) {
+                          return;
+                        }
                         if (await checkPIN()) {
                           setState(() {
                             _parentalLockEnabled = false;
@@ -170,7 +174,7 @@ class _SettingspageState extends State<Settingspage> {
     return Scaffold(
       body: Container(
         width: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/images/levelscreen.png'),
             fit: BoxFit.cover,
@@ -186,7 +190,7 @@ class _SettingspageState extends State<Settingspage> {
                   Text(
                     "Settings".tr,
                     style: TextStyle(
-                        color: Color(0xFF309092),
+                        color: const Color(0xFF309092),
                         fontSize: screenWidth * 0.1,
                         fontWeight: FontWeight.bold),
                   ),
@@ -198,7 +202,7 @@ class _SettingspageState extends State<Settingspage> {
                     child: Text(
                       "Customize your app to fit your needs".tr,
                       style: TextStyle(
-                          color: Color(0xFF309092),
+                          color: const Color(0xFF309092),
                           fontSize: screenWidth * 0.05,
                           fontWeight: FontWeight.bold),
                     ),
@@ -208,7 +212,7 @@ class _SettingspageState extends State<Settingspage> {
               SizedBox(
                 height: screenWidth * 0.05,
               ),
-              Divider(
+              const Divider(
                 color: Color.fromARGB(255, 107, 107, 107),
                 height: 20,
                 thickness: 1,
@@ -217,92 +221,89 @@ class _SettingspageState extends State<Settingspage> {
               ),
               SizedBox(
                 height: screenWidth * 0.55,
-
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    child: ListView(
-                      padding: EdgeInsets.all(screenWidth * 0.04),
-                      children: [
-                        ListTile(
-                          title: Text(
-                            'Sound'.tr,
-                            style: TextStyle(
-                              color: Color(0xFF309092),
-                              fontSize: screenWidth * 0.06,
-                              fontWeight: FontWeight.bold,
-                            ),
+                  child: ListView(
+                    padding: EdgeInsets.all(screenWidth * 0.04),
+                    children: [
+                      ListTile(
+                        title: Text(
+                          'Sound'.tr,
+                          style: TextStyle(
+                            color: const Color(0xFF309092),
+                            fontSize: screenWidth * 0.06,
+                            fontWeight: FontWeight.bold,
                           ),
-                          trailing: Transform.scale(
-                            scale: screenWidth * 0.0025,
-                            child: Switch(
-                              value: _soundEnabled,
-                              onChanged: (bool value) {
+                        ),
+                        trailing: Transform.scale(
+                          scale: screenWidth * 0.0025,
+                          child: Switch(
+                            value: _soundEnabled,
+                            onChanged: (bool value) {
+                              setState(() {
+                                _soundEnabled = value;
+                                _onSettingChanged();
+                              });
+                            },
+                            activeColor: const Color(0xFF309092),
+                          ),
+                        ),
+                      ),
+                      ListTile(
+                        title: Text(
+                          'Vibration'.tr,
+                          style: TextStyle(
+                            color: const Color(0xFF309092),
+                            fontSize: screenWidth * 0.06,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        trailing: Transform.scale(
+                          scale: screenWidth * 0.0025,
+                          child: Switch(
+                            value: _vibrationEnabled,
+                            onChanged: (bool value) {
+                              setState(() {
+                                _vibrationEnabled = value;
+                                _onSettingChanged();
+                              });
+                            },
+                            activeColor: const Color(0xFF309092),
+                          ),
+                        ),
+                      ),
+                      ListTile(
+                        title: Text(
+                          'Parental Lock'.tr,
+                          style: TextStyle(
+                              color: const Color(0xFF309092),
+                              fontSize: screenWidth * 0.06,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        trailing: Transform.scale(
+                          scale: screenWidth * 0.0025,
+                          child: Switch(
+                            value: _parentalLockEnabled,
+                            onChanged: (bool value) {
+                              if (!value) {
+                                // If trying to disable parental lock, show PIN verification
+                                _showPinVerificationDialog();
+                              } else {
                                 setState(() {
-                                  _soundEnabled = value;
+                                  _parentalLockEnabled = value;
                                   _onSettingChanged();
                                 });
-                              },
-                              activeColor: Color(0xFF309092),
-                            ),
+                              }
+                            },
+                            activeColor: const Color(0xFF309092),
                           ),
                         ),
-                        ListTile(
-                          title: Text(
-                            'Vibration'.tr,
-                            style: TextStyle(
-                              color: Color(0xFF309092),
-                              fontSize: screenWidth * 0.06,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          trailing: Transform.scale(
-                            scale: screenWidth * 0.0025,
-                            child: Switch(
-                              value: _vibrationEnabled,
-                              onChanged: (bool value) {
-                                setState(() {
-                                  _vibrationEnabled = value;
-                                  _onSettingChanged();
-                                });
-                              },
-                              activeColor: Color(0xFF309092),
-                            ),
-                          ),
-                        ),
-                        ListTile(
-                          title: Text(
-                            'Parental Lock'.tr,
-                            style: TextStyle(
-                                color: Color(0xFF309092),
-                                fontSize: screenWidth * 0.06,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          trailing: Transform.scale(
-                            scale: screenWidth * 0.0025,
-                            child: Switch(
-                              value: _parentalLockEnabled,
-                              onChanged: (bool value) {
-                                if (!value) {
-                                  // If trying to disable parental lock, show PIN verification
-                                  _showPinVerificationDialog();
-                                } else {
-                                  setState(() {
-                                    _parentalLockEnabled = value;
-                                    _onSettingChanged();
-                                  });
-                                }
-                              },
-                              activeColor: Color(0xFF309092),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-              Divider(
+              const Divider(
                 color: Color.fromARGB(255, 107, 107, 107),
                 height: 20,
                 thickness: 1,
@@ -319,7 +320,7 @@ class _SettingspageState extends State<Settingspage> {
                     ElevatedButton(
                       onPressed: _resetSettings,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF309092),
+                        backgroundColor: const Color(0xFF309092),
                         elevation: 5,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
@@ -336,7 +337,7 @@ class _SettingspageState extends State<Settingspage> {
                     ElevatedButton(
                       onPressed: _applyChanges,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF309092),
+                        backgroundColor: const Color(0xFF309092),
                         elevation: 5,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),

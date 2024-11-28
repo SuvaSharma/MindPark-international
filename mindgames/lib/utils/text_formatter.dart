@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:html/parser.dart';
 
 String getImageURL(String content) {
@@ -76,6 +78,6 @@ String removeFigureTag(String text) {
     return match.group(1) ?? '';
   });
 
-  print(modifiedContent);
+  log(modifiedContent);
   return modifiedContent;
 }

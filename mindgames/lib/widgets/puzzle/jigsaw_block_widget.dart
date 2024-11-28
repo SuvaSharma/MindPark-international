@@ -4,11 +4,14 @@ import 'package:mindgames/widgets/puzzle/jigsaw_block_painter.dart';
 import 'package:mindgames/widgets/puzzle/puzzle_piece_clipper.dart';
 
 class JigsawBlockWidget extends StatefulWidget {
-  ImageBox imageBox;
-  JigsawBlockWidget({super.key, required this.imageBox});
+  final ImageBox imageBox;
+  const JigsawBlockWidget({
+    super.key,
+    required this.imageBox,
+  });
 
   @override
-  _JigsawBlockWidgetState createState() => _JigsawBlockWidgetState();
+  State<JigsawBlockWidget> createState() => _JigsawBlockWidgetState();
 }
 
 class _JigsawBlockWidgetState extends State<JigsawBlockWidget> {

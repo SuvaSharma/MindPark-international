@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'dart:math';
+import 'dart:math' as math;
+import 'dart:developer';
 
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
@@ -81,23 +82,22 @@ class _CPTPageState extends ConsumerState<CPTPage> {
   CPTPage() {
     // Preload the audio file during app initialization
     _audioCache.load('correct.mp3').then((_) {
-      print(
-          'right sound pre-initialized'); // Log a message when preloading is complete
+      log('right sound pre-initialized'); // Log a message when preloading is complete
     });
     _audioCache.load('wrong.mp3').then((_) {
-      print('wrong sound pre-loaded');
+      log('wrong sound pre-loaded');
     });
     _audioCache.load('GaneOverDialog.mp3').then((_) {
-      print('wrong sound pre-loaded');
+      log('wrong sound pre-loaded');
     });
     _audioCache.load('PauseTap.mp3').then((_) {
-      print('wrong sound pre-loaded');
+      log('wrong sound pre-loaded');
     });
     _audioCache.load('playbutton.mp3').then((_) {
-      print('wrong sound pre-loaded');
+      log('wrong sound pre-loaded');
     });
     _audioCache.load('verbalgood.mp3').then((_) {
-      print('verbal good sound pre-loaded');
+      log('verbal good sound pre-loaded');
     });
   }
 
@@ -117,13 +117,13 @@ class _CPTPageState extends ConsumerState<CPTPage> {
     for (int i = numberOfX; i < length; i++) {
       String randomChar;
       do {
-        randomChar = String.fromCharCode(Random().nextInt(26) + 65);
+        randomChar = String.fromCharCode(math.Random().nextInt(26) + 65);
       } while (randomChar == 'X');
 
       list.add(randomChar);
     }
 
-    list.shuffle(Random());
+    list.shuffle(math.Random());
 
     return list;
   }
@@ -158,7 +158,7 @@ class _CPTPageState extends ConsumerState<CPTPage> {
 
   void _preloadAudio() {
     _audioCache.load('Instruction_Swipe.mp3').then((_) {
-      print('Sound pre-initialized');
+      log('Sound pre-initialized');
     });
   }
 
@@ -175,7 +175,7 @@ class _CPTPageState extends ConsumerState<CPTPage> {
   }
 
   void _changeWord() {
-    print(characters);
+    log('$characters');
     _displayFixation();
   }
 
@@ -186,7 +186,7 @@ class _CPTPageState extends ConsumerState<CPTPage> {
     _elapsedFixationTime = 0;
     _currentTimerType = TimerType.Fixation;
 
-    print("display Fixation");
+    log("display Fixation");
     if (_isDialogVisible) {
       return; // Do nothing if dialog is visible
     }
@@ -214,7 +214,7 @@ class _CPTPageState extends ConsumerState<CPTPage> {
     _currentTimerType = TimerType.Words;
     _wordsStartTime = DateTime.now().millisecondsSinceEpoch;
 
-    print("display Words");
+    log("display Words");
     if (_isDialogVisible) {
       return; // Do nothing if dialog is visible
     }
@@ -252,7 +252,7 @@ class _CPTPageState extends ConsumerState<CPTPage> {
             letter: currentLetter,
             result: currentLetter == 'X' ? 'Correct' : 'Incorrect',
             responseTime: 2000);
-        print('Adding to cpt data');
+        log('Adding to cpt data');
         dataList.add(cptData);
       });
 
@@ -294,8 +294,7 @@ class _CPTPageState extends ConsumerState<CPTPage> {
       } else {
         pauseTime = 0;
       }
-      print('this is being deducted from the pause time: ' +
-          pauseTime.toString());
+      log('this is being deducted from the pause time: $pauseTime');
       final duration =
           correctBuzzerTappedTime - wordDisplayStartTime! - pauseTime;
       if (letter != 'X') {
@@ -311,9 +310,9 @@ class _CPTPageState extends ConsumerState<CPTPage> {
 
         if (wordDisplayStartTime != null) {
           notXDurations.add(duration);
-          print('Time taken to tap the buzzer: $duration milliseconds');
+          log('Time taken to tap the buzzer: $duration milliseconds');
         } else {
-          print('Error: wordDisplayStartTime is null.');
+          log('Error: wordDisplayStartTime is null.');
         }
       } else {
         commissionErrorCount++;
@@ -327,7 +326,7 @@ class _CPTPageState extends ConsumerState<CPTPage> {
           letter: letter,
           result: letter != 'X' ? 'Correct' : 'Incorrect',
           responseTime: duration);
-      print('Adding to cpt data');
+      log('Adding to cpt data');
       dataList.add(cptData);
       _showPopup = true;
       _isPopupVisible = true;
@@ -353,7 +352,7 @@ class _CPTPageState extends ConsumerState<CPTPage> {
 
   Future<bool> _onBackPressed() async {
     _playSound('PauseTap.mp3', player);
-    print('back press was triggered');
+    log('back press was triggered');
     bool? result;
 
     Future<bool?> displayQuitDialog() async {
@@ -379,7 +378,7 @@ class _CPTPageState extends ConsumerState<CPTPage> {
       _fixationTimer.cancel();
       _fixationEndTime = DateTime.now().millisecondsSinceEpoch;
       _elapsedFixationTime = _fixationEndTime - _fixationStartTime;
-      print('Elapsed time fixation: ' + _elapsedFixationTime.toString());
+      log('Elapsed time fixation: $_elapsedFixationTime');
 
       _isDialogVisible = true;
       result = await displayQuitDialog();
@@ -408,13 +407,13 @@ class _CPTPageState extends ConsumerState<CPTPage> {
       _isDialogVisible = false;
 
       if (result == false) {
-        print('Word resumed');
+        log('Word resumed');
 
         dialogBoxDisappearTime = DateTime.now().millisecondsSinceEpoch;
         _wordsTimer = Timer(
           Duration(milliseconds: 2000 - _elapsedWordsTime),
           () {
-            print('Word count: ${_currentWordIndex},  ${_totalWords - 1}');
+            log('Word count: $_currentWordIndex,  ${_totalWords - 1}');
             setState(() {
               _showPopup = false;
               _buzzerEnabled = false;
@@ -427,7 +426,7 @@ class _CPTPageState extends ConsumerState<CPTPage> {
                       ? 'Correct'
                       : 'Incorrect',
                   responseTime: 2000);
-              print('Adding to cpt data');
+              log('Adding to cpt data');
               dataList.add(cptData);
 
               if (_currentWordIndex == _totalWords - 1) {
@@ -454,19 +453,19 @@ class _CPTPageState extends ConsumerState<CPTPage> {
     // _databaseHelper.insertCPTData(dataList);
     // List<Map<String, dynamic>> data = dataList.map((e) => e.toMap()).toList();
     // levelCompletionHandler!.createMindParkDirectoryAndSaveCSV(data).then((_) {
-    //   print('Level completion data saved to CSV.');
+    //   log('Level completion data saved to CSV.');
     //});
     cloudStoreService.addCPTData(dataList);
 
-    print('CPT Data list: ${dataList.length}');
-    print('CPT Data list: $dataList');
-    print(notXDurations);
+    log('CPT Data list: ${dataList.length}');
+    log('CPT Data list: $dataList');
+    log('$notXDurations');
     double response_time = notXDurations.isNotEmpty
         ? notXDurations.reduce((a, b) => a + b) / notXDurations.length
         : 0;
     double accuracy = (score / _totalWords * 100);
-    print('Omitted letters: $omissionErrorCount');
-    print('80% of letters: ${0.8 * _totalWords}');
+    log('Omitted letters: $omissionErrorCount');
+    log('80% of letters: ${0.8 * _totalWords}');
     cloudStoreService.addCPTResult(
       CPTResult(
         userId: selectedChildUserId,
@@ -523,7 +522,7 @@ class _CPTPageState extends ConsumerState<CPTPage> {
                           'Congratulations!'.tr,
                           style: TextStyle(
                             fontSize: screenWidth * 0.05,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -534,7 +533,7 @@ class _CPTPageState extends ConsumerState<CPTPage> {
                           'You nailed it!'.tr,
                           style: TextStyle(
                             fontSize: screenWidth * 0.05,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             // fontWeight: FontWeight.bold
                           ),
                         ),
@@ -549,7 +548,7 @@ class _CPTPageState extends ConsumerState<CPTPage> {
                                 '${accuracy.toStringAsFixed(0)}%'), // Display the score
                         style: TextStyle(
                             fontSize: screenWidth * 0.045,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
@@ -558,7 +557,7 @@ class _CPTPageState extends ConsumerState<CPTPage> {
                                 '${response_time.toStringAsFixed(0)} ms'), // Display the score
                         style: TextStyle(
                             fontSize: screenWidth * 0.045,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
@@ -567,7 +566,7 @@ class _CPTPageState extends ConsumerState<CPTPage> {
                                 '${(commissionErrorCount / (0.2 * _totalWords) * 100).toStringAsFixed(0)}%'), // Display the score
                         style: TextStyle(
                             fontSize: screenWidth * 0.045,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
@@ -576,7 +575,7 @@ class _CPTPageState extends ConsumerState<CPTPage> {
                                 '${(omissionErrorCount / (0.8 * _totalWords) * 100).toStringAsFixed(0)}%'), // Display the score
                         style: TextStyle(
                             fontSize: screenWidth * 0.045,
-                            color: Color(0xFF309092),
+                            color: const Color(0xFF309092),
                             fontWeight: FontWeight.bold),
                       ),
                       Row(
@@ -595,7 +594,7 @@ class _CPTPageState extends ConsumerState<CPTPage> {
                               },
                               child: Container(
                                   decoration: BoxDecoration(
-                                    color: Color(0xff309092),
+                                    color: const Color(0xff309092),
                                     borderRadius: BorderRadius.circular(25),
                                   ),
                                   child: Padding(
@@ -627,7 +626,7 @@ class _CPTPageState extends ConsumerState<CPTPage> {
       onWillPop: _onBackPressed,
       child: Scaffold(
           body: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/images/balloon_background.jpeg"),
                   fit: BoxFit.cover,
@@ -671,7 +670,7 @@ class _CPTPageState extends ConsumerState<CPTPage> {
                                           baseSize * 0.03),
                                     ),
                                     child: IconButton(
-                                      icon: Icon(Icons.pause),
+                                      icon: const Icon(Icons.pause),
                                       iconSize: baseSize * 0.07,
                                       onPressed: _onBackPressed,
                                     ),
@@ -690,7 +689,7 @@ class _CPTPageState extends ConsumerState<CPTPage> {
                         style: TextStyle(
                           fontSize: screenWidth * 0.07,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF309092),
+                          color: const Color(0xFF309092),
                         ),
                       ),
                     ),
@@ -705,7 +704,7 @@ class _CPTPageState extends ConsumerState<CPTPage> {
                       },
                       child: Visibility(
                         visible: _showStartButton,
-                        child: Container(
+                        child: SizedBox(
                             width: MediaQuery.of(context).size.width * 0.3,
                             height: MediaQuery.of(context).size.width * 0.15,
                             child: Stack(
@@ -735,7 +734,7 @@ class _CPTPageState extends ConsumerState<CPTPage> {
                             )),
                       )),
                   Center(
-                    child: Container(
+                    child: SizedBox(
                       width: screenSize.height * 0.25,
                       height: screenSize.height * 0.25,
                       child: Material(
@@ -807,7 +806,7 @@ class _CPTPageState extends ConsumerState<CPTPage> {
                     child: _showPopup
                         ? AnimatedOpacity(
                             opacity: _showPopup ? 1.0 : 0.0,
-                            duration: Duration(milliseconds: 0),
+                            duration: const Duration(milliseconds: 0),
                             child: Center(
                               child: Image.asset(
                                 _popupText == 'CORRECT'.tr
@@ -817,7 +816,7 @@ class _CPTPageState extends ConsumerState<CPTPage> {
                               ),
                             ),
                           )
-                        : SizedBox(),
+                        : const SizedBox(),
                   )
                 ],
               ))),

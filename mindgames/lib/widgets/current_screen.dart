@@ -5,7 +5,10 @@ import 'package:mindgames/level8infoscreen.dart';
 class CurrentScreen extends StatelessWidget {
   final List<Map<String, dynamic>> levelTiles;
 
-  const CurrentScreen({Key? key, required this.levelTiles}) : super(key: key);
+  const CurrentScreen({
+    super.key,
+    required this.levelTiles,
+  });
 
   Widget buildLevelTile(BuildContext context, String levelName,
       String levelImage, Widget levelPage, double imgWidth, double imgHeight) {

@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'dart:math';
+import 'dart:developer';
+import 'dart:math' as math;
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -38,7 +39,7 @@ class PuzzleWidgetState extends ConsumerState<PuzzleWidget> {
   int timeRemaining = 0;
   final AudioPlayer player = AudioPlayer();
   final GlobalKey<JigsawWidgetState> jigKey = GlobalKey<JigsawWidgetState>();
-  final _random = Random();
+  final _random = math.Random();
   late String imageSelected;
   bool _showGame = false;
   late Difficulty _selectedDifficulty;
@@ -80,7 +81,7 @@ class PuzzleWidgetState extends ConsumerState<PuzzleWidget> {
   void startGame() async {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // Try to access the currentState safely with a delay in case it's null
-      Future.delayed(const Duration(milliseconds: 100), () async {
+      Future.delayed(const Duration(milliseconds: 500), () async {
         await jigKey.currentState?.generateJigsawCropImage();
       });
 
@@ -333,7 +334,7 @@ class PuzzleWidgetState extends ConsumerState<PuzzleWidget> {
                                         BorderRadius.circular(baseSize * 0.03),
                                   ),
                                   child: IconButton(
-                                    icon: Icon(Icons.pause),
+                                    icon: const Icon(Icons.pause),
                                     iconSize: baseSize * 0.07,
                                     onPressed: onBackPressed,
                                   ),
@@ -351,7 +352,7 @@ class PuzzleWidgetState extends ConsumerState<PuzzleWidget> {
                             xSplitCount: numberOfColumns,
                             ySplitCount: numberOfRows,
                             callbackFinish: () {
-                              print('Time taken: $timeTaken');
+                              log('Time taken: $timeTaken');
                               setState(() {
                                 _isPaused = true;
                               });
@@ -359,7 +360,7 @@ class PuzzleWidgetState extends ConsumerState<PuzzleWidget> {
                               storeData();
                             },
                             callbackSuccess: () {
-                              print("callbackSuccess");
+                              log("callbackSuccess");
                               // lets fix error size
                             },
                             key: jigKey,

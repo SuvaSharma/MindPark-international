@@ -6,9 +6,9 @@ class GameOverDialog extends StatelessWidget {
   final VoidCallback onOkPressed;
 
   const GameOverDialog({
-    Key? key,
+    super.key,
     required this.onOkPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class GameOverDialog extends StatelessWidget {
                     'Times up!!'.tr,
                     style: TextStyle(
                       fontSize: MediaQuery.of(context).size.width * 0.05,
-                      color: Color(0xFF309092),
+                      color: const Color(0xFF309092),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -69,7 +69,7 @@ class GameOverDialog extends StatelessWidget {
                       onPressed: onOkPressed,
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Color(0xff309092),
+                          color: const Color(0xff309092),
                           borderRadius: BorderRadius.circular(25),
                         ),
                         child: Padding(

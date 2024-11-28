@@ -12,7 +12,7 @@ class ERTInfoScreen extends StatefulWidget {
   const ERTInfoScreen({super.key, required this.shownWhen});
 
   @override
-  _ERTInfoScreenState createState() => _ERTInfoScreenState();
+  State<ERTInfoScreen> createState() => _ERTInfoScreenState();
 }
 
 class _ERTInfoScreenState extends State<ERTInfoScreen> {

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -19,7 +20,7 @@ class VoiceloonDemoPage extends ConsumerStatefulWidget {
   const VoiceloonDemoPage({super.key});
 
   @override
-  _VoiceloonDemoPageState createState() => _VoiceloonDemoPageState();
+  ConsumerState<VoiceloonDemoPage> createState() => _VoiceloonDemoPageState();
 }
 
 class _VoiceloonDemoPageState extends ConsumerState<VoiceloonDemoPage> {
@@ -141,7 +142,7 @@ class _VoiceloonDemoPageState extends ConsumerState<VoiceloonDemoPage> {
   }
 
   void onError(Object error) {
-    print(error);
+    log('$error');
     stop();
   }
 
@@ -195,7 +196,7 @@ class _VoiceloonDemoPageState extends ConsumerState<VoiceloonDemoPage> {
           onWillPop: () async => false,
           child: PauseMenu(
             onResume: () {
-              print("Resumed");
+              log("Resumed");
               Navigator.pop(context, false);
               start();
               _resumeGame();
@@ -387,7 +388,7 @@ class _VoiceloonDemoPageState extends ConsumerState<VoiceloonDemoPage> {
                                         BorderRadius.circular(baseSize * 0.03),
                                   ),
                                   child: IconButton(
-                                    icon: Icon(Icons.pause),
+                                    icon: const Icon(Icons.pause),
                                     iconSize: baseSize * 0.07,
                                     onPressed: _onBackPressed,
                                   ),

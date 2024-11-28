@@ -77,7 +77,7 @@ class _CognitiveSkillsPageState extends State<CognitiveSkillsPage> {
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: MediaQuery.of(context).size.width * 0.06,
-                            color: Color.fromARGB(255, 51, 106, 134)),
+                            color: const Color.fromARGB(255, 51, 106, 134)),
                       )
                     ],
                   ),
@@ -164,7 +164,7 @@ class _CognitiveSkillsPageState extends State<CognitiveSkillsPage> {
                     levelName.tr,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 51, 106, 134),
+                      color: const Color.fromARGB(255, 51, 106, 134),
                       fontSize: MediaQuery.of(context).size.width * 0.048,
                       backgroundColor: Colors.white.withOpacity(
                           0.7), // Optional: Add background color for better readability

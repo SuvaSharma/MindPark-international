@@ -2,11 +2,12 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class PerformanceApp extends StatelessWidget {
+  const PerformanceApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: Text('Monthly Performance')),
+        appBar: AppBar(title: const Text('Monthly Performance')),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: PerformanceBarChart(),
@@ -25,6 +26,7 @@ class MonthlyPerformance {
 }
 
 class PerformanceBarChart extends StatelessWidget {
+  PerformanceBarChart({super.key});
   // Performance data for different months across years
   final List<MonthlyPerformance> performanceData = [
     MonthlyPerformance(2023, 9, 75), // Sept 2023
@@ -61,15 +63,18 @@ class PerformanceBarChart extends StatelessWidget {
                     String month = _getMonthAbbreviation(performance.month);
                     String text = '$month\n${performance.year}';
                     return SideTitleWidget(
-                        child: Text(text), axisSide: meta.axisSide);
+                      axisSide: meta.axisSide,
+                      child: Text(text),
+                    );
                   })),
           leftTitles: AxisTitles(
               sideTitles: SideTitles(
             showTitles: true,
             getTitlesWidget: (value, meta) {
               return SideTitleWidget(
-                  child: Text('${value.toInt().toString()}'),
-                  axisSide: meta.axisSide);
+                axisSide: meta.axisSide,
+                child: Text(value.toInt().toString()),
+              );
             },
           )),
         ),

@@ -7,7 +7,8 @@ class CountDownTimer extends StatelessWidget {
   final int seconds;
   final Function onTimerEnd;
 
-  CountDownTimer({
+  const CountDownTimer({
+    super.key,
     required this.seconds,
     required this.onTimerEnd,
   });
@@ -16,7 +17,7 @@ class CountDownTimer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       'You have '.tr + seconds.toString().tr + ' seconds left'.tr,
-      style: TextStyle(
+      style: const TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,
         color: Color.fromARGB(255, 51, 106, 134),

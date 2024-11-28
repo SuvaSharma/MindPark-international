@@ -98,7 +98,7 @@ import 'dart:async';
 import 'package:mindgames/onboardingscreen.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key});
+  const SplashScreen({super.key});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -115,7 +115,7 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
     _controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 2))
+        AnimationController(vsync: this, duration: const Duration(seconds: 2))
           ..forward();
     animation = Tween<double>(begin: 0.5, end: 1.0)
         .animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
@@ -126,7 +126,7 @@ class _SplashScreenState extends State<SplashScreen>
 
       if (!onboardingShown) {
         Timer(const Duration(seconds: 3), () {
-          Get.off(() => OnboardingScreen());
+          Get.off(() => const OnboardingScreen());
         });
       } else {
         Timer(const Duration(seconds: 3), () {});
@@ -146,7 +146,7 @@ class _SplashScreenState extends State<SplashScreen>
       key: _globalKey,
       body: Container(
         width: double.infinity,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/images/homepage2.png'),
             fit: BoxFit.cover,

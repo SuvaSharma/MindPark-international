@@ -4,9 +4,11 @@ class CircleWidget extends StatelessWidget {
   final Color color;
   final int remainingCount;
 
-  const CircleWidget(
-      {Key? key, required this.color, required this.remainingCount})
-      : super(key: key);
+  const CircleWidget({
+    super.key,
+    required this.color,
+    required this.remainingCount,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +39,11 @@ class CircleContainer extends StatelessWidget {
   final Color color;
   final double size;
 
-  const CircleContainer({Key? key, required this.color, required this.size})
-      : super(key: key);
+  const CircleContainer({
+    super.key,
+    required this.color,
+    required this.size,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -51,11 +56,11 @@ class CircleContainer extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: Colors.grey.shade600,
-            offset: Offset(4, 4),
+            offset: const Offset(4, 4),
             blurRadius: 5,
             spreadRadius: 1,
           ),
-          BoxShadow(
+          const BoxShadow(
             color: Colors.white,
             offset: Offset(-4, -4),
             blurRadius: 5,

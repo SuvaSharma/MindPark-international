@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class RateMyAppDialog extends StatelessWidget {
+  const RateMyAppDialog({super.key});
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -12,17 +13,17 @@ class RateMyAppDialog extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
+            const Text(
               'Enjoying our app?',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               'Rate Us!',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16, color: Colors.grey[700]),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -30,7 +31,7 @@ class RateMyAppDialog extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).pop(); // Dismiss the dialog
                   },
-                  child: Text(
+                  child: const Text(
                     'No, Thanks',
                     style: TextStyle(color: Colors.red),
                   ),
@@ -44,14 +45,14 @@ class RateMyAppDialog extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                   ),
-                  child: Text('Rate Now'),
+                  child: const Text('Rate Now'),
                 ),
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop(); // Dismiss the dialog
                     // Add logic to remind later
                   },
-                  child: Text(
+                  child: const Text(
                     'Later',
                     style: TextStyle(color: Colors.blue),
                   ),
@@ -69,7 +70,7 @@ void showRateMyAppDialog(BuildContext context) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
-      return RateMyAppDialog();
+      return const RateMyAppDialog();
     },
   );
 }
