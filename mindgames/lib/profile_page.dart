@@ -25,6 +25,7 @@ class _ProfilePageState extends State<ProfilePage> {
   late final GlobalKey<FormState> formKey;
 
   String? selectedGender;
+  bool isSubmitting = false;
 
   @override
   void initState() {
@@ -68,6 +69,9 @@ class _ProfilePageState extends State<ProfilePage> {
     final user = AuthService.user;
     if (currentUser != null) {
       if (formKey.currentState!.validate()) {
+        setState(() {
+          isSubmitting = true;
+        });
         final querySnapshot = await FirebaseFirestore.instance
             .collection('users')
             .where("userId", isEqualTo: currentUser)
@@ -87,6 +91,9 @@ class _ProfilePageState extends State<ProfilePage> {
           if (!context.mounted) {
             return;
           }
+          setState(() {
+            isSubmitting = false;
+          });
           showCustomSnackbar(
               context, 'Success'.tr, 'Profile updated successfully!'.tr);
           Navigator.pushReplacement(
@@ -97,6 +104,9 @@ class _ProfilePageState extends State<ProfilePage> {
           if (!context.mounted) {
             return;
           }
+          setState(() {
+            isSubmitting = false;
+          });
           showCustomSnackbar(context, 'Error'.tr, 'User document not found'.tr);
         }
       }
@@ -104,6 +114,9 @@ class _ProfilePageState extends State<ProfilePage> {
       if (!context.mounted) {
         return;
       }
+      setState(() {
+        isSubmitting = false;
+      });
       showCustomSnackbar(context, 'Error'.tr, 'User not logged in'.tr);
     }
   }
@@ -189,14 +202,21 @@ class _ProfilePageState extends State<ProfilePage> {
                             height: screenHeight * 0.06,
                             width: screenWidth * 0.35,
                             child: RegisterButton(
-                              onPressed: () {
-                                if (formKey.currentState!.validate()) {
-                                  updateUserData();
-                                }
-                              },
-                              child: Text('Update'.tr,
-                                  style:
-                                      TextStyle(fontSize: screenWidth * 0.06)),
+                              onPressed: isSubmitting
+                                  ? null
+                                  : () {
+                                      if (formKey.currentState!.validate()) {
+                                        updateUserData();
+                                      }
+                                    },
+                              child: isSubmitting
+                                  ? CircularProgressIndicator(
+                                      backgroundColor:
+                                          Colors.black.withOpacity(0.2),
+                                      color: const Color(0xFF309092))
+                                  : Text('Update'.tr,
+                                      style: TextStyle(
+                                          fontSize: screenWidth * 0.06)),
                             ),
                           ),
                           SizedBox(height: screenHeight * 0.04),

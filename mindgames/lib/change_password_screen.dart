@@ -22,10 +22,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   String oldPassword = '';
   String newPassword = '';
   String confirmPassword = '';
-  bool _isLoading = false;
+
   late final TextEditingController oldPasswordController;
   late final TextEditingController newPasswordController;
   late final TextEditingController confirmPasswordController;
+  bool isSubmitting = false;
 
   @override
   void initState() {
@@ -46,7 +47,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
   void _changePassword() async {
     setState(() {
-      _isLoading = true;
+      isSubmitting = true;
     });
 
     try {
@@ -82,7 +83,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           context, 'Error'.tr, 'Failed to update password: '.tr + e.toString());
     } finally {
       setState(() {
-        _isLoading = false;
+        isSubmitting = false;
       });
     }
   }
@@ -222,19 +223,20 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     child: RegisterButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          _changePassword();
+                          if (!isSubmitting) {
+                            _changePassword();
+                          }
                         }
                       },
-                      child: Text('Update'.tr,
-                          style: TextStyle(fontSize: screenWidth * 0.06)),
+                      child: isSubmitting
+                          ? CircularProgressIndicator(
+                              backgroundColor: Colors.black.withOpacity(0.2),
+                              color: const Color(0xFF309092),
+                            )
+                          : Text('Update'.tr,
+                              style: TextStyle(fontSize: screenWidth * 0.06)),
                     ),
                   ),
-                  if (_isLoading)
-                    Center(
-                        child: CircularProgressIndicator(
-                            backgroundColor: Colors.black.withOpacity(0.2),
-                            color: const Color(
-                                0xFF309092))), // Show a loading indicator if needed
                 ],
               ),
             ),

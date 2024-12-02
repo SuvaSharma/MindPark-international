@@ -20,6 +20,7 @@ class _SettingspageState extends State<Settingspage> {
   bool _parentalLockEnabled = true;
   bool _vibrationEnabled = true;
   bool _hasChanges = false; // Track if changes have been made
+  bool _isLoading = true;
   final LocalizationController _localizationController =
       Get.find<LocalizationController>();
   late SharedPreferences _prefs;
@@ -47,6 +48,7 @@ class _SettingspageState extends State<Settingspage> {
       _soundEnabled = _prefs.getBool('sound_enabled') ?? true;
       _parentalLockEnabled = _prefs.getBool('parental_lock_enabled') ?? true;
       _vibrationEnabled = _prefs.getBool('vibration_enabled') ?? true;
+      _isLoading = false;
     });
   }
 
@@ -219,90 +221,91 @@ class _SettingspageState extends State<Settingspage> {
                 indent: 18,
                 endIndent: 20,
               ),
-              SizedBox(
-                height: screenWidth * 0.55,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListView(
-                    padding: EdgeInsets.all(screenWidth * 0.04),
-                    children: [
-                      ListTile(
-                        title: Text(
-                          'Sound'.tr,
-                          style: TextStyle(
-                            color: const Color(0xFF309092),
-                            fontSize: screenWidth * 0.06,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        trailing: Transform.scale(
-                          scale: screenWidth * 0.0025,
-                          child: Switch(
-                            value: _soundEnabled,
-                            onChanged: (bool value) {
-                              setState(() {
-                                _soundEnabled = value;
-                                _onSettingChanged();
-                              });
-                            },
-                            activeColor: const Color(0xFF309092),
-                          ),
-                        ),
-                      ),
-                      ListTile(
-                        title: Text(
-                          'Vibration'.tr,
-                          style: TextStyle(
-                            color: const Color(0xFF309092),
-                            fontSize: screenWidth * 0.06,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        trailing: Transform.scale(
-                          scale: screenWidth * 0.0025,
-                          child: Switch(
-                            value: _vibrationEnabled,
-                            onChanged: (bool value) {
-                              setState(() {
-                                _vibrationEnabled = value;
-                                _onSettingChanged();
-                              });
-                            },
-                            activeColor: const Color(0xFF309092),
-                          ),
-                        ),
-                      ),
-                      ListTile(
-                        title: Text(
-                          'Parental Lock'.tr,
-                          style: TextStyle(
+              if (!_isLoading)
+                SizedBox(
+                  height: screenWidth * 0.55,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView(
+                      padding: EdgeInsets.all(screenWidth * 0.04),
+                      children: [
+                        ListTile(
+                          title: Text(
+                            'Sound'.tr,
+                            style: TextStyle(
                               color: const Color(0xFF309092),
                               fontSize: screenWidth * 0.06,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        trailing: Transform.scale(
-                          scale: screenWidth * 0.0025,
-                          child: Switch(
-                            value: _parentalLockEnabled,
-                            onChanged: (bool value) {
-                              if (!value) {
-                                // If trying to disable parental lock, show PIN verification
-                                _showPinVerificationDialog();
-                              } else {
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          trailing: Transform.scale(
+                            scale: screenWidth * 0.0025,
+                            child: Switch(
+                              value: _soundEnabled,
+                              onChanged: (bool value) {
                                 setState(() {
-                                  _parentalLockEnabled = value;
+                                  _soundEnabled = value;
                                   _onSettingChanged();
                                 });
-                              }
-                            },
-                            activeColor: const Color(0xFF309092),
+                              },
+                              activeColor: const Color(0xFF309092),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                        ListTile(
+                          title: Text(
+                            'Vibration'.tr,
+                            style: TextStyle(
+                              color: const Color(0xFF309092),
+                              fontSize: screenWidth * 0.06,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          trailing: Transform.scale(
+                            scale: screenWidth * 0.0025,
+                            child: Switch(
+                              value: _vibrationEnabled,
+                              onChanged: (bool value) {
+                                setState(() {
+                                  _vibrationEnabled = value;
+                                  _onSettingChanged();
+                                });
+                              },
+                              activeColor: const Color(0xFF309092),
+                            ),
+                          ),
+                        ),
+                        ListTile(
+                          title: Text(
+                            'Parental Lock'.tr,
+                            style: TextStyle(
+                                color: const Color(0xFF309092),
+                                fontSize: screenWidth * 0.06,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          trailing: Transform.scale(
+                            scale: screenWidth * 0.0025,
+                            child: Switch(
+                              value: _parentalLockEnabled,
+                              onChanged: (bool value) {
+                                if (!value) {
+                                  // If trying to disable parental lock, show PIN verification
+                                  _showPinVerificationDialog();
+                                } else {
+                                  setState(() {
+                                    _parentalLockEnabled = value;
+                                    _onSettingChanged();
+                                  });
+                                }
+                              },
+                              activeColor: const Color(0xFF309092),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
               const Divider(
                 color: Color.fromARGB(255, 107, 107, 107),
                 height: 20,
