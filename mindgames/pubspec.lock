@@ -749,6 +749,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.6.6"
+  glass:
+    dependency: "direct main"
+    description:
+      name: glass
+      sha256: "444684d73df51782d3d9e0dec7cb37fbe1f4a1456e1dc591663966ab37c4cd0e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0+2"
   glob:
     dependency: transitive
     description:

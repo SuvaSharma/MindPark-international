@@ -1,19 +1,18 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mindgames/cloud_store_service.dart';
-import 'package:mindgames/parentlockpage.dart';
-import 'package:mindgames/profile.dart';
+import 'package:mindgames/parental_lock_backup.dart';
 import 'package:mindgames/services/auth_service.dart';
 import 'package:mindgames/widgets/snackbar_widget.dart';
 
-Future<void> showProfilePinVerificationDialog(
-    BuildContext context, Map<String, dynamic> signedInUser) async {
+Future<void> showPinVerificationDialog(
+    BuildContext context, Map<String, dynamic> signedInUser, Widget destinationPage) async {
   final currentUser = AuthService.user;
   CloudStoreService cloudStoreService = CloudStoreService();
   final TextEditingController pinController = TextEditingController();
 
+  // Check the entered PIN
   Future<bool> checkPIN() async {
     try {
       bool isValid = await cloudStoreService.verifyPIN(
@@ -29,7 +28,6 @@ Future<void> showProfilePinVerificationDialog(
     context: context,
     builder: (context) {
       final screenWidth = MediaQuery.of(context).size.width;
-
       double dialogWidth = screenWidth * 0.8;
       if (screenWidth > 600) {
         dialogWidth = screenWidth * 0.5;
@@ -87,8 +85,8 @@ Future<void> showProfilePinVerificationDialog(
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
-                  Get.to(
-                      () => const ParentalLockSetupPage(isRecoveryFlow: true));
+                  // Navigate to recovery page if PIN is forgotten
+                  Get.to(() => const ParentalLockSetupPage(isRecoveryFlow: true));
                 },
                 child: Text(
                   'Forgot PIN?'.tr,
@@ -112,7 +110,8 @@ Future<void> showProfilePinVerificationDialog(
                 }
                 if (await checkPIN()) {
                   Navigator.of(context).pop();
-                  Get.to(() => const Profile());
+                  // Navigate to the dynamic destination page after successful PIN verification
+                  Get.to(() => destinationPage);
                 } else {
                   showCustomSnackbar(context, 'Error'.tr, 'Incorrect PIN'.tr);
                 }

@@ -112,7 +112,7 @@ class _ProfileState extends ConsumerState<Profile> {
                     height: 10,
                   ),
                   Container(
-                    height: screenHeight,
+                    height: screenHeight * 1.07,
                     width: screenWidth,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
@@ -148,7 +148,7 @@ class _ProfileState extends ConsumerState<Profile> {
                                 );
                               },
                               child: Container(
-                                height: screenHeight / 9,
+                                height: screenHeight / 8.7,
                                 width: screenWidth,
                                 decoration: BoxDecoration(
                                   color: Colors.grey[50],
@@ -204,7 +204,7 @@ class _ProfileState extends ConsumerState<Profile> {
                                     mode: LaunchMode.externalApplication);
                               },
                               child: Container(
-                                height: screenHeight / 9,
+                                height: screenHeight / 8.7,
                                 width: screenWidth,
                                 decoration: BoxDecoration(
                                   color: Colors.grey[50],
@@ -260,7 +260,7 @@ class _ProfileState extends ConsumerState<Profile> {
                                     mode: LaunchMode.externalApplication);
                               },
                               child: Container(
-                                height: screenHeight / 9,
+                                height: screenHeight / 8.7,
                                 width: screenWidth,
                                 decoration: BoxDecoration(
                                   color: Colors.grey[50],
@@ -319,7 +319,7 @@ class _ProfileState extends ConsumerState<Profile> {
                                 );
                               },
                               child: Container(
-                                height: screenHeight / 9,
+                                height: screenHeight / 8.7,
                                 width: screenWidth,
                                 decoration: BoxDecoration(
                                   color: Colors.grey[50],
@@ -377,7 +377,7 @@ class _ProfileState extends ConsumerState<Profile> {
                                 );
                               },
                               child: Container(
-                                height: screenHeight / 9,
+                                height: screenHeight / 8.7,
                                 width: screenWidth,
                                 decoration: BoxDecoration(
                                   color: Colors.grey[50],
@@ -435,7 +435,7 @@ class _ProfileState extends ConsumerState<Profile> {
                                 );
                               },
                               child: Container(
-                                height: screenHeight / 9,
+                                height: screenHeight / 8.7,
                                 width: screenWidth,
                                 decoration: BoxDecoration(
                                   color: Colors.grey[50],
