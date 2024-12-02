@@ -1,5 +1,4 @@
 package com.mindpark.app
-
 import io.flutter.embedding.android.FlutterActivity
 
 import android.os.Bundle
@@ -56,14 +55,16 @@ class MainActivity : FlutterActivity() {
             override fun dontAllow(reason: Int) {
                 // License is invalid
                 runOnUiThread {
-                    Toast.makeText(this@MainActivity, "License not valid!", Toast.LENGTH_SHORT).show()
+                    // showBlockingDialog("License Invalid", "Your license is not valid. The app will close.")
+                    Toast.makeText(this@MainActivity, "License invalid!", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun applicationError(errorCode: Int) {
                 // There was an error in the license check process
                 runOnUiThread {
-                    Toast.makeText(this@MainActivity, "License check error: $errorCode", Toast.LENGTH_SHORT).show()
+                    // showBlockingDialog("License Check Error", "An error occurred (Error Code: $errorCode). The app will close.")
+                    Toast.makeText(this@MainActivity, "App not from Play Store!", Toast.LENGTH_SHORT).show()
                 }
             }
         }

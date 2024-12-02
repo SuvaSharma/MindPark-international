@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:mindgames/child_profile_list_page.dart';
 import 'package:mindgames/cloud_store_service.dart';
@@ -28,6 +30,7 @@ class _ParentalLockSetupPageState extends State<ParentalLockSetupPage> {
 
   bool isFinished = false;
   bool isReauthenticated = false;
+  bool isSubmitting = false;
 
   final currentUser = AuthService.user?.uid;
   User user = FirebaseAuth.instance.currentUser!;
@@ -61,9 +64,13 @@ class _ParentalLockSetupPageState extends State<ParentalLockSetupPage> {
 
   Future<void> _reauthenticate() async {
     try {
+      setState(() {
+        isSubmitting = true;
+      });
       User user = FirebaseAuth.instance.currentUser!;
       if (user.providerData
           .any((element) => element.providerId == 'password')) {
+        log('This is the email and password: ${_emailController.text} ${_passwordController.text}');
         AuthCredential credential = EmailAuthProvider.credential(
           email: _emailController.text,
           password: _passwordController.text,
@@ -93,6 +100,7 @@ class _ParentalLockSetupPageState extends State<ParentalLockSetupPage> {
 
           await user.reauthenticateWithCredential(credential);
           setState(() {
+            isSubmitting = false;
             isReauthenticated = true;
           });
           if (!context.mounted) {
@@ -104,6 +112,9 @@ class _ParentalLockSetupPageState extends State<ParentalLockSetupPage> {
           if (!context.mounted) {
             return;
           }
+          setState(() {
+            isSubmitting = false;
+          });
           showCustomSnackbar(context, 'Error'.tr, 'Google sign-in failed'.tr);
         }
       }
@@ -111,6 +122,9 @@ class _ParentalLockSetupPageState extends State<ParentalLockSetupPage> {
       if (!context.mounted) {
         return;
       }
+      setState(() {
+        isSubmitting = false;
+      });
       showCustomSnackbar(context, 'Error'.tr, 'Reauthentication failed'.tr);
     }
   }
@@ -149,9 +163,7 @@ class _ParentalLockSetupPageState extends State<ParentalLockSetupPage> {
                   Padding(
                     padding: EdgeInsets.all(screenWidth * 0.04),
                     child: TextField(
-                      controller: TextEditingController(
-                          text: user.email), // Preset value
-                      enabled: false, // Disable editing
+                      controller: _emailController, // Preset value
                       cursorColor: const Color(0xFF309092),
 
                       keyboardType: TextInputType.emailAddress,
@@ -205,14 +217,18 @@ class _ParentalLockSetupPageState extends State<ParentalLockSetupPage> {
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF309092)),
-                    onPressed: _reauthenticate,
-                    child: Text(
-                      'Reauthenticate'.tr,
-                      style: TextStyle(
-                        fontSize: screenWidth * 0.05,
-                        color: Colors.white,
-                      ),
-                    ),
+                    onPressed: isSubmitting ? null : _reauthenticate,
+                    child: isSubmitting
+                        ? CircularProgressIndicator(
+                            backgroundColor: Colors.black.withOpacity(0.2),
+                            color: const Color(0xFF309092))
+                        : Text(
+                            'Reauthenticate'.tr,
+                            style: TextStyle(
+                              fontSize: screenWidth * 0.05,
+                              color: Colors.white,
+                            ),
+                          ),
                   ),
                 ] else ...[
                   Padding(
