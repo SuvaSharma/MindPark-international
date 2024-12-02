@@ -296,11 +296,12 @@ class _MainPageState extends ConsumerState<MainPage> {
                       Row(
                         children: [
                           GestureDetector(
-                            onTap: () {
+                            onTap: () async {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const Settingspage()),
+                                  builder: (context) => const Settingspage(),
+                                ),
                               );
                             },
                             child: Icon(
@@ -314,29 +315,12 @@ class _MainPageState extends ConsumerState<MainPage> {
                       ),
                       GestureDetector(
                         onTap: () async {
-                          // // thupukka game khel kina profile jana paryo talai
-                          final SharedPreferences prefs =
-                              await SharedPreferences.getInstance();
-
-                          final bool parentalLockEnabled =
-                              prefs.getBool('parental_lock_enabled') ?? true;
-
-                          if (parentalLockEnabled) {
-                            if (!context.mounted) {
-                              return;
-                            }
-                            final user = await signedInUser;
-                            showProfilePinVerificationDialog(context, user);
-                          } else {
-                            if (!context.mounted) {
-                              return;
-                            }
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const Profile()),
-                            );
-                          }
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Profile(),
+                            ),
+                          );
                         },
                         child: CircleAvatar(
                           radius: screenWidth * 0.05, // 5% of screen width
@@ -379,6 +363,8 @@ class _MainPageState extends ConsumerState<MainPage> {
                 });
               },
               currentIndex: _currentIndex,
+
+              signedInUser: signedInUser,
             ),
             SizedBox(height: screenHeight * 0.03),
             Padding(

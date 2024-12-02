@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import 'package:mindgames/Domains.dart';
 import 'package:mindgames/change_notifiers/registration_controller.dart';
 import 'package:mindgames/child.dart';
 import 'package:mindgames/cloud_store_service.dart';
@@ -12,7 +13,6 @@ import 'package:mindgames/services/auth_service.dart';
 import 'package:mindgames/widgets/register_button.dart';
 import 'package:mindgames/widgets/register_form_field.dart';
 import 'package:mindgames/widgets/snackbar_widget.dart';
-import 'package:mindgames/widgets/wrapper_widget.dart';
 import 'package:provider/provider.dart';
 
 enum Menu { edit, delete }
@@ -69,7 +69,7 @@ class _ChildProfileListState extends ConsumerState<ChildProfileList> {
 
           //Navigate to Homepage
           Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const MainWrapper()),
+            MaterialPageRoute(builder: (context) => const DomainPage()),
           );
         }
       }
@@ -492,7 +492,7 @@ class _ChildProfileListState extends ConsumerState<ChildProfileList> {
 
               // Navigate to Homepage
               Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => const MainWrapper()),
+                MaterialPageRoute(builder: (context) => const DomainPage()),
               );
             },
             child: Stack(

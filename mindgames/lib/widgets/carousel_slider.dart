@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
 
 class CarouselSlide extends StatelessWidget {
   final List<Map<String, dynamic>> carouselItems;
@@ -7,6 +7,7 @@ class CarouselSlide extends StatelessWidget {
   final double screenWidth;
   final Function(int, CarouselPageChangedReason) onPageChanged;
   final int currentIndex;
+  final Future<Map<String, dynamic>> signedInUser;
 
   const CarouselSlide({
     super.key,
@@ -15,6 +16,7 @@ class CarouselSlide extends StatelessWidget {
     required this.screenWidth,
     required this.onPageChanged,
     required this.currentIndex,
+    required this.signedInUser,
   });
 
   @override
@@ -24,7 +26,7 @@ class CarouselSlide extends StatelessWidget {
       itemBuilder: (context, index, realIndex) {
         final item = carouselItems[index];
         return GestureDetector(
-          onTap: () {
+          onTap: () async {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => item['navigateTo']),
@@ -49,27 +51,6 @@ class CarouselSlide extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // Container(
-                //   width: double.infinity,
-                //   height: screenHeight * 0.085,
-                //   padding: EdgeInsets.only(top: 6),
-                //   decoration: BoxDecoration(
-                //     color: Colors.black.withOpacity(0.7),
-                //     borderRadius: BorderRadius.only(
-                //       bottomLeft: Radius.circular(25),
-                //       bottomRight: Radius.circular(25),
-                //     ),
-                //   ),
-                //   child: Text(
-                //     carouselItems[index]['name'],
-                //     style: TextStyle(
-                //       color: Colors.white,
-                //       fontSize: screenWidth * 0.06,
-                //       fontWeight: FontWeight.bold,
-                //     ),
-                //     textAlign: TextAlign.center,
-                //   ),
-                // ),
                 Container(
                   width: double.infinity,
                   height: _getResponsiveHeight(carouselItems[index]['name']),
@@ -111,17 +92,12 @@ class CarouselSlide extends StatelessWidget {
   }
 
   double _getResponsiveHeight(String text) {
-    double baseHeight = screenHeight * 0.065; // Default height
-
-    // Calculate height based on text length
+    double baseHeight = screenHeight * 0.065;
     int textLength = text.length;
-
-    // For instance, if the text length exceeds a threshold, increase the height
     if (textLength > 21) {
-      // Adjust the threshold based on your preference
-      return baseHeight * 1.5; // Increase height for longer text
+      return baseHeight * 1.5;
     } else {
-      return baseHeight; // Default height for shorter text
+      return baseHeight;
     }
   }
 }

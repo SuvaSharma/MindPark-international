@@ -3,7 +3,6 @@ import 'package:mindgames/Home_Page.dart';
 import 'package:mindgames/check_internet_widget.dart';
 import 'package:mindgames/news_page.dart';
 import 'package:mindgames/parents_portal_sections/Parents_portal_page.dart';
-
 import 'package:mindgames/widgets/navigation_bar.dart';
 
 class MainWrapper extends StatefulWidget {
