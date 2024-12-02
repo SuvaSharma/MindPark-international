@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -95,46 +94,59 @@ class _DomainPageState extends State<DomainPage> {
                 padding: EdgeInsets.all(padding),
                 child: Column(
                   children: [
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(baseSize * 0.07),
-                        child: AnimatedButton(
-                          height: baseSize * 0.12,
-                          width: baseSize * 0.32,
-                          color: Colors.orangeAccent,
-                          onPressed: () async {
-                            // Access shared preferences to check if parental lock is enabled
-                            final SharedPreferences prefs =
-                                await SharedPreferences.getInstance();
-                            final bool parentalLockEnabled =
-                                prefs.getBool('parental_lock_enabled') ?? true;
+                    GestureDetector(
+                      onTap: () async {
+                        // Access shared preferences to check if parental lock is enabled
+                        final SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        final bool parentalLockEnabled =
+                            prefs.getBool('parental_lock_enabled') ?? true;
 
-                            if (parentalLockEnabled) {
-                              if (!context.mounted) return;
+                        if (parentalLockEnabled) {
+                          if (!context.mounted) return;
 
-                              // Fetch the signed-in user (similar to MainPage logic)
-                              final user = await getCurrentUser();
+                          // Fetch the signed-in user (similar to MainPage logic)
+                          final user = await getCurrentUser();
 
-                              // Show PIN verification dialog and navigate to MainWrapper on success
-                              showPinVerificationDialog(
-                                  context, user, const MainWrapper());
-                            } else {
-                              // If parental lock is disabled, navigate to MainWrapper directly
-                              if (!context.mounted) return;
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const MainWrapper()),
-                              );
-                            }
-                          },
-                          child: Text(
-                            "For Parents".tr,
-                            style: TextStyle(
-                              fontSize: baseSize * 0.048,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
+                          // Show PIN verification dialog and navigate to MainWrapper on success
+                          showPinVerificationDialog(
+                              context, user, const MainWrapper());
+                        } else {
+                          // If parental lock is disabled, navigate to MainWrapper directly
+                          if (!context.mounted) return;
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const MainWrapper()),
+                          );
+                        }
+                      },
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: Container(
+                          height: baseSize * 0.13,
+                          width: baseSize * 0.42,
+                          decoration: BoxDecoration(
+                            color: Color(0xFF309092),
+                            // border: Border.all(width: 1, color: Colors.black),
+                            borderRadius:
+                                BorderRadius.circular(baseSize * 0.03),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.2),
+                                blurRadius: 6,
+                                offset: Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Parents' Corner".tr,
+                              style: TextStyle(
+                                fontSize: baseSize * 0.05,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
