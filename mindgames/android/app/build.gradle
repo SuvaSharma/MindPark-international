@@ -1,8 +1,6 @@
 plugins {
     id "com.android.application"
-    // START: FlutterFire Configuration
-    id 'com.google.gms.google-services'
-    // END: FlutterFire Configuration
+    id "com.google.gms.google-services" // FlutterFire Configuration
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
 }
@@ -26,9 +24,15 @@ if (flutterVersionName == null) {
 }
 
 def keystoreProperties = new Properties()
-def keystorePropertiesFile = rootProject.file('key.properties')
+def keystorePropertiesFile = rootProject.file('keystore.properties')
+
+// Debugging: Check if key.properties is loaded
 if (keystorePropertiesFile.exists()) {
-  keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+    println "Keystore file loaded successfully."
+    println "Store File: ${keystoreProperties['storeFile']}"
+} else {
+    throw new GradleException("key.properties file not found at ${keystorePropertiesFile}")
 }
 
 android {
@@ -50,9 +54,7 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.mindpark.app"
-
         minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
@@ -61,18 +63,26 @@ android {
 
     signingConfigs {
         release {
+            // Ensure keystore properties are loaded
+            if (keystoreProperties['storeFile'] == null || keystoreProperties['keyAlias'] == null) {
+                throw new GradleException("Keystore properties are not properly configured in key.properties.")
+            }
+
             keyAlias keystoreProperties['keyAlias']
             keyPassword keystoreProperties['keyPassword']
             storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
             storePassword keystoreProperties['storePassword']
         }
-   }
-   buildTypes {
+    }
+
+    buildTypes {
         release {
-            signingConfig signingConfigs.debug
             signingConfig signingConfigs.release
+            minifyEnabled false // Adjust based on your requirements
+            shrinkResources false // Adjust based on your requirements
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-   }
+    }
 }
 
 flutter {
