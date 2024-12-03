@@ -2,7 +2,7 @@
   "project_info": {
     "project_number": "1042729786432",
     "project_id": "our-mindpark-app",
-    "storage_bucket": "our-mindpark-app.appspot.com"
+    "storage_bucket": "our-mindpark-app.firebasestorage.app"
   },
   "client": [
     {
