@@ -18,7 +18,7 @@ class _RateMyAppPageState extends State<RateMyAppPage> {
     remindDays: 3,
     remindLaunches: 2,
 
-    googlePlayIdentifier: "com.whatsapp",
+    googlePlayIdentifier: "com.mindpark.app",
     //appStoreIdentifier: will use it when i implement mindpark in mac
   );
 
