@@ -10,6 +10,7 @@ import 'package:mindgames/socialskills.dart';
 import 'package:mindgames/config/easy_simon_says_task.dart';
 import 'package:mindgames/widgets/congrats_dialog.dart';
 import 'package:mindgames/widgets/pause_menu.dart';
+import 'package:mindgames/widgets/simon_says_disclaimer_dailog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vibration/vibration.dart';
 
@@ -63,6 +64,9 @@ class _SimonSaysDemoPageState extends State<SimonSaysDemoPage>
     _audioCache.load('task_completed.mp3').then((_) {
       log('right sound pre-initialized'); // Log a message when preloading is complete
     });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _showSimonSaysDisclaimerDialog();
+    });
   }
 
   @override
@@ -85,6 +89,21 @@ class _SimonSaysDemoPageState extends State<SimonSaysDemoPage>
     setState(() {
       _vibrationEnabled = prefs.getBool('vibration_enabled') ?? false;
     });
+  }
+
+  void _showSimonSaysDisclaimerDialog() {
+    _playSound('bounce.mp3', player);
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return SimonSaysDisclaimerDialog(
+          onConfirmation: () {
+            Navigator.pop(context);
+          },
+        );
+      },
+    );
   }
 
   void startAnimation() {
